@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KyZer YouBe</title>
+    <style>
+        :root {
+            --cyan: #66faff;
+            --blue: #007c94;
+            --dark: #05070a;
+            --panel: rgba(10, 18, 24, 0.92);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: white;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            background: radial-gradient(circle at top, #12313b, var(--dark) 58%);
+        }
+
+        .page {
+            width: min(900px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 48px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--cyan);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .panel {
+            padding: 28px;
+            background: var(--panel);
+            border: 1px solid rgba(102, 250, 255, 0.35);
+            border-radius: 20px;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+        }
+
+        .product-image {
+            display: block;
+            width: min(100%, 560px);
+            max-height: 360px;
+            margin: 0 auto 24px;
+            object-fit: contain;
+            border-radius: 14px;
+        }
+
+        h1 { margin: 0 0 8px; color: var(--cyan); }
+        .description { color: #c7d4d8; margin: 0 0 24px; }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .button {
+            flex: 1 1 240px;
+            display: block;
+            padding: 14px 18px;
+            border: 0;
+            border-radius: 10px;
+            color: #001a1f;
+            background: linear-gradient(135deg, var(--cyan), var(--blue));
+            font-weight: 800;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .guide-title { color: var(--cyan); margin: 0 0 12px; }
+
+        video {
+            display: block;
+            width: 100%;
+            max-height: 560px;
+            border-radius: 12px;
+            background: black;
+        }
+
+        @media (max-width: 600px) {
+            .page { width: min(100% - 20px, 900px); padding-top: 18px; }
+            .panel { padding: 18px; }
+            h1 { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <a href="Index_02.html" class="back-link">&larr; Back to Special</a>
+
+        <section class="panel">
+            <img src="images/KyZer YouBe.png" alt="KyZer YouBe" class="product-image">
+            <h1>KyZer YouBe</h1>
+            <p class="description">Click to learn more about KyZer YouBe.</p>
+
+            <div class="actions">
+                <a href="Other/KyZer Yoube Setup.exe" download class="button">Download KyZer Yoube Setup</a>
+            </div>
+
+            <h2 class="guide-title">Guide</h2>
+            <video controls preload="metadata">
+                <source src="media/KyZer YouBe Guide &amp; Use.mp4" type="video/mp4">
+                Your browser does not support video playback.
+            </video>
+        </section>
+    </main>
+</body>
+</html>

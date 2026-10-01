@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KyZer_HADOC | Admin Page</title>
+<link href="images/logo32.png" rel="icon">
+<style>
+    :root {
+        --bg: #050505;
+        --card: #0d0d0f;
+        --red: #ff2222;
+        --green: #00e64d;
+        --gold: #ffcc00;
+        --text: #eee;
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: radial-gradient(ellipse at 20% 0%, rgba(120,0,0,.25), transparent 55%), var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        padding: 24px 16px 60px;
+    }
+    .wrap { max-width: 900px; margin: 0 auto; }
+    h1 {
+        font-size: 1.6rem;
+        margin: 0 0 4px;
+        color: #fff;
+    }
+    h1 span { color: var(--red); text-shadow: 0 0 10px rgba(255,0,0,.5); }
+    .sub { color: #999; font-size: 0.85rem; margin-bottom: 24px; }
+
+    .card {
+        background: linear-gradient(160deg, rgba(255,255,255,.05), rgba(255,255,255,.01));
+        border: 1px solid rgba(255,60,60,.25);
+        border-radius: 18px;
+        padding: 22px;
+        margin-bottom: 24px;
+    }
+    .card h2 {
+        font-size: 1.1rem;
+        margin: 0 0 16px;
+        color: var(--gold);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    /* ===== Password gate ===== */
+    #gate { max-width: 380px; margin: 80px auto; text-align: center; }
+    #gate input {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,0,0,.4);
+        background: #000;
+        color: #fff;
+        font-size: 14px;
+        margin: 14px 0;
+        box-sizing: border-box;
+    }
+    #gate button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid var(--red);
+        background: linear-gradient(120deg, #ff1a1a, #8a0000);
+        color: #fff;
+        font-weight: 800;
+        cursor: pointer;
+    }
+    #gateMsg { min-height: 18px; font-size: 12.5px; margin-top: 8px; }
+    #gateMsg.err { color: #ff6666; }
+
+    /* ===== Upload rows ===== */
+    .u-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 12px;
+        border-radius: 12px;
+        background: rgba(255,255,255,.04);
+        border: 1px solid rgba(255,255,255,.08);
+        margin-bottom: 10px;
+        flex-wrap: wrap;
+    }
+    .u-thumb {
+        width: 54px; height: 54px; border-radius: 8px;
+        background: #1a1a1a; flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        overflow: hidden; font-size: 22px;
+    }
+    .u-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .u-info { flex: 1; min-width: 160px; }
+    .u-info b { color: #fff; font-size: 0.95rem; }
+    .u-info div { color: #999; font-size: 0.78rem; margin-top: 2px; }
+    .u-actions { display: flex; gap: 8px; }
+    .btn {
+        padding: 8px 14px; border-radius: 8px; border: none;
+        font-weight: 700; font-size: 12.5px; cursor: pointer; transition: .2s;
+    }
+    .btn-approve { background: var(--green); color: #04250f; }
+    .btn-reject { background: #ff3b3b; color: #fff; }
+    .btn:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .empty { color: #666; font-size: 0.85rem; padding: 10px 0; }
+
+    /* ===== User / rank rows ===== */
+    .r-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 12px;
+        background: rgba(255,255,255,.04);
+        border: 1px solid rgba(255,255,255,.08);
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+    }
+    .r-avatar {
+        width: 38px; height: 38px; border-radius: 50%; object-fit: cover;
+        border: 1px solid rgba(255,204,0,.4); background: #1a1a1a; flex-shrink: 0;
+    }
+    .r-info { flex: 1; min-width: 180px; }
+    .r-info b { color: #fff; font-size: 0.9rem; }
+    .r-info div { color: #888; font-size: 0.76rem; margin-top: 2px; }
+    .r-row select {
+        padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(255,204,0,.4);
+        background: #000; color: #fff; font-size: 12.5px;
+    }
+    .r-row button {
+        padding: 8px 14px; border-radius: 8px; border: none;
+        background: var(--gold); color: #1a1200; font-weight: 800; font-size: 12px; cursor: pointer;
+    }
+    .search-box {
+        width: 100%;
+        padding: 11px 14px;
+        margin-bottom: 14px;
+        border-radius: 10px;
+        border: 1px solid rgba(255,204,0,.35);
+        background: rgba(0,0,0,.5);
+        color: #fff;
+        font-size: 13px;
+        box-sizing: border-box;
+    }
+    .search-box:focus { outline: none; border-color: var(--gold); }
+
+    .status-tag { font-size: 11px; padding: 3px 8px; border-radius: 20px; font-weight: 700; }
+    .status-pending { background: rgba(255,204,0,.15); color: var(--gold); }
+    .status-approved { background: rgba(0,230,77,.15); color: var(--green); }
+    .status-rejected { background: rgba(255,59,59,.15); color: #ff6666; }
+
+    #loadingMsg, #roleLoadingMsg { color: #888; font-size: 0.85rem; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    .u-tabs { display: flex; gap: 8px; margin: 12px 0 16px; }
+    .u-tab {
+        padding: 8px 16px; border-radius: 20px; border: 1px solid rgba(255,255,255,.15);
+        background: rgba(255,255,255,.04); color: #aaa; font-size: 12.5px; font-weight: 700; cursor: pointer;
+    }
+    .u-tab.active { background: rgba(255,204,0,.15); border-color: var(--gold); color: var(--gold); }
+    .u-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+    .u-tag { font-size: 10.5px; padding: 2px 7px; border-radius: 6px; background: rgba(255,255,255,.08); color: #bbb; }
+    .btn-view { background: rgba(0,229,255,.15); color: #66e0ff; border: 1px solid rgba(0,229,255,.4); }
+    .btn-delete { background: transparent; color: #ff5555; border: 1px solid rgba(255,60,60,.5); }
+    .refresh-btn {
+        background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2);
+        color: #fff; padding: 6px 12px; border-radius: 8px; font-size: 12px; cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<div id="gate">
+    <h1>KyZer <span>HADOC</span></h1>
+    <p class="sub">Admin Page — password required</p>
+    <input type="password" id="gatePassword" placeholder="Admin password">
+    <button type="button" onclick="kzGateSubmit()">Unlock</button>
+    <p id="gateMsg"></p>
+</div>
+
+<div class="wrap" id="app" style="display:none;">
+    <h1>KyZer <span>HADOC</span> Admin Page</h1>
+    <p class="sub" id="whoami">Loading…</p>
+
+    <div class="card">
+        <div class="top-bar">
+            <h2>⏳ Pending Uploads</h2>
+            <button class="refresh-btn" onclick="kzLoadUploads()">🔄 Refresh</button>
+        </div>
+        <div id="loadingMsg">Loading uploads…</div>
+        <div id="uploadsList"></div>
+    </div>
+
+    <div class="card" id="ranksCard" style="display:none;">
+        <div class="top-bar">
+            <h2>👑 User Ranks</h2>
+            <button class="refresh-btn" onclick="kzLoadUsers()">🔄 Refresh</button>
+        </div>
+        <input type="text" id="userSearchBox" placeholder="🔍 Search by name or email..." class="search-box" oninput="kzFilterUsers()">
+        <div id="roleLoadingMsg">Loading users…</div>
+        <div id="usersList"></div>
+    </div>
+
+    <div class="card" id="historyCard" style="display:none;">
+        <div class="top-bar">
+            <h2>📜 Upload History</h2>
+            <button class="refresh-btn" onclick="kzLoadHistory()">🔄 Refresh</button>
+        </div>
+        <div class="u-tabs">
+            <button class="u-tab active" id="hTabApproved" onclick="kzSwitchHistoryTab('approved')">✅ Approved</button>
+            <button class="u-tab" id="hTabRejected" onclick="kzSwitchHistoryTab('rejected')">❌ Rejected</button>
+        </div>
+        <div id="historyLoadingMsg">Loading…</div>
+        <div id="historyList"></div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+(function () {
+    // Must match the same Supabase project used on the main site.
+    var KZ_URL = "https://rkbqofhxoaurufvfxunf.supabase.co";
+    var KZ_KEY = "sb_publishable_rQXfCR3ZxDxoNM_Sm2awig_J7dWyzWv";
+    var sb = window.supabase.createClient(KZ_URL, KZ_KEY);
+
+    var params = new URLSearchParams(window.location.search);
+    var urlToken = params.get('token');
+    var urlPw = params.get('pw');
+
+    var kzAuth = { token: null, password: null, role: null };
+
+    function showApp() {
+        document.getElementById('gate').style.display = 'none';
+        document.getElementById('app').style.display = 'block';
+        document.getElementById('whoami').textContent =
+            'Signed in as: ' + (kzAuth.role === 'owner' ? '👑 Owner' : '🛡️ Admin');
+        if (kzAuth.role === 'owner') {
+            document.getElementById('ranksCard').style.display = 'block';
+            kzLoadUsers();
+        }
+        document.getElementById('historyCard').style.display = 'block';
+        kzLoadHistory();
+        kzLoadUploads();
+    }
+
+    function showGateError(text) {
+        var el = document.getElementById('gateMsg');
+        el.textContent = text;
+        el.className = 'err';
+    }
+
+    async function tryAuth(payload) {
+        try {
+            var res = await fetch('/api/admin-check', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            var data = await res.json();
+            if (data.authorized) {
+                kzAuth.role = data.role;
+                if (payload.token) kzAuth.token = payload.token;
+                if (payload.password) kzAuth.password = payload.password;
+                showApp();
+                return true;
+            }
+            return false;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    window.kzGateSubmit = async function () {
+        var pw = document.getElementById('gatePassword').value;
+        if (!pw) return;
+        var ok = await tryAuth({ password: pw });
+        if (!ok) showGateError('❌ Wrong password');
+    };
+
+    // Body helper for authorized API calls
+    function authBody(extra) {
+        var body = Object.assign({}, extra);
+        if (kzAuth.token) body.token = kzAuth.token;
+        if (kzAuth.password) body.password = kzAuth.password;
+        return body;
+    }
+
+    function kzFormatSize(bytes) {
+        if (!bytes && bytes !== 0) return 'unknown size';
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+    }
+
+    window.kzLoadUploads = async function () {
+        var listEl = document.getElementById('uploadsList');
+        var loadingEl = document.getElementById('loadingMsg');
+        loadingEl.style.display = 'block';
+        listEl.innerHTML = '';
+        try {
+            var res = await fetch('/api/admin-list-uploads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(authBody({ status: 'pending' }))
+            });
+            var data = await res.json();
+            loadingEl.style.display = 'none';
+            if (!data.success) {
+                listEl.innerHTML = '<p class="empty">⚠️ ' + (data.message || 'Failed to load') + '</p>';
+                return;
+            }
+            if (!data.items.length) {
+                listEl.innerHTML = '<p class="empty">Pending upload නෑ 🎉</p>';
+                return;
+            }
+            listEl.innerHTML = data.items.map(function (item) {
+                var thumb = item.imageUrl ? '<img src="' + item.imageUrl + '">' : '📄';
+                var actions =
+                    (item.fileUrl ? '<a class="btn btn-view" href="' + item.fileUrl + '" target="_blank">🔍 View</a>' : '') +
+                    '<button class="btn btn-approve" onclick="kzReview(\'' + item.id + '\',\'approve\')">✅ Approve</button>' +
+                    '<button class="btn btn-reject" onclick="kzReview(\'' + item.id + '\',\'reject\')">❌ Reject</button>';
+                return '<div class="u-row" data-id="' + item.id + '">' +
+                    '<div class="u-thumb">' + thumb + '</div>' +
+                    '<div class="u-info"><b>' + item.name + '</b>' +
+                    '<div class="u-meta">' +
+                    '<span class="u-tag">' + item.category + '</span>' +
+                    '<span class="u-tag">' + kzFormatSize(item.fileSize) + '</span>' +
+                    '<span class="u-tag">' + (item.uploaderEmail || 'unknown') + '</span>' +
+                    '</div></div>' +
+                    '<div class="u-actions">' + actions + '</div></div>';
+            }).join('');
+        } catch (e) {
+            loadingEl.textContent = '⚠️ Error loading uploads.';
+        }
+    };
+
+    window.kzDeleteUpload = async function (id, reloadFn) {
+        if (!confirm('Permanently delete this upload? මේක undo කරන්න බෑ.')) return;
+        try {
+            var res = await fetch('/api/admin-delete-upload', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(authBody({ id: id }))
+            });
+            var data = await res.json();
+            if (data.success) {
+                (reloadFn || kzLoadUploads)();
+            } else {
+                alert('❌ ' + (data.message || 'Failed'));
+            }
+        } catch (e) {
+            alert('⚠️ Error, try again.');
+        }
+    };
+
+    window.kzReview = async function (id, action) {
+        var reason = null;
+        if (action === 'reject') {
+            reason = prompt('Reason for rejecting (optional):') || '';
+        }
+        try {
+            var res = await fetch('/api/admin-review-upload', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(authBody({ id: id, action: action, reason: reason }))
+            });
+            var data = await res.json();
+            if (data.success) {
+                kzLoadUploads();
+            } else {
+                alert('❌ ' + (data.message || 'Failed'));
+            }
+        } catch (e) {
+            alert('⚠️ Error, try again.');
+        }
+    };
+
+    // ===== UPLOAD HISTORY (Approved / Rejected, with view + owner-only delete) =====
+    var kzHistoryTab = 'approved';
+
+    window.kzSwitchHistoryTab = function (tab) {
+        kzHistoryTab = tab;
+        document.getElementById('hTabApproved').classList.toggle('active', tab === 'approved');
+        document.getElementById('hTabRejected').classList.toggle('active', tab === 'rejected');
+        kzLoadHistory();
+    };
+
+    window.kzLoadHistory = async function () {
+        var listEl = document.getElementById('historyList');
+        var loadingEl = document.getElementById('historyLoadingMsg');
+        loadingEl.style.display = 'block';
+        listEl.innerHTML = '';
+        try {
+            var res = await fetch('/api/admin-list-uploads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(authBody({ status: kzHistoryTab }))
+            });
+            var data = await res.json();
+            loadingEl.style.display = 'none';
+            if (!data.success) {
+                listEl.innerHTML = '<p class="empty">⚠️ ' + (data.message || 'Failed to load') + '</p>';
+                return;
+            }
+            if (!data.items.length) {
+                listEl.innerHTML = '<p class="empty">' + (kzHistoryTab === 'approved' ? 'Approved upload නෑ' : 'Rejected upload නෑ') + '</p>';
+                return;
+            }
+            listEl.innerHTML = data.items.map(function (item) {
+                var thumb = item.imageUrl ? '<img src="' + item.imageUrl + '">' : '📄';
+                var statusTag = kzHistoryTab === 'approved'
+                    ? '<span class="status-tag status-approved">approved</span>'
+                    : '<span class="status-tag status-rejected">rejected' + (item.reason ? ' — ' + item.reason : '') + '</span>';
+                var actions =
+                    (item.fileUrl ? '<a class="btn btn-view" href="' + item.fileUrl + '" target="_blank">⬇️ Download</a>' : '') +
+                    (kzAuth.role === 'owner' ? '<button class="btn btn-delete" onclick="kzDeleteUpload(\'' + item.id + '\', kzLoadHistory)">🗑️ Delete</button>' : '');
+                return '<div class="u-row" data-id="' + item.id + '">' +
+                    '<div class="u-thumb">' + thumb + '</div>' +
+                    '<div class="u-info"><b>' + item.name + '</b>' +
+                    '<div class="u-meta">' +
+                    '<span class="u-tag">' + item.category + '</span>' +
+                    '<span class="u-tag">' + kzFormatSize(item.fileSize) + '</span>' +
+                    '<span class="u-tag">' + (item.uploaderEmail || 'unknown') + '</span>' +
+                    statusTag +
+                    '</div></div>' +
+                    '<div class="u-actions">' + actions + '</div></div>';
+            }).join('');
+        } catch (e) {
+            loadingEl.textContent = '⚠️ Error loading history.';
+        }
+    };
+
+    var kzUsersCache = [];
+
+    function kzRenderUsers(items) {
+        var listEl = document.getElementById('usersList');
+        if (!items.length) {
+            listEl.innerHTML = '<p class="empty">User කෙනෙක් හම්බුනේ නෑ</p>';
+            return;
+        }
+        listEl.innerHTML = items.map(function (u) {
+            var name = ((u.first_name || '') + ' ' + (u.last_name || '')).trim() || '(no name)';
+            var avatar = u.avatar_url || 'data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23888\'%3E%3Cpath d=\'M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5c0-3-4-5.5-9-5.5z\'/%3E%3C/svg%3E';
+            return '<div class="r-row" data-id="' + u.id + '">' +
+                '<img class="r-avatar" src="' + avatar + '">' +
+                '<div class="r-info"><b>' + name + '</b><div>' + u.email + '</div></div>' +
+                '<select>' +
+                '<option value="client"' + (u.role === 'client' ? ' selected' : '') + '>Client</option>' +
+                '<option value="vip"' + (u.role === 'vip' ? ' selected' : '') + '>VIP</option>' +
+                '<option value="admin"' + (u.role === 'admin' ? ' selected' : '') + '>Admin</option>' +
+                '<option value="owner"' + (u.role === 'owner' ? ' selected' : '') + '>Owner</option>' +
+                '</select>' +
+                '<button onclick="kzSaveRole(\'' + u.id + '\', this)">Save</button>' +
+                '</div>';
+        }).join('');
+    }
+
+    window.kzFilterUsers = function () {
+        var q = document.getElementById('userSearchBox').value.trim().toLowerCase();
+        if (!q) { kzRenderUsers(kzUsersCache); return; }
+        var filtered = kzUsersCache.filter(function (u) {
+            var name = ((u.first_name || '') + ' ' + (u.last_name || '')).toLowerCase();
+            return name.indexOf(q) !== -1 || (u.email || '').toLowerCase().indexOf(q) !== -1;
+        });
+        kzRenderUsers(filtered);
+    };
+
+    window.kzLoadUsers = async function () {
+        var loadingEl = document.getElementById('roleLoadingMsg');
+        loadingEl.style.display = 'block';
+        document.getElementById('usersList').innerHTML = '';
+        try {
+            var res = await fetch('/api/admin-list-users', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(authBody({}))
+            });
+            var data = await res.json();
+            loadingEl.style.display = 'none';
+            if (!data.success) {
+                document.getElementById('usersList').innerHTML = '<p class="empty">⚠️ ' + (data.message || 'Failed to load') + '</p>';
+                return;
+            }
+            kzUsersCache = data.items;
+            kzRenderUsers(kzUsersCache);
+        } catch (e) {
+            loadingEl.textContent = '⚠️ Error loading users.';
+        }
+    };
+
+    window.kzSaveRole = async function (userId, btn) {
+        var row = btn.closest('.r-row');
+        var role = row.querySelector('select').value;
+        btn.disabled = true;
+        btn.textContent = '...';
+        try {
+            var res = await fetch('/api/admin-set-role', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(authBody({ userId: userId, role: role }))
+            });
+            var data = await res.json();
+            btn.disabled = false;
+            btn.textContent = data.success ? '✅ Saved' : 'Failed';
+            setTimeout(function () { btn.textContent = 'Save'; }, 1500);
+        } catch (e) {
+            btn.disabled = false;
+            btn.textContent = 'Failed';
+        }
+    };
+
+    // ===== Entry point =====
+    (async function init() {
+        if (urlToken) {
+            var ok = await tryAuth({ token: urlToken });
+            if (ok) return;
+        }
+        if (urlPw) {
+            var ok2 = await tryAuth({ password: urlPw });
+            if (ok2) return;
+        }
+        // Fall back to manual password gate
+        document.getElementById('gate').style.display = 'block';
+    })();
+})();
+</script>
+</body>
+</html>

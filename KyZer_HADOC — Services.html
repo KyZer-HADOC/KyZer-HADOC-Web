@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <link href="images/logo32.png" rel="icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KyZer_HADOC — Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#15111f;
+    --bg2:#1e1830;
+    --card:#241c38;
+    --line:#3a3050;
+    --ink:#f2eefc;
+    --ink-dim:#a99fc4;
+    --accent:#ff6b3d;
+    --accent2:#3ec9b0;
+    --gold:#f2b705;
+    font-family:'Inter',system-ui,sans-serif;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *,*::before,*::after{box-sizing:inherit}
+  html{scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);overflow-x:hidden;}
+  body{background:
+      radial-gradient(1200px 600px at 20% -10%, rgba(255,107,61,0.12), transparent 60%),
+      radial-gradient(1000px 500px at 100% 10%, rgba(62,201,176,0.10), transparent 55%),
+      var(--bg);
+    min-height:100%;
+  }
+  h1,h2,h3,.brand{font-family:'Sora',sans-serif;}
+  a{color:inherit;text-decoration:none;}
+  img,svg{max-width:100%;}
+
+  /* ---- top bar ---- */
+  header{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 6vw;
+    background:rgba(21,17,31,0.72);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .brand{font-weight:800; font-size:1.15rem; letter-spacing:0.2px; display:flex; align-items:center; gap:10px;}
+  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--accent2); box-shadow:0 0 12px var(--accent2);}
+  header nav a{font-size:0.92rem; color:var(--ink-dim); margin-left:22px;}
+  header nav a:hover{color:var(--ink);}
+  .wa-mini{background:var(--accent); color:#1a1220 !important; padding:8px 16px; border-radius:8px; font-weight:600; font-size:0.88rem !important;}
+
+  /* ---- hero ---- */
+  .hero{
+    padding:9vh 6vw 7vh;
+    max-width:900px;
+  }
+  .kicker{color:var(--accent2); font-size:0.92rem; font-weight:600; margin:0 0 14px;}
+  .hero h1{
+    font-size:clamp(2.1rem, 5.4vw, 3.6rem);
+    line-height:1.15; font-weight:800; margin:0 0 20px;
+  }
+  .hero h1 .hl{color:var(--accent);}
+  .hero p{
+    font-size:1.05rem; color:var(--ink-dim); max-width:60ch; line-height:1.65; margin:0 0 34px;
+  }
+  .hero-cta{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:14px 26px; border-radius:10px; font-weight:600; font-size:0.98rem;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{background:var(--accent); color:#1a1220;}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(255,107,61,0.28);}
+  .btn-ghost{border:1px solid var(--line); color:var(--ink);}
+  .btn-ghost:hover{border-color:var(--accent2); color:var(--accent2);}
+
+  /* terminal card in hero */
+  .term{
+    margin-top:56px; max-width:560px;
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    overflow:hidden; box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+  }
+  .term-bar{display:flex; gap:7px; padding:12px 16px; border-bottom:1px solid var(--line);}
+  .term-bar span{width:11px;height:11px;border-radius:50%;background:#463a63;}
+  .term-body{padding:20px 22px; font-family:'Sora',sans-serif; font-size:0.94rem; line-height:1.9;}
+  .term-body .l1{color:var(--accent2);}
+  .term-body .l2{color:var(--ink-dim);}
+  .term-body .l3{color:var(--gold);}
+  .caret{display:inline-block; width:8px; height:1.1em; background:var(--ink); margin-left:2px; vertical-align:text-bottom; animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  /* ---- section shell ---- */
+  section{padding:6vh 6vw;}
+  .section-head{max-width:640px; margin:0 0 44px;}
+  .section-head h2{font-size:clamp(1.6rem,3.2vw,2.2rem); font-weight:800; margin:0 0 10px;}
+  .section-head p{color:var(--ink-dim); font-size:1rem; line-height:1.6; margin:0;}
+
+  /* ---- services grid ---- */
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px;}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:26px 24px; display:flex; flex-direction:column; gap:14px;
+    position:relative; overflow:hidden;
+  }
+  .card::before{
+    content:''; position:absolute; inset:0; opacity:0; transition:opacity .25s ease;
+    background:radial-gradient(220px 140px at 20% 0%, rgba(62,201,176,0.14), transparent 70%);
+  }
+  .card:hover::before{opacity:1;}
+  .card .icon{font-size:1.7rem;}
+  .card h3{font-size:1.15rem; margin:0; font-weight:700;}
+  .card p.desc{color:var(--ink-dim); font-size:0.92rem; line-height:1.6; margin:0; flex-grow:1;}
+  .price-row{display:flex; align-items:baseline; justify-content:space-between; padding-top:14px; border-top:1px dashed var(--line);}
+  .price{font-family:'Sora',sans-serif; font-weight:800; font-size:1.3rem; color:var(--gold);}
+  .price small{font-size:0.7rem; color:var(--ink-dim); font-weight:500;}
+  .card .order-btn{
+    margin-top:4px; display:flex; align-items:center; justify-content:center; gap:8px;
+    padding:13px 18px; border-radius:10px; font-weight:700; font-size:0.92rem;
+    background:rgba(62,201,176,0.12); color:var(--accent2); border:1px solid rgba(62,201,176,0.35);
+    transition:background .15s ease, color .15s ease, transform .15s ease;
+  }
+  .card .order-btn:hover{background:var(--accent2); color:#12261f; transform:translateY(-1px);}
+
+  .card.placeholder{
+    border-style:dashed; border-color:#5a4d78; justify-content:center; align-items:center;
+    text-align:center; min-height:220px; color:var(--ink-dim);
+  }
+  .card.placeholder .fill-tag{
+    font-family:'Sora',sans-serif; font-weight:700; letter-spacing:0.3px;
+    padding:6px 14px; border:1px solid #5a4d78; border-radius:20px; font-size:0.82rem; margin-bottom:10px;
+  }
+
+  /* ---- trust ---- */
+  .trust{
+    background:var(--bg2); border-radius:20px; margin:6vh 6vw; padding:5vh 6vw;
+  }
+  .trust-inner{display:flex; gap:40px; flex-wrap:wrap; align-items:flex-start;}
+  .trust-inner > div{flex:1 1 260px;}
+  .trust h2{font-size:1.5rem; font-weight:800; margin:0 0 14px;}
+  .trust p{color:var(--ink-dim); line-height:1.7; font-size:0.98rem; margin:0 0 10px;}
+  .trust .badge{
+    display:inline-flex; align-items:center; gap:8px; background:rgba(62,201,176,0.12);
+    color:var(--accent2); border:1px solid rgba(62,201,176,0.3); padding:8px 14px;
+    border-radius:8px; font-size:0.88rem; font-weight:600; margin-bottom:16px;
+  }
+  .steps{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:10px;}
+  .steps li{display:flex; gap:12px; color:var(--ink-dim); font-size:0.95rem; line-height:1.6;}
+  .steps li .n{
+    flex-shrink:0; width:26px; height:26px; border-radius:50%; background:var(--card);
+    border:1px solid var(--line); display:flex; align-items:center; justify-content:center;
+    font-size:0.8rem; font-weight:700; color:var(--accent2);
+  }
+
+  /* ---- footer / contact ---- */
+  footer{
+    padding:7vh 6vw 8vh; text-align:center; border-top:1px solid var(--line); margin-top:2vh;
+  }
+  footer h2{font-size:clamp(1.5rem,3.4vw,2.1rem); font-weight:800; margin:0 0 14px;}
+  footer p{color:var(--ink-dim); margin:0 0 30px; font-size:1rem;}
+  .foot-note{margin-top:40px; font-size:0.82rem; color:#6a5f88;}
+
+  .sub-hero-heading {
+  font-size: 7.75rem; /* Exactly between the standard 2rem and 1.5rem */
+  font-weight: bold;
+}
+hr {
+  border: none;               /* Removes the default shaded border */
+  height: 4px;                /* Makes the line bold/thick */
+  background-color:chartreuse;  /* Colors the line red */
+}
+
+.order-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #25D366;
+  color: #ffffff !important; /* වෙනත් කෝඩ් වලින් කලර් එක වෙනස් වීම වැළැක්වීමට */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  margin-top: 15px;
+  
+  /* මේ ලයින් දෙක අනිවාර්යයෙන්ම එකතු කරන්න */
+  position: relative;
+  z-index: 10;
+  cursor: pointer; /* මවුස් එක ගෙනිච්චම අතක ලකුණ වැටෙන්න */
+}
+
+.order-btn:hover {
+  background-color: #20ba5a;
+  box-shadow: 0 6px 12px rgba(37, 211, 102, 0.3);
+  transform: translateY(-2px);
+}
+
+.order-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.wa-icon {
+  width: 20px;
+  height: 20px;
+}
+
+
+
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand"><span class="dot"></span><span style=color:red><marquee>KyZer_HADOC</marquee></span></div>
+  <nav>
+    <a href="#services">Services</a>
+    <a href="#trust">Trust</a>
+    <a class="wa-mini" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20service%20ekk%20gena%20danna%20one" target="_blank" rel="noopener">WhatsApp</a>
+  </nav>
+</header><hr style="border: none; height: 4px; background-color: #ff0000;">
+
+<section class="hero">
+  <p class="kicker">Custom Dev Services · Web · Mods · Apps</p>
+  <hr style="border: none; height: 4px; background-color: #ff0000;">
+<h3><span style="color:orange;"><i>Welcome</i></span> &nbsp;To &nbsp;<span style="color:yellow;"><b> Service</b></span>&nbsp; <u>Page</u></h3>
+
+
+  <h1>
+    <span style="color:#3ec9b0;"> Looking</span> For A <span style="color:lawngreen;"><b>Services</b></span>,
+  </h1>
+  <h3>You've come to the <span style="color:yellow;"> right place</span></h3><hr>
+  
+  <h1>
+    <!-- build කියන වචනය විතරක් font-size: 5.5rem වලින් ලොකු කර ඇත -->
+    <span class="hl" style="font-size: 5.5rem;"><b>build </b></span>
+    <span class="hl"><i> කරලා</i></span> ඕනම <span style="color:yellow;"><i>Service</i> </span>
+  </h1>
+  
+  <h1>එකක් දෙන්න පුලුවන්.</h1><hr style="border: none; height: 4px; background-color: #ff7300;">
+
+  
+  <p>⭕ Websites, Minecraft mods & plugins, softwares <br>⭕ ඕනම එකක් හොද quality එකකට, <br>⭕ අඩු prices වලට හදලා දෙනවා. WhatsApp එකෙන් තොරතුරු දැනගන්න,<br>⭕ requirement එක discuss කරලා price එක confirm කරමු <br>⭕ ඔයා satisfied වුනාට පස්සේ විතරයි payment එක.</p>
+  <h4>&nbsp;&nbsp;&nbsp;&nbsp;👇 Default Services ටික </h4>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#services">Services බලන්න</a>
+    <a class="btn btn-ghost" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20service%20ekk%20gana%20details%20one" target="_blank" rel="noopener">WhatsApp Message යවන්න</a>
+    <a class="btn btn-ghost" href="#trust">Trust නැද්ද?</a>
+  </div>
+</section>
+
+
+  <div style="width: 50%; margin: 0 auto;" class="term">
+    <div class="term-bar"><span></span><span></span><span></span></div>
+    <div class="term-body">
+      <div class="l1">$ status --KyZer_HADOC</div>
+      <div class="l2">→ orders: open</div>
+      <div class="l2">→ reply time: fast (WhatsApp)</div>
+      <div class="l3">→ payment: satisfied ⇒ pay<span class="caret"></span></div>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-head">
+    <h2><span style=color:var(--gold)> Services &amp; Prices</span></h2>
+    <p>Price ටික "starting from " විදිහට තියෙන්නේ — වැඩේ අනුව final price එක WhatsApp එකෙන් කතා කරලා confirm කරගමු.</p>
+  </div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;👨‍💻</div>
+      <h3 align="center"><span style="color:rgb(255, 0, 0);">Phone  Hacking</span></h3>
+      <p class="desc">ඔයාගෙ File එකක්/ ඔයාට ඕන දෙයක් ගන්න හෝ එයාට මොකක් හරි දෙයක් කරන්න ඕනෙද.<br>නැත්තම් Ex ගෙ Phone එක Hack කරගන්න ඕනද.<br>එහෙනම් මෙන්න Service එක.<br>Apple ද Android ද Pixel ද කියල අදාල නෑ ඕන එකක්.</p>
+      <div class="price-row">
+        <div class="price"><small>Starting from</small> Rs. 500 </div>
+      </div>
+    <a class="order-btn" href="https://wa.me/94706008383?text=Hi%2C%20mata%20Software%20ekak%20hadala%20denna%20one" target="_blank" rel="noopener">
+    <svg xmlns="http://w3.org" viewBox="0 0 448 512" class="wa-icon"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+    Order via WhatsApp
+  </a>
+</div>
+
+    <div class="card">
+      <div class="icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🌐</div>
+      <h3 align="center"><span style="color:lawngreen;">Website Creating</span></h3>
+      <p class="desc">ඔයාගේ business/product එකට ගැලපෙන website එකක් — portfolio, download site, business page, ඕන කරන ඕනම type එකක්. Mobile & PC දෙකටම optimize කරලා, clean UI එකක් එක්ක.</p>
+      <div class="price-row">
+        <div class="price"><small>Starting from</small> Rs. 150 </div>
+      </div>
+    <a class="order-btn" href="https://wa.me/94706008383?text=Hi%2C%20mata%20Software%20ekak%20hadala%20denna%20one" target="_blank" rel="noopener">
+    <svg xmlns="http://w3.org" viewBox="0 0 448 512" class="wa-icon"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+    Order via WhatsApp
+  </a>
+</div>
+
+    <div class="card">
+      <div class="icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⛏️</div>
+      <h3 align="center"><span style="color:lawngreen;">Minecraft Mods Creating</span></h3>
+      <p class="desc">Custom Fabric/Forge mods — new mobs, bosses, blocks, items, mechanics — ඔයාගේ idea එකට ගැලපෙන විදිහට hadala දෙනවා. Testing සහ fixes ඇතුළත්.</p>
+      <div class="price-row">
+        <div class="price"><small>Starting from </small> Rs. 350 </div>
+      </div>
+    <a class="order-btn" href="https://wa.me/94706008383?text=Hi%2C%20mata%20Software%20ekak%20hadala%20denna%20one" target="_blank" rel="noopener">
+    <svg xmlns="http://w3.org" viewBox="0 0 448 512" class="wa-icon"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+    Order via WhatsApp
+  </a>
+</div>
+
+    <div class="card">
+      <div class="icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🧩</div>
+      <h3 align="center"><span style="color:lawngreen;">Minecraft Plugin Creating</span></h3>
+      <p class="desc">Server plugins — custom commands, gameplay mechanics, economy/rank systems, ඕන feature එකක් — Spigot/Paper server එකට ගැලපෙන විදිහට hadala දෙනවා.</p>
+      <div class="price-row">
+        <div class="price"><small>Starting from </small> Rs. 250 </div>
+      </div>
+      <a class="order-btn" href="https://wa.me/94706008383?text=Hi%2C%20mata%20Software%20ekak%20hadala%20denna%20one" target="_blank" rel="noopener">
+    <svg xmlns="http://w3.org" viewBox="0 0 448 512" class="wa-icon"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+    Order via WhatsApp
+  </a>
+    </div>
+
+    <div class="card">
+  <div class="icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;💻</div>
+  <h3 align="center"><span style="color:lawngreen;">Pc Software Creating</span></h3>
+  <p class="desc">Windows apps — automation tools, small utilities, custom software — ඔයාට ඕන requirement එකට match වෙන විදිහට design + build කරලා දෙනවා.</p>
+  <div class="price-row">
+    <div class="price"><small>Starting from </small> Rs. 300 </div>
+  </div>
+  
+  <!-- වෙනස් කරන ලද බට්න් එක -->
+  <a class="order-btn" href="https://wa.me/94706008383?text=Hi%2C%20mata%20Software%20ekak%20hadala%20denna%20one" target="_blank" rel="noopener">
+    <svg xmlns="http://w3.org" viewBox="0 0 448 512" class="wa-icon"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+    Order via WhatsApp
+  </a>
+</div>
+
+    <div class="card">
+      <div class="icon">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🌉</div>
+      <h3 align="center"><span style="color:lawngreen;">MC Server Bridge</span></h3>
+      <p class="desc">MineCraft Server Host එකේ Options මදිද.<br>මෙන්න එහෙනම් pot එක. <br>Host එකේ නැති Options Web එකකට අරන් දෙන්නම්.<br>Ex- Server එකේ Playersලව Control කරන System එකක්.</p>
+      <div class="price-row">
+        <div class="price"><small>Starting from </small> Rs. 400 </div>
+      </div>
+    <a class="order-btn" href="https://wa.me/94706008383?text=Hi%2C%20mata%20Software%20ekak%20hadala%20denna%20one" target="_blank" rel="noopener">
+    <svg xmlns="http://w3.org" viewBox="0 0 448 512" class="wa-icon"><path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+    Order via WhatsApp
+  </a>
+</div>
+
+
+</section>
+
+<hr style="border: none; height: 4px; background-color: #2bff00;">
+<section id="trust">
+  <div class="trust">
+    <div class="trust-inner">
+      <div>
+        <span class="badge">✓ Pay After Satisfaction</span>
+        <h2>Trust එක තමයි වැදගත්ම දේ</h2>
+        <p>ඔයාට වැඩේ ගැන සතුටුයි කියලා හිතුනාට පස්සේ විතරයි payment එක. කලින් advance එකක් ගන්නේ නෑ — වැඩේ delivery වෙනකම් risk එක මගේ පැත්තෙන්.</p>
+      </div>
+      <div>
+        <h2 style="font-size:1.15rem;">වැඩේ යන්නේ මෙහෙමයි</h2>
+        <ul class="steps">
+          <li><span class="n">1</span> WhatsApp එකෙන් message එකක් යවන්න — ඕන service එක ගැන</li>
+          <li><span class="n">2</span> Requirements ටික discuss කරලා, final price එක confirm</li>
+          <li><span class="n">3</span> Work එක complete කරලා ඔයාට deliver කරනවා</li>
+          <li><span class="n">4</span> ඔයා satisfied නම් විතරක් — payment</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<hr style="border: none; height: 4px; background-color: #2bff00;">
+
+<footer id="contact">
+  <h2><span style=color:red> Order එකක් දාන්න ready ද?</span></h2>
+  <p><span style=color:yellow> Any other work එකකුත් තියෙනවා නම්, contact කරලා details කියන්න — කරගන්න පුළුවන් වැඩක් නම් කියනවා.</span></p>
+  <a class="btn btn-primary" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20service%20ekk%20gena%20danna%20one" target="_blank" rel="noopener">📱 WhatsApp — 070 600 8383</a>
+  <div class="foot-note">~KyZer_HADOC © 2026</div>
+</footer>
+<hr style="border: none; height: 4px; background-color: #ff0000;">
+</body>
+</html>
