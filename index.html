@@ -4079,4 +4079,18 @@ document.addEventListener('click', function (e) {
   if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(t).then(done, fallback); else fallback();
 });
 </script>
+
+<script>
+document.querySelectorAll(
+  'a.kxh-b, a.kx-t, a.kx-btn, a.kx-sw'
+).forEach(link => {
+  const href = link.getAttribute('href') || '';
+
+  if (!href || href.startsWith('#') ||
+      /^javascript:/i.test(href)) return;
+
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+});
+</script>
 </body></html>
