@@ -291,16 +291,16 @@
 
 
   <footer class="shell">
-    <span>© <span id="year"></span> <b>KyZer_HADOC</b> · Top Good Websites</span>
+    <span>© <span id="year"></span> <b>KyZer_HADOC</b> · KyZer Web Discovery</span>
     <span>BUILT FOR DISCOVERY <span style="color:var(--accent-2)">✦</span></span>
   </footer>
 
   <script>
     /* ============================================================
-       ADD YOUR WEBSITES HERE
-       Copy one object, edit its details, then add it inside the array.
-       category examples: "AI & Tools", "Development", "Learning",
-       or create your own category. Tags can be any words you like.
+       KYZER WEB DISCOVERY DIRECTORY DATA
+       Public links are stored in the websites array.
+       Code-protected links are stored in secretWebsites.
+       Change SECRET_CODE_WEB below to set the Secret tab password.
        ============================================================ */
     const websites = [
   {
@@ -951,8 +951,8 @@
   {
     "id": "secret-flow",
     "name": "Google Flow",
-    "domain": "flow.google",
-    "url": "https://flow.google/",
+    "domain": "flow.google.com",
+    "url": "https://flow.google.com/",
     "category": "Secret",
     "description": "Google's AI filmmaking workspace for creating and developing cinematic video scenes.",
     "tags": [
@@ -980,7 +980,7 @@
     const heartIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>';
 
     function renderCategories() {
-      const names = ["All", "Oh Hell", ...new Set(websites.filter(site => site.category !== "Oh Hell").map(site => site.category))];
+      const names = ["All", "Oh Hell", "AI & Tools", "Developer Tools", "Minecraft", "Music & Creativity", "Privacy & Utilities", "Cybersecurity & Research", "Entertainment", "Other Websites"].filter(name => name === "All" || name === "Oh Hell" || websites.some(site => site.category === name));
       const labels = { "All": "✦ All", "Oh Hell": "🔥 Oh Hell" };
       const buttons = names.map(name => {
         const active = state.category === name ? " active" : "";
