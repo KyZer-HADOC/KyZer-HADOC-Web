@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#080a12" />
-  <meta name="description" content="A handpicked collection of useful websites recommended by KyZer." />
-  <title>Top Good Websites — Recommended by KyZer</title>
+  <meta name="description" content="KyZer Web Discovery — a curated directory of websites, tools and resources." />
+  <title>KyZer Web Discovery</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
 
@@ -169,14 +169,47 @@
       footer { align-items: start; flex-direction: column; }
     }
     @media (prefers-reduced-motion: reduce) { *, *:before, *:after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
-  </style>
+  
+    .brand-logo { width: 41px; height: 41px; flex: 0 0 41px; object-fit: contain; border-radius: 12px; }
+    .brand-name { display: block; font-size: 15px; font-weight: 900; letter-spacing: -.45px; white-space: nowrap; }
+    .brand-name small { display: block; font-size: 9px; letter-spacing: 1.7px; }
+    .category-btn.hell-tab { border-color: rgba(255,65,85,.3); color: #ff8b98; background: rgba(255,45,68,.07); }
+    .category-btn.hell-tab:hover, .category-btn.hell-tab.active { color: #fff; border-color: transparent; background: linear-gradient(100deg, #ff334f, #9f1235); box-shadow: 0 7px 24px rgba(255,45,68,.2); }
+    .category-btn.secret-tab { border-color: rgba(190,151,255,.35); color: #c9b5ff; background: rgba(155,115,255,.07); }
+    .category-btn.secret-tab.active { color: #140c24; background: linear-gradient(100deg, #d3b5ff, #8e72ff); }
+    .site-card.oh-hell-card { border-color: rgba(255,56,77,.43); background: linear-gradient(145deg, rgba(55,13,27,.97), rgba(20,12,25,.96)); box-shadow: 0 14px 38px rgba(255,35,61,.12); }
+    .site-card.oh-hell-card:before { background: rgba(255,35,61,.42); }
+    .site-card.oh-hell-card:hover { border-color: rgba(255,88,105,.8); box-shadow: 0 24px 58px rgba(255,35,61,.2); }
+    .hell-badge { display: inline-flex; align-items: center; gap: 6px; width: fit-content; margin-top: 14px; border: 1px solid rgba(255,86,104,.4); border-radius: 999px; padding: 5px 9px; color: #ff9ba7; background: rgba(255,42,66,.12); font: 9px 'DM Mono', monospace; letter-spacing: 1px; }
+    .oh-hell-card .site-logo { border-color: rgba(255,91,107,.28); }
+    .oh-hell-card .verified { color: #ff9ba7; background: rgba(255,58,80,.12); border-color: rgba(255,91,107,.24); }
+    .oh-hell-card .open-btn { color: #fff; background: linear-gradient(100deg, #ff3652, #a61235); }
+    .secret-overlay[hidden] { display: none !important; }
+    .secret-overlay { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; background: rgba(3,4,10,.82); backdrop-filter: blur(14px); }
+    .secret-modal { position: relative; width: min(430px, 100%); padding: 30px; border: 1px solid rgba(188,153,255,.3); border-radius: 24px; background: linear-gradient(145deg, #1d1630, #0e1020 75%); box-shadow: 0 28px 90px rgba(0,0,0,.6), 0 0 55px rgba(149,105,255,.12); }
+    .secret-modal .lock-label { color: #cbb7ff; font: 10px 'DM Mono', monospace; letter-spacing: 2px; }
+    .secret-modal h2 { margin: 10px 0 8px; font-size: 25px; letter-spacing: -.8px; }
+    .secret-modal p { margin: 0 0 20px; color: #9da4bd; font-size: 13px; line-height: 1.7; }
+    .secret-modal input { width: 100%; min-height: 48px; padding: 0 14px; border: 1px solid rgba(185,153,255,.3); border-radius: 12px; outline: none; color: #fff; background: rgba(255,255,255,.055); }
+    .secret-modal input:focus { border-color: #b99aff; box-shadow: 0 0 0 3px rgba(185,153,255,.12); }
+    .secret-modal .unlock-btn { width: 100%; min-height: 46px; margin-top: 12px; border: 0; border-radius: 12px; color: #180f2b; background: linear-gradient(100deg, #d8bcff, #957bff); font-weight: 900; }
+    .secret-modal .close-secret { position: absolute; top: 14px; right: 14px; width: 34px; height: 34px; border: 1px solid rgba(255,255,255,.1); border-radius: 10px; color: #b7bbce; background: rgba(255,255,255,.04); font-size: 18px; }
+    .secret-error { min-height: 18px; margin: 10px 0 0 !important; color: #ff8996 !important; font-size: 11px !important; }
+    @media (max-width: 620px) {
+      .brand-name { font-size: 12px; letter-spacing: -.35px; }
+      .brand-logo { width: 35px; height: 35px; flex-basis: 35px; }
+      .secret-modal { padding: 25px 20px; }
+      .category-btn { padding: 9px 12px; }
+    }
+
+</style>
 </head>
 <body>
   <header class="topbar">
     <div class="shell nav">
-      <a class="brand" href="#top" aria-label="KyZer home">
-        <span class="brand-mark">K</span>
-        <span>KyZer<span style="color:var(--accent-2)">.</span><small>WEB DISCOVERY</small></span>
+      <a class="brand" href="#top" aria-label="KyZer Web Discovery home">
+        <img class="brand-logo" src="images/logo32.png" alt="KyZer Web Discovery logo" />
+        <span class="brand-name">KyZer Web Discovery<small>CURATED SITE DIRECTORY</small></span>
       </a>
       <div class="nav-right">
         <a class="nav-link" href="#directory">Explore websites</a>
@@ -189,8 +222,8 @@
   <main class="shell" id="top">
     <section class="hero">
       <div class="eyebrow">A curated web collection</div>
-      <h1>Find your next<br><span class="gradient">favorite website.</span></h1>
-      <p class="hero-copy">A handpicked collection of useful, creative and powerful websites. No endless searching — just good websites worth knowing, recommended by KyZer.</p>
+      <h1>Discover the web.<br><span class="gradient">Find your next tool.</span></h1>
+      <p class="hero-copy">A curated collection of useful websites, creative tools, developer resources and entertainment picks — organized by KyZer_HADOC.</p>
       <div class="hero-bottom">
         <div class="stats">
           <div class="stat"><strong id="totalCount">03</strong><span>Websites listed</span></div>
@@ -217,16 +250,11 @@
       </div>
 
       <div class="section-head">
-        <div><h2>Explore the collection</h2><p>Find the right site for what you want to do.</p></div>
+        <div><h2>Explore websites</h2><p>Browse by category, search by name or save your favourites.</p></div>
         <div class="result-count" id="resultCount">SHOWING 03 / 03</div>
       </div>
 
-      <div class="categories" id="categoryFilters" aria-label="Filter by category">
-        <button class="category-btn active" data-category="All" type="button">✦ All websites</button>
-        <button class="category-btn" data-category="AI & Tools" type="button">✧ AI & Tools</button>
-        <button class="category-btn" data-category="Development" type="button">⌘ Development</button>
-        <button class="category-btn" data-category="Learning" type="button">◈ Learning</button>
-      </div>
+      <div class="categories" id="categoryFilters" aria-label="Filter by category"></div>
 
       <div class="tag-row" id="tagFilters" aria-label="Filter by tag">
         <span class="tag-label">POPULAR TAGS</span>
@@ -242,10 +270,25 @@
     </section>
 
     <section class="bottom-banner" id="about">
-      <div><h3>Good websites. Less searching.</h3><p>Selected with care by KyZer_HADOC. This collection will grow as more useful websites are added.</p></div>
-      <div class="suggestion">✦ CURATED BY KYZER</div>
+      <div><h3>Your web, organized.</h3><p>Useful tools, Minecraft resources, creative platforms and entertainment links — collected by KyZer_HADOC.</p></div>
+      <div class="suggestion">✦ KYZER WEB DISCOVERY</div>
     </section>
   </main>
+
+  <div class="secret-overlay" id="secretOverlay" hidden>
+    <section class="secret-modal" role="dialog" aria-modal="true" aria-labelledby="secretTitle">
+      <button class="close-secret" id="closeSecretModal" type="button" aria-label="Close">×</button>
+      <div class="lock-label">🔒 PRIVATE COLLECTION</div>
+      <h2 id="secretTitle">Secret websites</h2>
+      <p>This tab is locked. Enter the access code to view its saved websites.</p>
+      <form id="secretForm">
+        <input id="secretCodeInput" type="password" placeholder="Enter secret code" autocomplete="off" required />
+        <button class="unlock-btn" type="submit">Unlock Secret Tab</button>
+      </form>
+      <p class="secret-error" id="secretError" aria-live="polite"></p>
+    </section>
+  </div>
+
 
   <footer class="shell">
     <span>© <span id="year"></span> <b>KyZer_HADOC</b> · Top Good Websites</span>
@@ -260,55 +303,672 @@
        or create your own category. Tags can be any words you like.
        ============================================================ */
     const websites = [
-      {
-        id: "chatgpt",
-        name: "ChatGPT",
-        domain: "chatgpt.com",
-        url: "https://chatgpt.com/",
-        category: "AI & Tools",
-        description: "An AI assistant for brainstorming, writing, learning, coding, problem-solving and exploring ideas.",
-        tags: ["AI", "Assistant", "Productivity"],
-        logo: "✳",
-        verified: true,
-        featured: 1,
-        glow: "rgba(98,230,209,.2)",
-        logoBg: "rgba(98,230,209,.12)",
-        logoColor: "#75e8d3"
-      },
-      {
-        id: "github",
-        name: "GitHub",
-        domain: "github.com",
-        url: "https://github.com/",
-        category: "Development",
-        description: "A home for developers to build, share and collaborate on code, projects and open-source software.",
-        tags: ["Coding", "Open Source", "Developer"],
-        logo: "⌘",
-        verified: true,
-        featured: 2,
-        glow: "rgba(177,185,215,.18)",
-        logoBg: "rgba(177,185,215,.10)",
-        logoColor: "#d5dcf4"
-      },
-      {
-        id: "mdn",
-        name: "MDN Web Docs",
-        domain: "developer.mozilla.org",
-        url: "https://developer.mozilla.org/",
-        category: "Learning",
-        description: "A trusted reference for learning web technologies, including HTML, CSS, JavaScript and browser APIs.",
-        tags: ["HTML", "CSS", "JavaScript", "Web Dev"],
-        logo: "M",
-        verified: true,
-        featured: 3,
-        glow: "rgba(155,140,255,.2)",
-        logoBg: "rgba(155,140,255,.13)",
-        logoColor: "#b7aaff"
-      }
-    ];
+  {
+    "id": "oh-kyzer-home",
+    "name": "KyZer HADOC — Main Site",
+    "domain": "kyzerhadoc.netlify.app",
+    "url": "https://kyzerhadoc.netlify.app/",
+    "category": "Oh Hell",
+    "description": "The main KyZer_HADOC website: projects, services, downloads and the wider KyZer ecosystem.",
+    "tags": [
+      "Official",
+      "KyZer",
+      "Main Site"
+    ],
+    "logo": "K",
+    "verified": true,
+    "featured": 1,
+    "ohHell": true,
+    "glow": "rgba(255,55,75,.34)",
+    "logoBg": "rgba(255,55,75,.18)",
+    "logoColor": "#ff8794"
+  },
+  {
+    "id": "oh-kyzer-downloads",
+    "name": "KyZer Downloads",
+    "domain": "kyzerhadoc.netlify.app/index_02",
+    "url": "https://kyzerhadoc.netlify.app/index_02",
+    "category": "Oh Hell",
+    "description": "KyZer download hub for apps, tools and files published under the KyZer_HADOC brand.",
+    "tags": [
+      "Official",
+      "KyZer",
+      "Downloads"
+    ],
+    "logo": "DL",
+    "verified": true,
+    "featured": 2,
+    "ohHell": true,
+    "glow": "rgba(255,55,75,.34)",
+    "logoBg": "rgba(255,55,75,.18)",
+    "logoColor": "#ff8794"
+  },
+  {
+    "id": "oh-kyzer-services",
+    "name": "KyZer Services",
+    "domain": "kyzerhadoc.netlify.app/services",
+    "url": "https://kyzerhadoc.netlify.app/services",
+    "category": "Oh Hell",
+    "description": "KyZer service page for web, software and other digital development work.",
+    "tags": [
+      "Official",
+      "KyZer",
+      "Services"
+    ],
+    "logo": "S",
+    "verified": true,
+    "featured": 3,
+    "ohHell": true,
+    "glow": "rgba(255,55,75,.34)",
+    "logoBg": "rgba(255,55,75,.18)",
+    "logoColor": "#ff8794"
+  },
+  {
+    "id": "github",
+    "name": "GitHub",
+    "domain": "github.com",
+    "url": "https://github.com/",
+    "category": "Developer Tools",
+    "description": "Host code, manage repositories, track issues and collaborate on software projects and open-source work.",
+    "tags": [
+      "Code",
+      "Git",
+      "Open Source"
+    ],
+    "logo": "GH",
+    "verified": true,
+    "featured": 10,
+    "glow": "rgba(190,200,220,.17)",
+    "logoBg": "rgba(190,200,220,.1)",
+    "logoColor": "#f0f3fa"
+  },
+  {
+    "id": "hugging-face",
+    "name": "Hugging Face",
+    "domain": "huggingface.co",
+    "url": "https://huggingface.co/",
+    "category": "AI & Tools",
+    "description": "Discover and share machine-learning models, datasets, demos and AI applications.",
+    "tags": [
+      "AI",
+      "Models",
+      "Machine Learning"
+    ],
+    "logo": "HF",
+    "verified": true,
+    "featured": 11
+  },
+  {
+    "id": "minecraft-afk-bot",
+    "name": "Minecraft AFK Bot",
+    "domain": "minecraftafkbot.com",
+    "url": "https://minecraftafkbot.com/",
+    "category": "Minecraft",
+    "description": "A hosted Minecraft AFK-bot service with account, bot and server-session management.",
+    "tags": [
+      "Minecraft",
+      "AFK",
+      "Bot"
+    ],
+    "logo": "AFK",
+    "verified": true,
+    "featured": 12,
+    "glow": "rgba(100,220,130,.18)",
+    "logoBg": "rgba(100,220,130,.1)",
+    "logoColor": "#9be9a8"
+  },
+  {
+    "id": "afkbase",
+    "name": "AFKBase",
+    "domain": "afkbase.net",
+    "url": "https://afkbase.net/",
+    "category": "Minecraft",
+    "description": "Manage Minecraft AFK sessions from a hosted panel, with server-compatibility checks and session controls.",
+    "tags": [
+      "Minecraft",
+      "AFK",
+      "Hosting"
+    ],
+    "logo": "AB",
+    "verified": true,
+    "featured": 13,
+    "glow": "rgba(100,220,130,.18)",
+    "logoBg": "rgba(100,220,130,.1)",
+    "logoColor": "#9be9a8"
+  },
+  {
+    "id": "usesuno",
+    "name": "Use Suno",
+    "domain": "usesuno.com",
+    "url": "https://usesuno.com/",
+    "category": "Music & Creativity",
+    "description": "Independent Suno companion with practical guides, searchable references and browser tools for music prompting.",
+    "tags": [
+      "Music",
+      "Suno",
+      "Prompts"
+    ],
+    "logo": "US",
+    "verified": true,
+    "featured": 14,
+    "glow": "rgba(255,180,90,.18)",
+    "logoBg": "rgba(255,180,90,.1)",
+    "logoColor": "#ffcd8b"
+  },
+  {
+    "id": "lonable",
+    "name": "Lonable",
+    "domain": "lonable.dev",
+    "url": "https://lonable.dev/",
+    "category": "Other Websites",
+    "description": "Added from your website list. Its current features have not been independently verified; check the official site before signing up or sharing information.",
+    "tags": [
+      "Website",
+      "Added by KyZer"
+    ],
+    "logo": "L",
+    "featured": 15
+  },
+  {
+    "id": "bugmenot",
+    "name": "BugMeNot",
+    "domain": "bugmenot.com",
+    "url": "https://bugmenot.com/",
+    "category": "Privacy & Utilities",
+    "description": "A community-shared directory of public website login details. Avoid entering private or reused credentials.",
+    "tags": [
+      "Utilities",
+      "Logins",
+      "Community"
+    ],
+    "logo": "BM",
+    "featured": 16
+  },
+  {
+    "id": "venice",
+    "name": "Venice AI",
+    "domain": "venice.ai",
+    "url": "https://venice.ai/",
+    "category": "AI & Tools",
+    "description": "An AI platform for chatting with models and creating text and images.",
+    "tags": [
+      "AI",
+      "Chat",
+      "Image Generation"
+    ],
+    "logo": "V",
+    "featured": 18
+  },
+  {
+    "id": "hackerai",
+    "name": "HackerAI",
+    "domain": "hackerai.co",
+    "url": "https://hackerai.co/",
+    "category": "Cybersecurity & Research",
+    "description": "An AI-powered security assistant designed to help find and fix software vulnerabilities.",
+    "tags": [
+      "Cybersecurity",
+      "AI",
+      "Security"
+    ],
+    "logo": "HA",
+    "verified": true,
+    "featured": 17,
+    "glow": "rgba(90,180,255,.18)",
+    "logoBg": "rgba(90,180,255,.1)",
+    "logoColor": "#90ceff"
+  },
+  {
+    "id": "supabase",
+    "name": "Supabase",
+    "domain": "supabase.com",
+    "url": "https://supabase.com/",
+    "category": "Developer Tools",
+    "description": "An open-source backend platform with hosted Postgres, authentication, storage, edge functions and realtime features.",
+    "tags": [
+      "Backend",
+      "Database",
+      "Developer"
+    ],
+    "logo": "SB",
+    "verified": true,
+    "featured": 19,
+    "glow": "rgba(80,220,155,.18)",
+    "logoBg": "rgba(80,220,155,.1)",
+    "logoColor": "#8af0bd"
+  },
+  {
+    "id": "google-search-console",
+    "name": "Google Search Console",
+    "domain": "search.google.com",
+    "url": "https://search.google.com/search-console/",
+    "category": "Developer Tools",
+    "description": "Monitor how a website appears in Google Search, inspect URLs and review indexing and search-performance reports.",
+    "tags": [
+      "SEO",
+      "Google",
+      "Website"
+    ],
+    "logo": "G",
+    "verified": true,
+    "featured": 20
+  },
+  {
+    "id": "chatgpt",
+    "name": "ChatGPT",
+    "domain": "chatgpt.com",
+    "url": "https://chatgpt.com/",
+    "category": "AI & Tools",
+    "description": "An AI assistant for writing, learning, coding, research, brainstorming and everyday problem-solving.",
+    "tags": [
+      "AI",
+      "Assistant",
+      "Productivity"
+    ],
+    "logo": "✳",
+    "verified": true,
+    "featured": 21
+  },
+  {
+    "id": "speedtest",
+    "name": "Speedtest by Ookla",
+    "domain": "speedtest.net",
+    "url": "https://www.speedtest.net/",
+    "category": "Privacy & Utilities",
+    "description": "Measure your internet connection's download speed, upload speed, latency and related network performance.",
+    "tags": [
+      "Internet",
+      "Network",
+      "Testing"
+    ],
+    "logo": "ST",
+    "verified": true,
+    "featured": 22
+  },
+  {
+    "id": "bonto",
+    "name": "Bonto",
+    "domain": "bonto.dev",
+    "url": "https://bonto.dev/",
+    "category": "Developer Tools",
+    "description": "A browser-based platform for building, deploying and hosting Node.js and static web apps, with AI and MCP integrations.",
+    "tags": [
+      "Hosting",
+      "Deployment",
+      "AI Tools"
+    ],
+    "logo": "B",
+    "verified": true,
+    "featured": 23,
+    "glow": "rgba(90,180,255,.18)",
+    "logoBg": "rgba(90,180,255,.1)",
+    "logoColor": "#90ceff"
+  },
+  {
+    "id": "katabump",
+    "name": "KataBump",
+    "domain": "katabump.com",
+    "url": "https://katabump.com/",
+    "category": "Minecraft",
+    "description": "Game-server hosting service for setting up and managing multiplayer servers.",
+    "tags": [
+      "Minecraft",
+      "Server Hosting",
+      "Gaming"
+    ],
+    "logo": "KB",
+    "featured": 24
+  },
+  {
+    "id": "replit",
+    "name": "Replit",
+    "domain": "replit.com",
+    "url": "https://replit.com/",
+    "category": "Developer Tools",
+    "description": "A browser-based coding workspace for creating, running and deploying apps, with collaborative and AI-assisted tools.",
+    "tags": [
+      "Coding",
+      "IDE",
+      "AI"
+    ],
+    "logo": "R",
+    "verified": true,
+    "featured": 25
+  },
+  {
+    "id": "abfielder",
+    "name": "Abfielder",
+    "domain": "abfielder.com",
+    "url": "https://www.abfielder.com/",
+    "category": "Minecraft",
+    "description": "Minecraft community resources with schematics, builds, skins, tutorials and useful in-game tools.",
+    "tags": [
+      "Minecraft",
+      "Schematics",
+      "Builds"
+    ],
+    "logo": "A",
+    "verified": true,
+    "featured": 26
+  },
+  {
+    "id": "builtbybit",
+    "name": "BuiltByBit",
+    "domain": "buildbybit.com",
+    "url": "https://buildbybit.com/",
+    "category": "Minecraft",
+    "description": "A community marketplace for Minecraft server resources, plugins, builds, configurations and other digital assets.",
+    "tags": [
+      "Minecraft",
+      "Marketplace",
+      "Resources"
+    ],
+    "logo": "BB",
+    "featured": 27
+  },
+  {
+    "id": "catflix",
+    "name": "Catflix",
+    "domain": "catflix-3n2.pages.dev",
+    "url": "https://catflix-3n2.pages.dev/",
+    "category": "Entertainment",
+    "description": "A web-based entertainment site from your saved list. Check the site's own notices and terms before using it.",
+    "tags": [
+      "Entertainment",
+      "Movies",
+      "Series"
+    ],
+    "logo": "C",
+    "featured": 28
+  },
+  {
+    "id": "cartoonsarea",
+    "name": "CartoonsArea",
+    "domain": "cartoonsarea.cc",
+    "url": "https://cartoonsarea.cc/",
+    "category": "Entertainment",
+    "description": "A cartoon and animated-content website from your list.",
+    "tags": [
+      "Cartoons",
+      "Animation",
+      "Entertainment"
+    ],
+    "logo": "CA",
+    "featured": 29
+  },
+  {
+    "id": "ginisisila",
+    "name": "Ginisisila Cartoon",
+    "domain": "ginisisilacartoon.net",
+    "url": "https://ginisisilacartoon.net/",
+    "category": "Entertainment",
+    "description": "A Sinhala cartoon and animated-entertainment site from your list.",
+    "tags": [
+      "Sinhala",
+      "Cartoons",
+      "Animation"
+    ],
+    "logo": "G",
+    "featured": 30
+  },
+  {
+    "id": "9jarocks",
+    "name": "9jaRocks",
+    "domain": "9jarocks.net",
+    "url": "https://9jarocks.net/",
+    "category": "Entertainment",
+    "description": "An entertainment and media website from your list.",
+    "tags": [
+      "Entertainment",
+      "Media"
+    ],
+    "logo": "9J",
+    "featured": 31
+  },
+  {
+    "id": "suno",
+    "name": "Suno",
+    "domain": "suno.com",
+    "url": "https://suno.com/",
+    "category": "Music & Creativity",
+    "description": "Create original songs from text prompts, with AI-assisted music and vocal generation tools.",
+    "tags": [
+      "AI Music",
+      "Song Creation",
+      "Audio"
+    ],
+    "logo": "S",
+    "verified": true,
+    "featured": 32,
+    "glow": "rgba(255,180,90,.18)",
+    "logoBg": "rgba(255,180,90,.1)",
+    "logoColor": "#ffcd8b"
+  },
+  {
+    "id": "horizonsmp",
+    "name": "HorizonSMP",
+    "domain": "horizonsmp.pages.dev",
+    "url": "https://horizonsmp.pages.dev/",
+    "category": "Minecraft",
+    "description": "The HorizonSMP Minecraft server website and community page.",
+    "tags": [
+      "Minecraft",
+      "SMP",
+      "Community"
+    ],
+    "logo": "H",
+    "featured": 33
+  },
+  {
+    "id": "intelbase",
+    "name": "IntelBase",
+    "domain": "intelbase.is",
+    "url": "https://intelbase.is/",
+    "category": "Cybersecurity & Research",
+    "description": "An online intelligence-research platform for looking up account registrations, profile links and exposure indicators from identifiers.",
+    "tags": [
+      "OSINT",
+      "Research",
+      "Security"
+    ],
+    "logo": "IB",
+    "featured": 34,
+    "glow": "rgba(90,180,255,.18)",
+    "logoBg": "rgba(90,180,255,.1)",
+    "logoColor": "#90ceff"
+  },
+  {
+    "id": "mega",
+    "name": "MEGA",
+    "domain": "mega.nz",
+    "url": "https://mega.nz/",
+    "category": "Privacy & Utilities",
+    "description": "Cloud storage and file-sharing tools with client-side encryption features.",
+    "tags": [
+      "Cloud Storage",
+      "Files",
+      "Sharing"
+    ],
+    "logo": "M",
+    "verified": true,
+    "featured": 35
+  },
+  {
+    "id": "netlify",
+    "name": "Netlify",
+    "domain": "netlify.com",
+    "url": "https://www.netlify.com/",
+    "category": "Developer Tools",
+    "description": "A platform for deploying websites and web apps with CI/CD, serverless functions and hosting workflows.",
+    "tags": [
+      "Hosting",
+      "Deployment",
+      "Web Development"
+    ],
+    "logo": "N",
+    "verified": true,
+    "featured": 36
+  },
+  {
+    "id": "quackr",
+    "name": "Quackr",
+    "domain": "quackr.io",
+    "url": "https://quackr.io/",
+    "category": "Privacy & Utilities",
+    "description": "A temporary-number service. Public/shared numbers are not suitable for private accounts or sensitive verification.",
+    "tags": [
+      "Privacy",
+      "Temporary Numbers",
+      "Utilities"
+    ],
+    "logo": "Q",
+    "featured": 37
+  },
+  {
+    "id": "cinesubz",
+    "name": "Cinesubz",
+    "domain": "cinesubz.lk",
+    "url": "https://cinesubz.lk/",
+    "category": "Entertainment",
+    "description": "A movie and series website from your list.",
+    "tags": [
+      "Movies",
+      "Series",
+      "Entertainment"
+    ],
+    "logo": "CS",
+    "featured": 38
+  },
+  {
+    "id": "themoviebox",
+    "name": "The MovieBox",
+    "domain": "themoviebox.xyz",
+    "url": "https://themoviebox.xyz/",
+    "category": "Entertainment",
+    "description": "A movie and television entertainment website from your list.",
+    "tags": [
+      "Movies",
+      "TV",
+      "Entertainment"
+    ],
+    "logo": "MB",
+    "featured": 39
+  },
+  {
+    "id": "laksidu",
+    "name": "Laksidu",
+    "domain": "laksidu.site",
+    "url": "https://www.laksidu.site/",
+    "category": "Entertainment",
+    "description": "A website from your entertainment collection.",
+    "tags": [
+      "Entertainment",
+      "Media"
+    ],
+    "logo": "L",
+    "featured": 40
+  },
+  {
+    "id": "desktophut",
+    "name": "DesktopHut",
+    "domain": "desktophut.com",
+    "url": "https://www.desktophut.com/",
+    "category": "Entertainment",
+    "description": "Find animated wallpapers and desktop backgrounds for personalizing your computer.",
+    "tags": [
+      "Wallpapers",
+      "Desktop",
+      "Customization"
+    ],
+    "logo": "DH",
+    "verified": true,
+    "featured": 41
+  }
+];
+
+    const SECRET_CODE_WEB = "YOUR_SECRET_CODE_HERE"; // Replace the text with your own private code.
+    const secretWebsites = [
+  {
+    "id": "secret-claude",
+    "name": "Claude",
+    "domain": "claude.ai",
+    "url": "https://claude.ai/",
+    "category": "Secret",
+    "description": "Anthropic's AI assistant for writing, reasoning, research and software development.",
+    "tags": [
+      "AI",
+      "Assistant",
+      "Research"
+    ],
+    "logo": "C",
+    "featured": 1
+  },
+  {
+    "id": "secret-openrouter",
+    "name": "OpenRouter",
+    "domain": "openrouter.ai",
+    "url": "https://openrouter.ai/",
+    "category": "Secret",
+    "description": "A unified API and model directory for accessing many AI models through one integration.",
+    "tags": [
+      "AI",
+      "API",
+      "Models"
+    ],
+    "logo": "OR",
+    "featured": 2
+  },
+  {
+    "id": "secret-candy",
+    "name": "Candy AI",
+    "domain": "candy.ai",
+    "url": "https://candy.ai/",
+    "category": "Secret",
+    "description": "An AI companion and character-chat platform. Review its age requirements and privacy terms before use.",
+    "tags": [
+      "AI",
+      "Companion",
+      "Chat"
+    ],
+    "logo": "CA",
+    "featured": 3
+  },
+  {
+    "id": "secret-clothoff",
+    "name": "Clothoff",
+    "domain": "clothoff.info",
+    "url": "https://clothoff.info/",
+    "category": "Secret",
+    "description": "An AI image-editing service. Only use images you own or have explicit permission to edit; never create intimate edits of someone without consent.",
+    "tags": [
+      "AI",
+      "Image Tools",
+      "Private"
+    ],
+    "logo": "CO",
+    "featured": 4
+  },
+  {
+    "id": "secret-flow",
+    "name": "Google Flow",
+    "domain": "flow.google",
+    "url": "https://flow.google/",
+    "category": "Secret",
+    "description": "Google's AI filmmaking workspace for creating and developing cinematic video scenes.",
+    "tags": [
+      "Google",
+      "AI Video",
+      "Creative"
+    ],
+    "logo": "F",
+    "featured": 5
+  }
+];;
 
     const state = { category: "All", tag: "All", query: "", savedOnly: false, sort: "featured" };
-    const saved = new Set(JSON.parse(localStorage.getItem("kyzerSavedWebsites") || "[]"));
+    let secretUnlocked = false;
+    const savedIds = new Set([...websites, ...secretWebsites].map(site => site.id));
+    const saved = new Set(JSON.parse(localStorage.getItem("kyzerSavedWebsites") || "[]").filter(id => savedIds.has(id)));
     const $ = (selector) => document.querySelector(selector);
 
     const escapeHTML = (value) => String(value).replace(/[&<>"']/g, char => ({
@@ -319,8 +979,40 @@
     const checkIcon = '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m3 8 3.1 3.1L13 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
     const heartIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/></svg>';
 
+    function renderCategories() {
+      const names = ["All", "Oh Hell", ...new Set(websites.filter(site => site.category !== "Oh Hell").map(site => site.category))];
+      const labels = { "All": "✦ All", "Oh Hell": "🔥 Oh Hell" };
+      const buttons = names.map(name => {
+        const active = state.category === name ? " active" : "";
+        const extra = name === "Oh Hell" ? " hell-tab" : "";
+        return `<button class="category-btn${active}${extra}" data-category="${escapeHTML(name)}" type="button">${labels[name] || escapeHTML(name)}</button>`;
+      });
+      const secretActive = state.category === "Secret" ? " active" : "";
+      buttons.push(`<button class="category-btn secret-tab${secretActive}" data-category="Secret" type="button">🔒 Secret</button>`);
+      $("#categoryFilters").innerHTML = buttons.join("");
+      $("#categoryFilters").querySelectorAll("[data-category]").forEach(button => button.addEventListener("click", () => {
+        const nextCategory = button.dataset.category;
+        if (nextCategory === "Secret" && !secretUnlocked) { openSecretDialog(); return; }
+        state.category = nextCategory;
+        state.tag = "All";
+        renderCategories();
+        renderTags();
+        renderWebsites();
+      }));
+    }
+
+    function openSecretDialog() {
+      $("#secretOverlay").hidden = false;
+      $("#secretError").textContent = "";
+      $("#secretCodeInput").value = "";
+      $("#secretCodeInput").focus();
+    }
+
+    function closeSecretDialog() { $("#secretOverlay").hidden = true; }
+
     function renderTags() {
-      const tags = [...new Set(websites.flatMap(site => site.tags || []))].sort((a,b) => a.localeCompare(b));
+      const tagSource = state.category === "Secret" ? secretWebsites : websites;
+      const tags = [...new Set(tagSource.flatMap(site => site.tags || []))].sort((a,b) => a.localeCompare(b));
       const container = $("#tagFilters");
       container.innerHTML = '<span class="tag-label">POPULAR TAGS</span>' +
         '<button class="tag-btn ' + (state.tag === "All" ? "active" : "") + '" data-tag="All" type="button"># all</button>' +
@@ -333,10 +1025,11 @@
     }
 
     function getFilteredWebsites() {
-      let list = websites.filter(site => {
+      const source = state.category === "Secret" ? secretWebsites : websites;
+      let list = source.filter(site => {
         const haystack = [site.name, site.domain, site.description, site.category, ...(site.tags || [])].join(" ").toLowerCase();
         const matchesQuery = haystack.includes(state.query.toLowerCase());
-        const matchesCategory = state.category === "All" || site.category === state.category;
+        const matchesCategory = state.category === "All" || state.category === "Secret" || site.category === state.category;
         const matchesTag = state.tag === "All" || (site.tags || []).includes(state.tag);
         const matchesSaved = !state.savedOnly || saved.has(site.id);
         return matchesQuery && matchesCategory && matchesTag && matchesSaved;
@@ -352,11 +1045,12 @@
       const list = getFilteredWebsites();
       const grid = $("#websiteGrid");
       grid.innerHTML = list.map((site, index) => `
-        <article class="site-card" style="--glow:${site.glow || 'rgba(155,140,255,.15)'}; animation-delay:${Math.min(index * 65, 300)}ms">
+        <article class="site-card${site.ohHell ? " oh-hell-card" : ""}" style="--glow:${site.glow || 'rgba(155,140,255,.15)'}; animation-delay:${Math.min(index * 65, 300)}ms">
           <div class="card-top">
             <div class="site-logo" style="--logo-bg:${site.logoBg || 'rgba(155,140,255,.13)'};--logo-color:${site.logoColor || '#b7aaff'}">${escapeHTML(site.logo || site.name.charAt(0))}</div>
             <button class="save-btn ${saved.has(site.id) ? 'saved' : ''}" type="button" data-save="${escapeHTML(site.id)}" aria-label="${saved.has(site.id) ? 'Remove from' : 'Add to'} saved websites" title="${saved.has(site.id) ? 'Remove saved website' : 'Save website'}">${heartIcon}</button>
           </div>
+          ${site.ohHell ? '<div class="hell-badge">✦ OH HELL EXCLUSIVE</div>' : ""}
           <div class="card-title-row">
             <h3 class="card-title">${escapeHTML(site.name)}</h3>
             ${site.verified ? `<span class="verified">${checkIcon} KYZER PICK</span>` : ''}
@@ -371,8 +1065,9 @@
         </article>
       `).join("");
       $("#emptyState").style.display = list.length ? "none" : "block";
-      $("#resultCount").textContent = `SHOWING ${String(list.length).padStart(2,"0")} / ${String(websites.length).padStart(2,"0")}`;
-      $("#totalCount").textContent = String(websites.length).padStart(2,"0");
+      const currentTotal = state.category === "Secret" ? secretWebsites.length : websites.length;
+      $("#resultCount").textContent = `SHOWING ${String(list.length).padStart(2,"0")} / ${String(currentTotal).padStart(2,"0")}`;
+      $("#totalCount").textContent = String(state.category === "Secret" ? secretWebsites.length : websites.length).padStart(2,"0");
       $("#categoryCount").textContent = String(new Set(websites.map(site => site.category)).size).padStart(2,"0");
       $("#savedCount").textContent = saved.size;
       grid.querySelectorAll("[data-save]").forEach(button => button.addEventListener("click", () => toggleSaved(button.dataset.save)));
@@ -389,17 +1084,39 @@
       $("#searchInput").value = "";
       $("#sortSelect").value = "featured";
       $("#savedOnlyBtn").style.borderColor = "";
-      document.querySelectorAll(".category-btn").forEach(button => button.classList.toggle("active", button.dataset.category === "All"));
+      renderCategories();
       renderTags(); renderWebsites();
     }
 
     $("#searchInput").addEventListener("input", event => { state.query = event.target.value.trim(); renderWebsites(); });
     $("#sortSelect").addEventListener("change", event => { state.sort = event.target.value; renderWebsites(); });
-    $("#categoryFilters").querySelectorAll("[data-category]").forEach(button => button.addEventListener("click", () => {
-      state.category = button.dataset.category;
-      document.querySelectorAll(".category-btn").forEach(item => item.classList.toggle("active", item === button));
+    $("#secretForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const entered = $("#secretCodeInput").value;
+      if (SECRET_CODE_WEB === "YOUR_SECRET_CODE_HERE") {
+        $("#secretError").textContent = "Set your own code in SECRET_CODE_WEB inside this HTML file first.";
+        return;
+      }
+      if (entered !== SECRET_CODE_WEB) {
+        $("#secretError").textContent = "Incorrect access code. Try again.";
+        $("#secretCodeInput").select();
+        return;
+      }
+      secretUnlocked = true;
+      state.category = "Secret";
+      state.tag = "All";
+      closeSecretDialog();
+      renderCategories();
+      renderTags();
       renderWebsites();
-    }));
+    });
+    $("#closeSecretModal").addEventListener("click", closeSecretDialog);
+    $("#secretOverlay").addEventListener("click", event => {
+      if (event.target === $("#secretOverlay")) closeSecretDialog();
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && !$("#secretOverlay").hidden) closeSecretDialog();
+    });
     $("#savedOnlyBtn").addEventListener("click", () => {
       state.savedOnly = !state.savedOnly;
       $("#savedOnlyBtn").style.borderColor = state.savedOnly ? "rgba(255,142,174,.55)" : "";
@@ -409,6 +1126,7 @@
     $("#emptyResetBtn").addEventListener("click", resetFilters);
     $("#year").textContent = new Date().getFullYear();
 
+    renderCategories();
     renderTags();
     renderWebsites();
   </script>
