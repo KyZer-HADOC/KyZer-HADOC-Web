@@ -1,6 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- Paste this just before </body> on EVERY site you want in stats.html (same snippet everywhere) -->
+<script>
+(function () {
+  var API = 'https://script.google.com/macros/s/AKfycbyWG86T--o9TOikXbdv3IbmCID-KEzTJZ23Z0zRLFY6AiQSB96M_IlZ7WmcpMuqdj2Bug/exec';   // <- Apps Script "Web app" URL (ends with /exec)
+  var me = false; try { me = !!localStorage.getItem('kx_me'); } catch (e) {}   // run localStorage.kx_me=1 in the console to ignore your own visits
+  if (API.indexOf('PASTE') === 0 || me || navigator.webdriver) { return; }
+  var vid;
+  try { vid = localStorage.getItem('kx_vid'); if (!vid) { vid = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('kx_vid', vid); } } catch (e) { vid = 'anon'; }
+  function send(type, label) {
+    var ref = document.referrer;
+    try { if (new URL(ref).hostname === location.hostname) { ref = ''; } } catch (e) { ref = ''; }
+    var d = JSON.stringify({ type: type, label: label || '', ref: ref, vid: vid, site: location.hostname, page: location.pathname,
+      tz: (Intl.DateTimeFormat().resolvedOptions().timeZone || ''), ua: navigator.userAgent.slice(0, 180) });
+    try {
+      if (navigator.sendBeacon) { navigator.sendBeacon(API, new Blob([d], { type: 'text/plain' })); }
+      else { fetch(API, { method: 'POST', mode: 'no-cors', keepalive: true, body: d }); }
+    } catch (e) {}
+  }
+  send('view');
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a, button');
+    if (!a) { return; }
+    var h = a.querySelector('h3');
+    var l = a.getAttribute('data-track') || a.getAttribute('aria-label') || (h ? h.textContent : a.textContent) || a.getAttribute('title') || a.getAttribute('href') || '';
+    l = l.replace(/\s+/g, ' ').trim().slice(0, 40);
+    if (l) { send('click', l); }
+  });
+})();
+</script>
+
+    <!-- SEO Meta Tags for Download Page -->
+<meta name="robots" content="index, follow">
+<meta name="description" content="Download custom PC softwares, utility tools, and Android applications developed by KyZer_HADOC. Fast and safe downloads.">
+<meta name="keywords" content="KyZer HADOC downloads, download pc utilities, custom apk download, software tricks windows, free download automation tools">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KyZer_HADOC_Download_Page</title>
@@ -1072,11 +1108,11 @@ nav button.active {
 
 .home-hero{
     background: rgba(0,0,0,0.72);
-    border: 1px solid rgba(255,204,0,0.2);
+    border: 1px solid rgb(255, 0, 0);
     border-radius: 28px;
     padding: 50px 40px;
     max-width: 650px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(0.1px);
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
     position: relative;
     overflow: hidden;
@@ -1089,7 +1125,7 @@ nav button.active {
     left:-20%;
     width:140%;
     height:140%;
-    background: radial-gradient(circle, rgba(255,204,0,0.08), transparent 60%);
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.555), transparent 0%);
     animation: heroSpin 12s linear infinite;
     pointer-events:none;
 }
@@ -1385,6 +1421,14 @@ nav button.active {
     font-size: 0.85rem;
     font-weight: 600;
 }
+
+.kz-mode-toggle { display: flex; gap: 8px; flex-wrap: wrap; }
+.kz-mode-btn {
+    flex: 1; min-width: 130px; padding: 11px 12px; border-radius: 12px; cursor: pointer;
+    border: 1px solid rgba(0,255,34,.35); background: rgba(0,8,20,.7); color: #aaa;
+    font-size: 0.85rem; font-weight: 700; transition: .2s ease;
+}
+.kz-mode-btn.active { color: #000; background: var(--highlight); border-color: var(--highlight); }
 
 .kz-upload-submit {
     margin-top: 6px;
@@ -1983,14 +2027,14 @@ header > nav {
 .kz-side-menu {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 4px;
 }
 
 .kz-side-btn {
     width: 100%;
     border: 1px solid rgba(255,60,60,.3);
     border-radius: 11px;
-    padding: 10px 12px;
+    padding: 6px 12px;
     box-sizing: border-box;
     background: rgba(80,10,10,.35);
     color: #eee;
@@ -2175,7 +2219,19 @@ header > nav {
         transform: translateX(-120%);
         width: min(285px, calc(100vw - 20px));
         max-height: calc(100vh - 160px);
+        max-height: calc(100dvh - 160px);
+        height: auto;
+        box-sizing: border-box;
         border-radius: 20px;
+        /* Keep every menu item reachable on short mobile screens. */
+        overflow-y: auto;
+        overflow-x: hidden;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 60, 60, .7) rgba(0, 0, 0, .25);
+        padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+        touch-action: pan-y;
         transition: transform .35s cubic-bezier(.2,.8,.2,1);
         opacity: 1;
         visibility: visible;
@@ -2185,6 +2241,20 @@ header > nav {
     .kz-side-panel.kz-mobile-panel.kz-mobile-open {
         transform: translateX(0);
         pointer-events: auto;
+    }
+
+    .kz-side-panel.kz-mobile-panel::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .kz-side-panel.kz-mobile-panel::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, .25);
+        border-radius: 10px;
+    }
+
+    .kz-side-panel.kz-mobile-panel::-webkit-scrollbar-thumb {
+        background: rgba(255, 60, 60, .7);
+        border-radius: 10px;
     }
 }
 
@@ -2202,8 +2272,331 @@ header > nav {
         left: 9px;
     }
 }
+.copy-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .copy-btn:hover {
+            background-color: #218838;
+        }
 </style>
 
+
+<style>
+/* ===== chat extras + protected images ===== */
+.kz-chat-msg { position: relative; }
+.kz-chat-icon { font-size: 14px; }
+.kz-chat-msg-time { color: #777; font-size: 10.5px; margin-top: 3px; }
+.kz-chat-del {
+    background: none; border: 1px solid rgba(255,255,255,.18); color: #ddd; border-radius: 8px;
+    font-size: 12px; padding: 3px 7px; cursor: pointer; flex-shrink: 0; align-self: flex-start; opacity: .7;
+}
+.kz-chat-del:hover { border-color: #ff2222; opacity: 1; }
+.img-box.kz-protected { position: relative; }
+.kz-img-shield { position: absolute; inset: 0; background: transparent; }
+</style>
+
+<style>
+/* ===== AI Videos filter ===== */
+.ai-filter { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 18px; }
+.ai-chip {
+    padding: 8px 16px; border-radius: 20px; border: 1px solid rgba(255,255,255,.18);
+    background: rgba(255,255,255,.05); color: #ddd; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: .2s ease;
+}
+.ai-chip:hover { border-color: var(--highlight); color: #fff; }
+.ai-chip.active { background: var(--highlight); color: #000; border-color: var(--highlight); box-shadow: 0 0 12px rgba(251,255,0,.35); }
+@media (max-width: 600px) {
+    .ai-filter { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 6px; }
+    .ai-chip { flex: 0 0 auto; white-space: nowrap; }
+}
+
+button.mc-dl-btn { width: 100%; border: none; cursor: pointer; }
+button.mc-dl-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+/* ===== Images tab: canvas previews (no <img src> to pick up in DevTools) ===== */
+.img-box canvas { width: 100%; height: 100%; object-fit: cover; display: block; }
+.kz-img-loading { color: #888; font-size: .85rem; font-weight: 600; }
+.download-btn:disabled { opacity: .45; cursor: wait; }
+
+/* ===== Special uploads (doc-item look) ===== */
+#special-uploads-grid.doc-list-grid { margin-top: 20px; }
+.doc-type-badge {
+    display: inline-block;
+    background: rgba(0,230,255,.12);
+    border: 1px solid rgba(0,230,255,.35);
+    color: #66faff;
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .5px;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+}
+.doc-item .video-buttons { position: relative; z-index: 1; margin-top: 0; }
+.doc-item .doc-btn.sp-full { width: 100%; box-sizing: border-box; }
+#audioModal .modal-content { max-width: 440px; }
+#audioTitle { color: #000; margin: 6px 20px 16px; word-break: break-word; }
+#audioPlayer { width: 100%; }
+</style>
+<style>
+.kz-music-panel {
+    position: fixed; top: 54px; right: 12px; z-index: 3001;
+    width: 270px; max-width: calc(100vw - 24px); box-sizing: border-box;
+    padding: 14px 14px 16px; border-radius: 18px;
+    border: 1.5px solid rgba(255,30,30,.65);
+    background: radial-gradient(ellipse at 50% 0%, rgba(120,0,0,.35), transparent 60%), linear-gradient(160deg, rgba(14,3,3,.97), rgba(30,2,2,.95));
+    box-shadow: 0 0 28px rgba(255,0,0,.3), 0 10px 30px rgba(0,0,0,.6);
+    backdrop-filter: blur(14px);
+    opacity: 0; visibility: hidden; transform: translateY(-8px) scale(.97); transform-origin: top right;
+    transition: opacity .2s ease, transform .2s ease, visibility .2s;
+}
+.kz-music-panel.open { opacity: 1; visibility: visible; transform: none; }
+.kzm-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; color: #fff; font-size: 14px; }
+.kzm-x { width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.06); color: #ddd; cursor: pointer; font-size: 12px; }
+.kzm-x:hover { border-color: #ff2222; color: #ff4444; }
+.kzm-label { display: flex; justify-content: space-between; margin: 10px 0 4px; color: #ffcc00; font-size: 11.5px; font-weight: 800; letter-spacing: .3px; }
+.kz-music-panel select {
+    width: 100%; padding: 9px 10px; border-radius: 10px; border: 1px solid rgba(255,204,0,.4);
+    background: #000; color: #fff; font-size: 12.5px; margin: 0;
+}
+.kz-music-panel input[type=range] { width: 100%; padding: 0; margin: 6px 0 0; border: none; background: transparent; accent-color: #00ff22; cursor: pointer; }
+.kzm-row { display: flex; gap: 8px; margin-top: 12px; }
+.kzm-btn {
+    flex: 1; padding: 10px; border-radius: 10px; border: 1px solid #ff2222;
+    background: linear-gradient(120deg, #ff1a1a, #8a0000); color: #fff; font-weight: 800; font-size: 12.5px; cursor: pointer;
+}
+.kzm-btn:hover { box-shadow: 0 0 14px rgba(255,0,0,.5); }
+.kzm-ghost { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.25); }
+
+/* 2) CSS: .kzm-ghost { ... } eka passe danna */
+.kzm-check {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 12px; color: #ffcc00;
+    font-size: 12.5px; font-weight: 800; cursor: pointer;
+}
+.kz-music-panel .kzm-check input {
+    width: 18px; height: 18px; padding: 0; margin: 0;
+    border: none; accent-color: #00ff22; cursor: pointer;
+}
+
+.video-bg {
+    position: fixed;
+    right: 0;
+    bottom: 5;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1; /* මේකෙන් තමයි වීඩියෝ එක පිටුපසට යවන්නේ */
+    overflow: hidden;
+}
+
+.video-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* වීඩියෝ එක ඇදෙන්නේ නැතුව screen එකට fit වෙන්න */
+}
+
+/* කලින් කෝඩ් එකට පස්සේ මේ කොටස එකතු කරන්න */
+
+/* Screen size එක 768px හෝ ඊට අඩු mobile devices සඳහා පමණයි */
+@media (max-width: 768px) {
+    
+    /* වීඩියෝ එක තියෙන Container එක මුළු screen එකේම නොවී, 
+       උඩින් 30%ක් හිස් කරලා (top: 30%) පහළ කොටසේ විතරක් පෙන්වීම */
+    .video-bg {
+        top: 30%; /* ඔයාට ඕනේ ප්‍රමාණයට මේ percentage එක (30%, 40%) වෙනස් කරන්න පුළුවන් */
+        height: 70%;
+        min-height: auto;
+    }
+
+    /* වීඩියෝ එක කොටසක් විතරක් පෙනෙන නිසා මුළු page එකේම background එකට 
+       කළු හෝ අඳුරු gradient එකක් දීමෙන් look එක ලස්සන කරගත හැක */
+    body {
+        background: linear-gradient(to bottom, #111111 30%, #000000 100%);
+    }
+
+    /* Mobile වලදී text සහ button එක උඩම හිස් වුණු කොටසේ (Top 30% ඇතුළත) 
+       ලස්සනට පෙනෙන්න position එක සකස් කිරීම */
+    .content {
+        top: 15%; 
+        transform: translateY(0);
+        padding: 0 20px;
+    }
+}
+
+</style>
+<style id="kz-header-video-css">
+/* ===== HEADER VIDEO BACKGROUND ===== */
+header {
+    overflow: hidden;
+    background: #000;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+.hv-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: #000;
+}
+.hv-bg canvas { display: block; width: 100%; height: 100%; }
+
+/* text පේන්න තරමට dark කරන overlay (0.28 -> වැඩි කළොත් තව dark) */
+.hv-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+        rgba(0,0,0,.72) 0%,
+        rgba(0,0,0,.28) 40%,
+        rgba(0,0,0,.28) 70%,
+        rgba(0,0,0,.65) 100%);
+}
+
+header .channel-name,
+header .sub-count-text { text-shadow: 0 2px 8px rgba(0,0,0,.9); }
+
+/* hidden source players (canvas එකට frames දෙන්න) */
+.hv-sources {
+    position: fixed; left: 0; top: 0;
+    width: 2px; height: 2px;
+    opacity: .01; overflow: hidden;
+    pointer-events: none; z-index: -2;
+}
+.hv-sources video { width: 2px; height: 2px; }
+
+/* ===== HOT TAB — GLASS ===== */
+#downloads .card {
+    background: rgba(0,0,0,.38);          /* 0.25 = light glass · 0.55 = more dark */
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 10px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.1);
+}
+#downloads .download-item {
+    background: rgba(0,0,0,.35);
+    border-color: rgba(255,255,255,.12);
+}
+#downloads .img-box::after {
+    background: linear-gradient(to top, rgba(0,0,0,.65) 5%, transparent 100%);
+}
+</style>
+<style id="kz-glass-all-css">
+/* ===== ALL TABS — GLASS (Special, Images, AI, Minecraft, Chat, Upload) ===== */
+.card {
+    background: rgba(0,0,0,.38);          /* 0.25 = light glass · 0.55 = more dark */
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 10px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.1);
+}
+
+/* Minecraft tab: card එක ඇතුළේ තියෙන කළු boxes ටිකත් glass */
+.mc-wrapper {
+    background: rgba(0,0,0,.25);
+    border-color: rgba(255,255,255,.12);
+    box-shadow: inset 0 0 40px rgba(0,0,0,.35);
+}
+.mc-card,
+.mc-slot { background: rgba(20,20,22,.55); }
+.mc-slot:hover,
+.mc-slot.active { background: rgba(28,28,31,.7); }
+</style>
+<style id="kz-inner-dark-css">
+:root { --inner-dark: rgba(0,0,0,.42); }   /* 0.30 = light · 0.60 = more dark */
+
+/* Hot, Images, AI, Special (uploads), Minecraft, Chat, Upload — ඇතුළේ boxes */
+.download-item,
+#downloads .download-item,
+.doc-item,
+.news-item,
+.mc-card,
+.mc-slot,
+.kz-chat-messages,
+.kz-file-drop {
+    background: var(--inner-dark);
+}
+
+/* My Uploads list එකේ items (inline style නිසා !important ඕන) */
+#my-uploads-list > div {
+    background: var(--inner-dark) !important;
+}
+</style>
+
+<style id="kz-lite-chat-css">
+/* ===== LITE MODE (slow internet) ===== */
+header.hv-lite { background: linear-gradient(120deg,#000814,#0b0b2e 50%,#1a0000); }
+header.hv-lite .hv-bg canvas { display: none; }
+.video-bg { background: #000 center / cover no-repeat url("images/KHITACHI02.jpg"); }
+.video-bg video { opacity: 0; transition: opacity .8s ease; }
+.video-bg video.kz-on { opacity: 1; }
+
+/* ===== CHAT: links + attachments ===== */
+.kz-chat-msg-text a { color: #4dd0ff; text-decoration: underline; word-break: break-all; }
+.kz-chat-msg-text a:hover { color: var(--highlight); }
+.kz-chat-msg .kz-chat-att-img {
+    display: block; width: auto; height: auto; max-width: min(260px, 100%); max-height: 240px;
+    border-radius: 10px; margin-top: 8px; object-fit: cover; cursor: zoom-in;
+    border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.05);
+}
+.kz-chat-att-file {
+    display: flex; align-items: center; gap: 10px; margin-top: 8px; padding: 10px 12px;
+    max-width: 320px; border-radius: 10px; text-decoration: none; color: #fff;
+    background: rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.16);
+}
+.kz-chat-att-file:hover { border-color: var(--highlight); }
+.kz-chat-att-ico { font-size: 22px; }
+.kz-chat-att-meta { min-width: 0; }
+.kz-chat-att-name { font-size: 13px; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kz-chat-att-size { font-size: 11px; color: #999; }
+.kz-chat-input-row .kz-chat-attach { background: rgba(255,255,255,.1); color: #fff; font-size: 18px; font-weight: 400; border: 1px solid rgba(0,255,34,.35); }
+.kz-chat-input-row button:disabled { opacity: .5; cursor: wait; }
+.kz-chat-preview {
+    display: none; align-items: center; gap: 10px; margin-top: 12px; padding: 8px 12px;
+    border-radius: 12px; background: rgba(0,255,34,.07); border: 1px dashed rgba(0,255,34,.4);
+    color: #ddd; font-size: 13px;
+}
+.kz-chat-preview .kz-prev-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kz-chat-preview button { background: none; border: 1px solid rgba(255,255,255,.25); color: #ddd; border-radius: 8px; padding: 2px 8px; cursor: pointer; }
+.kz-chat-messages.kz-drag { outline: 2px dashed var(--highlight); outline-offset: -6px; }
+
+/* ===== NARUTO STYLE BUTTONS ===== */
+.kz-ninja-btn {
+    position: fixed; right: 12px; z-index: 3000;
+    width: 38px; height: 38px; padding: 0; box-sizing: border-box;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; cursor: pointer; color: #ff8a00; font-size: 18px; line-height: 1;
+    background: radial-gradient(circle at 30% 25%, #2a2a2a, #0a0a0a);
+    border: 2px solid #ff8a00;
+    box-shadow: 0 0 0 2px #000, 0 3px 10px rgba(0,0,0,.7);
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+.kz-ninja-btn:hover { transform: scale(1.08); }
+.kz-ninja-btn:active { transform: scale(.94); }
+.kz-ninja-btn.kz-active {
+    color: #111; border-color: #fff3d6;
+    background: linear-gradient(135deg, #ffb347, #ff6a00);
+    box-shadow: 0 0 0 2px #000, 0 0 16px 3px rgba(255,120,0,.75);
+}
+.kz-ninja-lbl {
+    position: absolute; top: 100%; margin-top: 3px; left: 50%; transform: translateX(-50%);
+    font: 800 8px/1 'Segoe UI', Tahoma, sans-serif; letter-spacing: .08em; color: #ffb347;
+    text-shadow: 0 1px 3px #000, 0 0 6px #000; pointer-events: none;
+}
+.kz-ninja-btn.kz-active .kz-shuriken { animation: kzSpin 1.4s linear infinite; }
+@keyframes kzSpin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .kz-ninja-btn.kz-active .kz-shuriken { animation: none; } }
+</style>
 </head>
 <body>
 
@@ -2247,7 +2640,7 @@ header > nav {
                 <span class="kz-side-icon">💬</span> Chat <span class="kz-side-arrow">›</span>
             </button>
             <button class="kz-side-btn" onclick="kzGo('about', this)">
-                <span class="kz-side-icon">⬆️</span> Upload <span class="kz-side-arrow">›</span>
+                <span class="kz-side-icon">📤</span> Upload <span class="kz-side-arrow">›</span>
             </button>
             <button class="kz-side-btn" type="button" onclick="kzOpenAdminPage()">
                 <span class="kz-side-icon">🛠️</span> Admin Page <span class="kz-side-arrow" id="kzAdminTabArrow">🔒</span>
@@ -2295,28 +2688,95 @@ header > nav {
     <audio id="bg-music" loop>
       <source src="music/MANASHA (OVER-SLOWED) - ASHREVEAL  ASHISH SWARGIARY_1762602800795.mp3" type="audio/mpeg">
     </audio>
-        <button id="music-toggle" class="music-toggle" type="button" aria-label="Pause background music" title="Pause background music" onclick="toggleBackgroundMusic(event)">🔊</button>
+<button id="music-toggle" class="music-toggle" type="button" aria-label="Music settings" aria-expanded="false" onclick="kzToggleMusicPanel(event)">🔊</button>
 
-<div class="bg-container">
-    <img src="images/KHITACHI02.jpg" alt="Background" class="bg-image">
+<!-- Naruto style media buttons -->
+<button id="kzBtnHeader" class="kz-ninja-btn" type="button" aria-pressed="false" aria-label="Header videos" title="Header videos on/off"><span class="kz-ninja-ico">🍥</span><span class="kz-ninja-lbl">HEADER</span></button>
+<button id="kzBtnBg" class="kz-ninja-btn" type="button" aria-pressed="false" aria-label="Background video" title="Background video on/off"><svg class="kz-ninja-ico kz-shuriken" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 1l2.6 7.4L22 11l-7.4 2.6L12 23l-2.6-9.4L2 11l7.4-2.6z"/><circle cx="12" cy="12" r="2.3" fill="#111"/></svg><span class="kz-ninja-lbl">BG</span></button>
+
+<div id="kzMusicPanel" class="kz-music-panel" role="dialog" aria-label="Music settings">
+    <div class="kzm-head">
+        <b>🎵 Music</b>
+        <button type="button" class="kzm-x" aria-label="Close" onclick="kzToggleMusicPanel(event)">✕</button>
+    </div>
+
+    <label class="kzm-label" for="kzmTrack">Song</label>
+    <select id="kzmTrack"></select>
+
+    <div class="kzm-row">
+        <button type="button" id="kzmPlay" class="kzm-btn">⏸ Stop</button>
+        <button type="button" id="kzmNext" class="kzm-btn kzm-ghost">⏭ Next</button>
+    </div>
+
+    <label class="kzm-label" for="kzmVol"><span>Volume</span><span id="kzmVolText">60%</span></label>
+    <input type="range" id="kzmVol" min="0" max="100" value="60">
+
+    <!-- 1) HTML: kzMusicPanel ekata, volume range eka passe danna (<input id="kzmVol"...> ekata passe) -->
+    <label class="kzm-check" for="kzmBg">
+      <input type="checkbox" id="kzmBg">
+      <span>🎧 Background play</span>
+    </label>
+<br>
+    <span style=color:#00e5ff>තව මොකක් හරි Song ඕන නම් Chat Tab එකට දාන්න.</span>
 </div>
 
-<header>
+<!--<div class="bg-container">
+    meka danata wadak nathoo <img src="images/KHITACHI02.jpg" alt="Background" class="bg-image">
+</div> -->
+
+<div class="video-bg">
+    <!-- bg image (CSS) මුලින්ම පෙනෙනවා; video එක load වෙන්නේ internet හොඳ නම් විතරයි -->
+    <video id="kzBgVideo" muted loop playsinline preload="none" disablepictureinpicture data-src="media/itachi live wall.mp4"></video>
+</div>
+
+<script>
+// ===== bg video controller (button එකෙන් විතරයි start වෙන්නේ) =====
+(function () {
+    var c = navigator.connection || navigator.mozConnection || navigator.webkitConnection || {};
+    var slow = !!(c.saveData || /^(slow-2g|2g|3g)$/.test(c.effectiveType || '') || (c.downlink && c.downlink < 1.5));
+    var weak = !!((navigator.deviceMemory && navigator.deviceMemory <= 2) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2));
+    window.KZ_NET = { lite: slow, weak: weak };
+
+    var v = document.getElementById('kzBgVideo'), running = false;
+    function on() {
+        if (!v || running) return;
+        running = true;
+        v.src = v.getAttribute('data-src');
+        v.addEventListener('playing', function () { if (running) v.classList.add('kz-on'); }, { once: true });
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+        window.dispatchEvent(new Event('kzmedia'));
+    }
+    function off() {
+        if (!v || !running) return;
+        running = false;
+        v.classList.remove('kz-on');
+        v.pause(); v.removeAttribute('src'); v.load();
+        window.dispatchEvent(new Event('kzmedia'));
+    }
+    document.addEventListener('visibilitychange', function () {
+        if (!running || !v) return;
+        if (document.hidden) v.pause(); else { var q = v.play(); if (q && q.catch) q.catch(function () {}); }
+    });
+    window.kzBg = { on: on, off: off, isOn: function () { return running; } };
+})();
+</script>
+
+<header class="hv-lite">
+    <div class="hv-bg" aria-hidden="true"><canvas id="hvCanvas"></canvas></div>
     <div class="logo-area">
         <img src="images/logo32.png" alt="Logo">
         <div class="channel-info">
-            <span class="channel-name">KyZer_HADOC | Download_Area  </span>
+            <span class="channel-name"><b>KyZer_HADOC | Download_Area  </b></span>
             <div class="sub-container">
                 <div class="live-dot"></div>
-                <span class="sub-count-text"><span id="Visiter-count">Loading...</span> Visiters</span>
+                <span class="sub-count-text"><span id="Visiter-count">Ohh </span>Hell Noh Man</span>
             </div>
         </div>
     </div>
-
     <div class="kz-header-auth" id="kzHeaderAuth">
         <button class="kz-header-login-btn" type="button" onclick="kzOpenAuth('login')">🔐 <span class="kz-login-text">Login</span></button>
     </div>
-
+  
     <nav>
         <button class="nav-btn active" onclick="showSection('home', this)">Home</button>
         <button class="nav-btn" onclick="showSection('downloads', this)">Hot</button>
@@ -2325,6 +2785,7 @@ header > nav {
         <button class="nav-btn" onclick="showSection('request', this)">AI</button>
         <button class="nav-btn" onclick="showSection('contact', this)">Minecraft</button>
         <button class="nav-btn" onclick="showSection('about', this)">Upload</button>
+        <button class="nav-btn" onclick="showSection('Details', this)">About</button>
     </nav>
 </header>
 
@@ -2333,7 +2794,7 @@ header > nav {
         <div class="home-hero">
             <span class="hero-badge">⚡ Free • Fast • Unlimited</span>
             <h1 class="hero-title">Welcome To <span class="hero-highlight">Download Area</span></h1>
-            <p class="hero-subtitle">Movies · Songs · Images · AI Videos · Hot — All In One Place</p>
+            <p class="hero-subtitle">Ane · Manda · bn · mata · Track</p>
             <a href="Index.html" target="_blank" class="visit-btn"><b>Go To Main Web</b></a>
 
             <div class="hero-stats">
@@ -2346,7 +2807,7 @@ header > nav {
                     <span class="stat-label">Videos</span>
                 </div>
                 <div class="stat-box">
-                    <span class="stat-num">MINECRAFT</span>
+                    <span class="stat-num">Hot</span>
                     <span class="stat-label">or Other Things</span>
                 </div>
             </div>
@@ -2365,76 +2826,51 @@ header > nav {
                     <span>📄 Download Dis</span>
                 </a>
             </div>
-                   
-            <div class="doc-item">
-                <div class="doc-icon">🎬</div>
-                <h3>Movie List</h3>
-                <p class="doc-desc">All available movies in one document</p>
-                <a href="Doc/games.docx" target="_blank" class="doc-btn">
-                    <span>📄 Download List</span>
-                </a>
-            </div>
-
-            <div class="doc-item">
-                <div class="doc-icon">🎮</div>
-                <h3>Game List</h3>
-                <p class="doc-desc">All available games in one document</p>
-                <a href="Doc/games.docx" target="_blank" class="doc-btn">
-                    <span>📄 Download List</span>
-                </a>
-            </div>
 
             <div class="doc-item kyzer-yoube-card">
                 <a href="KyZerYouBe.html" class="kyzer-yoube-link" aria-label="Open KyZer YouBe details">
                     <img src="images/KyZer YouBe.png" alt="KyZer YouBe" class="kyzer-yoube-image">
                 </a>
                 <h3>KyZer YouBe</h3>
-                <p class="doc-desc">You Tube Video Downloader</p>
+                <p class="doc-desc">YouTube Video Downloader</p>
                 <a href="KyZerYouBe.html" class="doc-btn">Click to learn more</a>
             </div>
+            <div class="doc-item">
+                <a href="kadaya.html" class="kyzer-yoube-link" aria-label="Open KyZer YouBe details">
+                    <img src="images/kadaya 2d.jpg" alt="Kadaya" class="kyzer-yoube-image">
+                </a>
+                <h3>Kadaya | The Age OF ShaDows</h3>
+                <p class="doc-desc">The Game Was Created By KyZer_HADOC</p>
+                <a href="Kadaya.html" target="_blank" class="doc-btn">
+                    <span>Click to learn more</span>
+                </a>
+            </div>
         </div>
-        <div id="special-uploads-grid" class="downloads-grid" style="margin-top: 20px;"></div>
+        <div id="special-uploads-grid" class="doc-list-grid"></div>
         <p style="text-align: center; margin-top: 20px; color: var(--highlight);">The Special Things in Here</p>
     </div>
 </div>
     <div id="news" class="content-section">
         <div class="card">
-            <h2>Images For Your DP or Cover Photo</h2>
-            <div class="news-item">
-                 <span style="color:rgb(30, 255, 0)"><h4><b>PC:-</b> <i>Right Click On The Picture And Select Save As</i><br><b>Mobile:-</b> <i>Long Press On Picture And Select Download</i></h4></span> 
-                 <div class="downloads-grid">
-                    <div class="download-item">
-                      <div class="img-box"><img src="images/Itachi01.png" alt="The Croods"></div>
-                    </div>
-                    <div class="download-item">
-                      <div class="img-box"><img src="images/ITACHI02.jpg" alt="The Croods"></div>
-                    </div>
-                    <div class="download-item">
-                      <div class="img-box"><img src="images/ITACHI03.jpg" alt="The Croods"></div>
-                    </div>
-                    <div class="download-item">
-                      <div class="img-box"><img src="images/ITACHI04.png" alt="The Croods"></div>
-                    </div>
-                    <div class="download-item">
-                      <div class="img-box"><img src="images/ITACHI05.jpg" alt="The Croods"></div>
-                    </div>
-                    <div class="download-item">
-                      <div class="img-box"><img src="images/ITACHI06.JPG" alt="The Croods"></div>
-                    </div>
-                    <div class="download-item">
-                      <div class="img-box"><img src="images/KH01.jpg" alt="The Croods"></div>
-                    </div>
-                    <div class="download-item">
-                      <div class="img-box"><img src="images/KH03.png" alt="The Croods"></div>
-                    </div>
-                    <div class="download-item">
-                      <div class="img-box"><img src="images/KHITACHI01.jpg" alt="The Croods"></div>
-                    </div>
-                    <div class="download-item">
-                      <div class="img-box"><img src="images/KHITACHI02.jpg" alt="The Croods"></div>
-                    </div>
-                 </div>
-               
+            <h2>Oh Hell Noh Badu</h2>
+
+            <div id="kzImagesLoading" style="text-align:center; padding:40px 10px; color:var(--highlight); font-weight:bold;">⏳ Checking access…</div>
+            <div id="kzImagesLock" style="display:none; text-align:center; padding:26px 10px;">
+                <div style="font-size:3rem;">🔒</div>
+                <p style="color:var(--highlight); font-weight:bold; margin:8px 0;">මේ Images tab එකට <b>VIP rank</b> එකක් ඕන.</p>
+                <p style="color:#aaa; font-size:0.85rem; margin:0 0 6px;">ඒත් නැත්නම් — secret code එක දන්නවා නම් ඒක දාන්න</p>
+                <form id="kzImagesCodeForm" onsubmit="return kzSubmitImagesCode(event)" autocomplete="off" style="max-width:320px; margin:12px auto 0;">
+                    <input type="password" id="kzImagesCode" name="kz-img-code" autocomplete="new-password" placeholder="Enter secret code" style="text-align:center; margin:0 0 10px;">
+                    <button type="submit" class="submit-btn" id="kzImagesCodeBtn">🔓 Unlock</button>
+                </form>
+                <p id="kzImagesMsg" style="min-height:18px; margin-top:12px; font-weight:bold;"></p>
+            </div>
+
+            <div id="kzImagesContent" style="display:none;">
+                <div class="news-item">
+                    <span style="color:rgb(30, 255, 0)"><h4>Tap <b>⬇ Download</b> on the picture you want.</h4></span>
+                    <div class="downloads-grid" id="kzImagesGrid"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -2494,7 +2930,7 @@ header > nav {
 
                      <div style="display:flex; gap:0.5px;">
                      <a href="" target="_blank" class="download-btn" style="flex:1;">Watch or DL</a>
-                     <button class="download-btn" style="flex:1; background: linear-gradient(135deg,#00e5ff,#0077ff);" onclick="copyLinkToClipboard('', this)">📋 Copy Link</button>
+                     <button class="download-btn" style="flex:1; background: linear-gradient(135deg,#00e5ff,#0077ff);" copyLinkToClipboard('', this)">📋 Copy Link</button>
                      </div>
                 </div>
                 
@@ -2506,9 +2942,21 @@ header > nav {
     <div id="request" class="content-section">
         <div class="card">
             <h2>AI Videos</h2>
+
+            <div class="ai-filter" id="aiFilter" role="group" aria-label="Filter AI videos">
+                <button type="button" class="ai-chip active" data-filter="all">All</button>
+                <button type="button" class="ai-chip" data-filter="ushan">Ushan</button>
+                <button type="button" class="ai-chip" data-filter="sadaru">Sadaru</button>
+                <button type="button" class="ai-chip" data-filter="chamuditha">Chamuditha</button>
+                <button type="button" class="ai-chip" data-filter="widumith">Widumith</button>
+                <button type="button" class="ai-chip" data-filter="senhas">Senhas</button>
+                <button type="button" class="ai-chip" data-filter="other">Other</button>
+            </div>
+            <p id="aiFilterEmpty" style="display:none; color:#888; text-align:center; margin:18px 0;">මේ filter එකට videos නෑ.</p>
+
             <div class="downloads-grid">
 
-                <div class="download-item">
+                <div class="download-item" data-person="ushan">
                     <div class="img-box">
                         <img src="images/mano kirihatti.png" alt="AI Video">
                     </div>
@@ -2521,7 +2969,7 @@ header > nav {
                     </div>
                 </div>
 
-                <div class="download-item">
+                <div class="download-item" data-person="other">
                     <div class="img-box">
                         <img src="images/boys planing.png" alt="AI Video">
                     </div>
@@ -2533,7 +2981,7 @@ header > nav {
                         <a href="media/Boys_planning_something_funny_te…_202606152013.mp4" download class="download-btn-ai">⬇ Download</a>
                     </div>
                 </div>
-                 <div class="download-item">
+                 <div class="download-item" data-person="chamuditha">
                     <div class="img-box">
                         <img src="images/monitor chamuditha.png" alt="AI Video">
                     </div>
@@ -2565,13 +3013,10 @@ header > nav {
                         <span class="mc-icon">🎨</span> Resource Packs <span class="mc-count">04</span>
                     </div>
                     <div class="mc-slot" data-cat="mods" onclick="showMcCategory('mods', this)">
-                        <span class="mc-icon">⚙️</span> Mods <span class="mc-count">04</span>
-                    </div>
-                    <div class="mc-slot" data-cat="mod-packs" onclick="showMcCategory('mod-packs', this)">
-                        <span class="mc-icon">📦</span> Mod Packs <span class="mc-count">04</span>
+                        <span class="mc-icon">⚙️</span> Mods <span class="mc-count">02</span>
                     </div>
                     <div class="mc-slot" data-cat="worlds" onclick="showMcCategory('worlds', this)">
-                        <span class="mc-icon">🗺️</span> Worlds <span class="mc-count">04</span>
+                        <span class="mc-icon">🗺️</span> Servers <span class="mc-count">04</span>
                     </div>
                 </div>
 
@@ -2581,10 +3026,24 @@ header > nav {
                         <div class="mc-panel-heading">RESOURCE PACKS</div>
                         <div class="mc-grid">
                             <div class="mc-card">
-                                <div class="mc-card-thumb"><img src="images/example-resource.png" alt="Resource Pack"></div>
-                                <h4>Example Pack</h4>
-                                <p>64x · By YourName</p>
-                                <a href="#" class="mc-dl-btn">Download</a>
+                                <h4><span style=color:cyan>X-Ray</span></h4>
+                                <p>1.21.8+ · KyZer_HADOC</p>
+                                <a href="mc/Xray_Ultimate_26.X_v5.4.0.zip" class="mc-dl-btn">Download</a>
+                            </div>
+                            <div class="mc-card">
+                                <h4><span style=color:cyan>Music Piyamanne</span></h4>
+                                <p>1.21.8+ · By Ash Fox        | Yellow Music Disk</p>
+                                <a href="mc/AshFox_Music_Edition.zip" class="mc-dl-btn">Download</a>
+                            </div>
+                            <div class="mc-card">
+                                <h4><span style=color:cyan>Music Dai Dai</span></h4>
+                                <p>1.21.8+ · By Sanuja        | Yellow Music Disk     | FiFa</p>
+                                <a href="mc/DaiDaiPack.zip" class="mc-dl-btn">Download</a>
+                            </div>
+                            <div class="mc-card">
+                                <h4><span style=color:cyan>Night Version</span></h4>
+                                <p>1.21.8+ · By KyZer</p>
+                                <a href="mc/Prabhat's%20Full%20Bright%201.21.9-1.21.11.zip" class="mc-dl-btn">Download</a>
                             </div>
                         </div>
                     </div>
@@ -2593,38 +3052,54 @@ header > nav {
                         <div class="mc-panel-heading">MODS</div>
                         <div class="mc-grid">
                             <div class="mc-card">
-                                <div class="mc-card-thumb"><img src="images/example-mod.png" alt="Mod"></div>
-                                <h4>Example Mod</h4>
-                                <p>v1.20 · By YourName</p>
-                                <a href="#" class="mc-dl-btn">Download</a>
+                                <h4><span style=color:red>Spawner Flesh</span></h4>
+                                <p>Fabric v1.21.11 · By KyZer</p><p>Spawner Mine karala place karala mob drops dammama uwa spawn wenawa</p>
+                                <a href="mc/spawnerflesh-1.0.0.jar" class="mc-dl-btn">Download</a>
                             </div>
-                        </div>
-                    </div>
-
-                    <div id="mod-packs" class="mc-panel">
-                        <div class="mc-panel-heading">MOD PACKS</div>
-                        <div class="mc-grid">
                             <div class="mc-card">
-                                <div class="mc-card-thumb"><img src="images/example-modpack.png" alt="Mod Pack"></div>
-                                <h4>Example Mod Pack</h4>
-                                <p>12 mods bundled</p>
-                                <a href="#" class="mc-dl-btn">Download</a>
+                                <h4><span style=color:red>Nine Tailed Fox | Kurama</span></h4>
+                                <p>Fabric v1.21.11 · By KyZer</p><p>Netheright Blocks 4, 3 Mob Heads</p><p>Reward is extra 10 hearts</p>
+                                <a href="mc/kurama-nine-tailed-fox-1.0.0.jar" class="mc-dl-btn">Download</a>
                             </div>
                         </div>
                     </div>
+                    <!-- Replace the whole <div id="worlds" class="mc-panel"> ... </div> block with this -->
+<div id="worlds" class="mc-panel">
+    <div class="mc-panel-heading">WORLDS</div>
+    <div class="mc-grid">
 
-                    <div id="worlds" class="mc-panel">
-                        <div class="mc-panel-heading">WORLDS</div>
-                        <div class="mc-grid">
-                            <div class="mc-card">
-                                <div class="mc-card-thumb"><img src="images/example-world.png" alt="World"></div>
-                                <h4>Example World</h4>
-                                <p>Survival · 240MB</p>
-                                <a href="#" class="mc-dl-btn">Download</a>
-                            </div>
-                        </div>
-                    </div>
+        <div class="mc-card">
+            <h4><span style="color:yellow">CWR</span></h4>
+            <p>Both Editions<br><strong>mc.cwresports.lk</strong></p>
+            <button type="button" class="mc-dl-btn" data-copy="mc.cwresports.lk" onclick="kzCopy(this)">Copy Ip</button>
+        </div>
 
+        <div class="mc-card">
+            <h4><span style="color:yellow">Moon SMP</span></h4>
+            <p>java <br> moonsmpmc.mcsh.io</p>
+            <button type="button" class="mc-dl-btn" data-copy="moonsmpmc.mcsh.io" onclick="kzCopy(this)">Copy Ip</button>
+        </div>
+
+        <div class="mc-card">
+            <h4><span style="color:yellow">CatZila SMP</span></h4>
+            <p>Both Editions <br>Releasing Soon</p>
+            <!-- when the IP is ready: add data-copy="IP_HERE" onclick="kzCopy(this)" and remove "disabled" -->
+            <button type="button" class="mc-dl-btn" disabled>Coming Soon</button>
+        </div>
+
+        <div class="mc-card">
+            <h4><span style="color:yellow">Hungry Birds</span></h4>
+            <p>???<br> mc.hungrybirds.org</p>
+            <button type="button" class="mc-dl-btn" data-copy="mc.hungrybirds.org" onclick="kzCopy(this)">Copy Ip</button>
+        </div>
+        <div class="mc-card">
+            <h4><span style="color:yellow">Bulto SMP</span></h4>
+            <p>Both Editions<br>Bedrock - sgd-b1.aurex.lk | 4021 </p>
+            <button type="button" class="mc-dl-btn" data-copy="sgd-b1.aurex.lk:4021" onclick="kzCopy(this)">Copy Ip</button>
+        </div>
+
+    </div>
+</div>
                 </div>
             </div>
         </div>
@@ -2646,12 +3121,15 @@ header > nav {
 
     <div id="chat" class="content-section">
         <div class="card kz-chat-card">
-            <h2>💬 Live Chat</h2>
-            <p style="color:#999; font-size:0.8rem; margin-top:-8px; margin-bottom:16px;">Group chat එකක් වගේ — කලින් messages save වෙන්නෙ නෑ, දැන් online ඉන්න අය විතරක් දකිනවා.</p>
+            <h2>💬 Chat</h2>
+            <p style="color:#999; font-size:0.8rem; margin-top:-8px; margin-bottom:16px;">Group chat</p>
             <div id="kzChatMessages" class="kz-chat-messages"><p class="empty" style="color:#666; font-size:0.85rem;">Loading chat…</p></div>
+            <div class="kz-chat-preview" id="kzChatPreview"></div>
             <div class="kz-chat-input-row" id="kzChatInputRow" style="display:none;">
-                <input type="text" id="kzChatInput" placeholder="Message එකක් type කරන්න..." maxlength="500">
-                <button type="button" onclick="kzSendChat()">➤</button>
+                <input type="file" id="kzChatFile" hidden>
+                <button type="button" class="kz-chat-attach" id="kzChatAttach" title="File / photo එකක් දාන්න" aria-label="Attach file">📎</button>
+                <input type="text" id="kzChatInput" placeholder="Message එකක් type කරන්න... (links click කරන්න පුළුවන්)" maxlength="500">
+                <button type="button" id="kzChatSend" onclick="kzSendChat()">➤</button>
             </div>
             <div id="kzChatLoginPrompt" style="text-align:center; padding:16px;">
                 <button class="submit-btn" type="button" onclick="kzOpenAuth('login')">🔐 Chat කරන්න Login වෙන්න</button>
@@ -2703,30 +3181,67 @@ header > nav {
                         </div>
                     </div>
 
+                    <div id="upload-person-group" class="kz-upload-field kz-conditional" style="display:none;">
+                        <label>👤 Person (AI Videos filter)</label>
+                        <div class="kz-select-wrap">
+                            <select id="upload-person">
+                                <option value="">-- Select Person --</option>
+                                <option value="ushan">Ushan</option>
+                                <option value="sadaru">Sadaru</option>
+                                <option value="chamuditha">Chamuditha</option>
+                                <option value="widumith">Widumith</option>
+                                <option value="senhas">Senhas</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <span class="kz-select-arrow">▾</span>
+                        </div>
+                    </div>
+
                     <div id="upload-description-group" class="kz-upload-field kz-conditional" style="display:none;">
                         <label>🖊️ Description</label>
                         <textarea id="upload-description" placeholder="Short description (e.g. what this pack/mod does)"></textarea>
                     </div>
 
                     <div id="upload-image-group" class="kz-upload-field kz-conditional" style="display:none;">
-                        <label>🖼️ Cover Image</label>
+                        <label>🖼️ Cover Image <span style="color:#888;font-weight:400;">(optional)</span></label>
                         <div class="kz-file-drop">
                             <input type="file" id="upload-image" accept="image/*">
                             <span class="kz-file-drop-text">Tap to choose a cover image</span>
                         </div>
                     </div>
 
-                    <div class="kz-upload-field">
+                    <div class="kz-upload-field" id="upload-mode-group">
+                        <label>📦 Upload Method</label>
+                        <div class="kz-mode-toggle">
+                            <button type="button" id="mode-file-btn" class="kz-mode-btn active" onclick="kzSetUploadMode('file')">📁 File (max 200 MB)</button>
+                            <button type="button" id="mode-link-btn" class="kz-mode-btn" onclick="kzSetUploadMode('link')">🔗 Link</button>
+                        </div>
+                    </div>
+
+                    <div class="kz-upload-field" id="upload-file-group">
                         <label>📁 Choose File</label>
                         <div class="kz-file-drop">
-                            <input type="file" id="upload-file" required>
+                            <input type="file" id="upload-file">
                             <span class="kz-file-drop-text">Tap to choose your file</span>
                         </div>
+                        <small style="color:#888;display:block;margin-top:6px;">200 MB ට වඩා ලොකු නම් උඩින් "Link" select කරලා Google Drive / Mega / Mediafire link එකක් දාන්න.</small>
+                    </div>
+
+                    <div class="kz-upload-field" id="upload-link-group" style="display:none;">
+                        <label>🔗 File Link</label>
+                        <input type="text" id="upload-link" placeholder="https://drive.google.com/... , https://mega.nz/..." inputmode="url" autocomplete="off">
+                        <small style="color:#888;display:block;margin-top:6px;">Link එක "anyone with the link" විදියට public කරලා දාන්න.</small>
                     </div>
 
                     <button type="submit" class="submit-btn kz-upload-submit">🚀 Upload for Review</button>
                 </form>
 
+                <div id="upload-progress" style="display:none; margin-top:15px;">
+                    <div style="height:14px; background:rgba(255,255,255,.1); border-radius:8px; overflow:hidden;">
+                        <div id="upload-progress-bar" style="height:100%; width:0%; background:linear-gradient(90deg,#00ff22,#fbff00); transition:width .15s linear;"></div>
+                    </div>
+                    <div id="upload-progress-text" style="margin-top:6px; font-size:.85rem; color:#ddd;"></div>
+                </div>
                 <p id="upload-status" style="margin-top:15px; font-weight:bold;"></p>
 
                 <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
@@ -2780,6 +3295,46 @@ header > nav {
 
 </div>
 
+<div id="audioModal" class="modal" onclick="if(event.target===this)closeAudio()">
+    <div class="modal-content">
+        <span class="close-icon" onclick="closeAudio()">&times;</span>
+        <h3 id="audioTitle">🎵</h3>
+        <audio id="audioPlayer" controls controlsList="nodownload"></audio>
+    </div>
+</div>
+
+<!-- add before </body> -->
+<script>
+function kzCopy(btn) {
+    var text = btn.getAttribute('data-copy');
+    if (!text) return;
+
+    function done() {
+        var original = btn.getAttribute('data-label') || btn.textContent;
+        btn.setAttribute('data-label', original);
+        btn.textContent = '✅ Copied!';
+        setTimeout(function () { btn.textContent = original; }, 1500);
+    }
+
+    function fallback() {
+        var t = document.createElement('textarea');
+        t.value = text;
+        t.style.position = 'fixed';
+        t.style.opacity = '0';
+        document.body.appendChild(t);
+        t.select();
+        try { document.execCommand('copy'); done(); }
+        catch (e) { alert('Copy failed — copy this manually: ' + text); }
+        t.remove();
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done).catch(fallback);
+    } else {
+        fallback();
+    }
+}
+</script>
 <script>
     // Search Filtering Function
     function filterMovies() {
@@ -2805,11 +3360,6 @@ header > nav {
     let currentLinks = { "720p": "", "1080p": "" }; 
 
     function showSection(id, btn) {
-    if (id === 'news' && !['vip', 'admin', 'owner'].includes(window.kzUserRole)) {
-        alert('🔒 Images tab එකට යන්න VIP rank එකක් ඕන. Owner ගෙන් VIP rank එක ඉල්ලන්න.');
-        return;
-    }
-
     const sections = document.querySelectorAll('.content-section');
 
     sections.forEach(s => {
@@ -2916,14 +3466,18 @@ function copyLinkToClipboard(url, btn) {
 
     async function checkDocPassword(event) {
         event.preventDefault();
-        const userPassword = prompt("Enter Password to Download:");
-        if (userPassword === null) return;
+        let userPassword = '';
+        if (!window.kzIsVipPlus()) {
+            userPassword = prompt("Enter Password to Download:");
+            if (userPassword === null) return;
+        }
 
         try {
+            const token = await window.kzGetToken();
             const res = await fetch('/api/verify-password', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password: userPassword })
+                body: JSON.stringify({ password: userPassword, token })
             });
             const data = await res.json();
 
@@ -2941,14 +3495,18 @@ function copyLinkToClipboard(url, btn) {
         event.preventDefault();
         trailerNum = trailerNum || 1;
         const label = trailerNum === 2 ? "02" : "01";
-        const userPassword = prompt("Enter Password to Unlock Trailer " + label + ":");
-        if (userPassword === null) return;
+        let userPassword = '';
+        if (!window.kzIsVipPlus()) {
+            userPassword = prompt("Enter Password to Unlock Trailer " + label + ":");
+            if (userPassword === null) return;
+        }
 
         try {
+            const token = await window.kzGetToken();
             const res = await fetch('/api/verify-trailer', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ password: userPassword, trailer: trailerNum })
+                body: JSON.stringify({ password: userPassword, trailer: trailerNum, token })
             });
             const data = await res.json();
 
@@ -2969,12 +3527,34 @@ function copyLinkToClipboard(url, btn) {
     // ===== CATEGORY CHANGE (image/description requirement toggle) =====
     function handleCategoryChange() {
         const category = document.getElementById('upload-category').value;
-        const needsImage = category === 'AI' || category === 'Hot' || category.startsWith('Minecraft-');
+        // Cover image is optional everywhere; only shown where cards can display it.
+        const showImage = category === 'AI' || category === 'Hot' || category.startsWith('Minecraft-');
         const needsDescription = category.startsWith('Minecraft-');
 
-        document.getElementById('upload-image-group').style.display = needsImage ? 'block' : 'none';
-        document.getElementById('upload-image').required = needsImage;
+        document.getElementById('upload-image-group').style.display = showImage ? 'block' : 'none';
+        document.getElementById('upload-image').required = false;
+
+        // Images category must be a real file (links are not supported there)
+        if (category === 'Images') kzSetUploadMode('file');
+        document.getElementById('upload-mode-group').style.display = category === 'Images' ? 'none' : 'block';
         document.getElementById('upload-description-group').style.display = needsDescription ? 'block' : 'none';
+        document.getElementById('upload-person-group').style.display = category === 'AI' ? 'block' : 'none';
+        document.getElementById('upload-person').required = category === 'AI';
+
+        const accept = { 'Images': '.jpg,.jpeg,.png,.webp,.gif', 'Minecraft-TexturePacks': '.zip', 'Minecraft-Mods': '.jar,.zip' }[category];
+        const fileEl = document.getElementById('upload-file');
+        if (accept) fileEl.setAttribute('accept', accept); else fileEl.removeAttribute('accept');
+    }
+
+    // ===== FILE / LINK MODE =====
+    var kzUploadMode = 'file';
+    function kzSetUploadMode(mode) {
+        kzUploadMode = mode === 'link' ? 'link' : 'file';
+        var isLink = kzUploadMode === 'link';
+        document.getElementById('upload-file-group').style.display = isLink ? 'none' : 'block';
+        document.getElementById('upload-link-group').style.display = isLink ? 'block' : 'none';
+        document.getElementById('mode-file-btn').classList.toggle('active', !isLink);
+        document.getElementById('mode-link-btn').classList.toggle('active', isLink);
     }
 
     // ===== FILE DROP LABEL UPDATER =====
@@ -2986,93 +3566,187 @@ function copyLinkToClipboard(url, btn) {
     });
 
     // ===== UPLOAD FORM (gated by Supabase session — see kz auth script) =====
-    function fileToBase64(file) {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onload = () => resolve(reader.result.split(',')[1]);
-            reader.onerror = reject;
-            reader.readAsDataURL(file);
+    const KZ_UPLOAD_RULES = {
+        'Images': ['.jpg', '.jpeg', '.png', '.webp', '.gif'],
+        'Minecraft-TexturePacks': ['.zip'],
+        'Minecraft-Mods': ['.jar', '.zip']
+    };
+    const KZ_MAX_UPLOAD = 200 * 1024 * 1024; // <=50MB -> Supabase, 50-200MB -> Cloudflare R2
+
+    function kzEsc(str) {
+        return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+    }
+
+    // ===== UPLOAD WITH PROGRESS (bar, %, MB, speed, time left) =====
+    // Server sometimes returns plain text (e.g. a crashed function) -> show that instead of a JSON parse error
+    async function kzSafeJson(res) {
+        const t = await res.text();
+        try { return JSON.parse(t); }
+        catch (e) { return { success: false, message: 'Server error: ' + t.slice(0, 200) }; }
+    }
+    function kzFmtTime(sec) {
+        if (!isFinite(sec) || sec < 0) return '--';
+        sec = Math.round(sec);
+        return sec < 60 ? sec + 's' : Math.floor(sec / 60) + 'm ' + (sec % 60) + 's';
+    }
+    function kzProgress(show, loaded, total, startedAt, state) {
+        const box = document.getElementById('upload-progress');
+        box.style.display = show ? 'block' : 'none';
+        if (!show) return;
+        const now = Date.now();
+        const pct = total ? Math.min(100, loaded / total * 100) : 0;
+        // smoothed speed (bytes/sec)
+        if (state.t) {
+            const dt = (now - state.t) / 1000;
+            if (dt > 0.2) {
+                const inst = (loaded - state.l) / dt;
+                state.speed = state.speed ? state.speed * 0.7 + inst * 0.3 : inst;
+                state.t = now; state.l = loaded;
+            }
+        } else { state.t = now; state.l = loaded; }
+        const speed = state.speed || (loaded / Math.max(0.5, (now - startedAt) / 1000));
+        const left = speed > 0 ? (total - loaded) / speed : NaN;
+        document.getElementById('upload-progress-bar').style.width = pct.toFixed(1) + '%';
+        document.getElementById('upload-progress-text').textContent =
+            pct.toFixed(0) + '%  •  ' + (loaded / 1048576).toFixed(1) + ' / ' + (total / 1048576).toFixed(1) + ' MB  •  ' +
+            (speed / 1048576).toFixed(2) + ' MB/s  •  ' + kzFmtTime(left) + ' left';
+    }
+    function kzXhrPut(url, headers, body, total) {
+        return new Promise(function (resolve, reject) {
+            const xhr = new XMLHttpRequest();
+            const startedAt = Date.now(), state = {};
+            xhr.open('PUT', url);
+            Object.keys(headers || {}).forEach(function (k) { xhr.setRequestHeader(k, headers[k]); });
+            xhr.upload.onprogress = function (e) { kzProgress(true, e.loaded, e.lengthComputable ? e.total : total, startedAt, state); };
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) { kzProgress(true, total, total, startedAt, state); resolve(); }
+                else reject(new Error('Storage error ' + xhr.status + ' ' + (xhr.responseText || '').slice(0, 120)));
+            };
+            xhr.onerror = function () { reject(new Error('Network error (connection / CORS)')); };
+            xhr.send(body);
         });
     }
 
     async function submitUpload(event) {
         event.preventDefault();
         const statusEl = document.getElementById('upload-status');
+        const submitBtn = document.querySelector('#upload-form button[type="submit"]');
         const name = document.getElementById('upload-name').value.trim();
         const category = document.getElementById('upload-category').value;
-        const fileInput = document.getElementById('upload-file');
-        const file = fileInput.files[0];
-        const imageInput = document.getElementById('upload-image');
-        const imageFile = imageInput.files[0];
-        const description = document.getElementById('upload-description').value.trim();
-        const needsImage = category === 'AI' || category === 'Hot' || category.startsWith('Minecraft-');
+        const isLink = kzUploadMode === 'link' && category !== 'Images';
+        const linkRaw = document.getElementById('upload-link').value.trim();
+        const file = isLink ? null : document.getElementById('upload-file').files[0];
+        const imageFile = document.getElementById('upload-image').files[0];
+        const person = category === 'AI' ? document.getElementById('upload-person').value : '';
+        // AI uploads carry the person tag in `description` ("person:ushan") so the existing backend stores it as-is
+        const description = category === 'AI' ? ('person:' + person) : document.getElementById('upload-description').value.trim();
+        const fail = (msg) => { statusEl.style.color = 'red'; statusEl.innerText = msg; };
 
         const { data: sessionData } = await window.kzSupabase.auth.getSession();
         const session = sessionData && sessionData.session;
-        if (!session) {
-            kzRefreshAuthUI();
-            return;
-        }
+        if (!session) { kzRefreshAuthUI(); return; }
         const token = session.access_token;
 
-        if (!name || !category || !file) {
-            statusEl.style.color = 'red';
-            statusEl.innerText = "⚠️ සියලු fields පුරවන්න.";
-            return;
+        if (!name || !category || (!isLink && !file) || (isLink && !linkRaw)) return fail("⚠️ සියලු fields පුරවන්න.");
+        if (category === 'AI' && !person) return fail("⚠️ Person කෙනෙක් select කරන්න (filter එකට).");
+
+        let externalUrl = null;
+        if (isLink) {
+            try {
+                const u = new URL(linkRaw);
+                if (u.protocol !== 'http:' && u.protocol !== 'https:') throw new Error('bad');
+                externalUrl = u.toString();
+            } catch (e) { return fail("⚠️ Link එක වැරදියි — https:// වලින් පටන් ගන්න ඕන."); }
+        } else {
+            if (file.size > KZ_MAX_UPLOAD) {
+                kzSetUploadMode('link');
+                return fail("⚠️ File එක 200 MB ට වඩා ලොකුයි (" + (file.size / 1048576).toFixed(1) + " MB). කරුණාකර file එක Drive/Mega එකට දාලා Link එක මෙතන paste කරන්න.");
+            }
+            const rule = KZ_UPLOAD_RULES[category];
+            const ext = (/\.[a-zA-Z0-9]+$/.exec(file.name) || [''])[0].toLowerCase();
+            if (rule && !rule.includes(ext)) return fail("⚠️ මේ category එකට පුළුවන්: " + rule.join(', '));
         }
 
-        if (needsImage && !imageFile) {
-            statusEl.style.color = 'red';
-            statusEl.innerText = "⚠️ මේ category එකට image එකක් අනිවාර්යයි.";
-            return;
-        }
-
+        submitBtn.disabled = true;
         statusEl.style.color = 'yellow';
-        statusEl.innerText = "⏳ Uploading...";
+        statusEl.innerText = "⏳ Preparing upload...";
 
         try {
-            const base64 = await fileToBase64(file);
-            let imageBase64 = null, imageType = null;
-            if (imageFile) {
-                imageBase64 = await fileToBase64(imageFile);
-                imageType = imageFile.type;
-            }
-
-            const res = await fetch('/api/submit-upload', {
+            const initRes = await fetch('/api/upload-init', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    token, name, category,
-                    fileName: file.name,
-                    fileType: file.type,
-                    fileBase64: base64,
-                    description, imageBase64, imageType
+                    token, category,
+                    fileName: file ? file.name : null, fileSize: file ? file.size : null,
+                    externalUrl,
+                    coverName: imageFile ? imageFile.name : null,
+                    coverSize: imageFile ? imageFile.size : null
                 })
             });
-            const data = await res.json();
+            const init = await kzSafeJson(initRes);
+            if (initRes.status === 401) { fail("⚠️ Session expired, please log in again."); kzLogout(); return; }
+            if (!init.success) return fail("❌ " + (init.message || "Upload failed"));
 
-            if (data.success) {
-                statusEl.style.color = 'lightgreen';
-                statusEl.innerText = "✅ Upload successful! Admin approve කරාට පස්සේ site එකේ පේනවා.";
-                document.getElementById('upload-form').reset();
-                document.getElementById('upload-image-group').style.display = 'none';
-                document.getElementById('upload-description-group').style.display = 'none';
-                loadMyUploads();
-            } else if (res.status === 401) {
-                statusEl.style.color = 'red';
-                statusEl.innerText = "⚠️ Session expired, please log in again.";
-                kzLogout();
-            } else {
-                statusEl.style.color = 'red';
-                statusEl.innerText = "❌ " + (data.message || "Upload failed");
+            const storage = window.kzSupabase.storage;
+
+            if (imageFile && init.cover) {
+                statusEl.innerText = "⏳ Uploading cover image...";
+                const c = await storage.from('upload-images').uploadToSignedUrl(init.cover.path, init.cover.token, imageFile, { contentType: imageFile.type || 'image/jpeg' });
+                if (c.error) return fail("❌ Cover upload failed: " + c.error.message);
             }
+
+            if (file && init.file) {
+                statusEl.innerText = "⏳ Uploading file... page එක close කරන්න එපා.";
+                if (init.file.r2) {
+                    // Big file (50-200 MB): straight to Cloudflare R2 / S3-compatible storage
+                    await kzXhrPut(init.file.url, {}, file, file.size);
+                } else {
+                    // Normal file: straight to Supabase Storage (signed URL)
+                    const sbUrl = window.kzSupabase.supabaseUrl, sbKey = window.kzSupabase.supabaseKey;
+                    await kzXhrPut(
+                        sbUrl + '/storage/v1/object/upload/sign/upload-files/' + init.file.path.split('/').map(encodeURIComponent).join('/') + '?token=' + encodeURIComponent(init.file.token),
+                        { 'apikey': sbKey, 'Authorization': 'Bearer ' + sbKey, 'x-upsert': 'false', 'cache-control': 'max-age=3600', 'Content-Type': file.type || 'application/octet-stream' },
+                        file, file.size
+                    );
+                }
+                kzProgress(false);
+            }
+
+            const finRes = await fetch('/api/upload-finish', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    token, id: init.id, name, category,
+                    fileName: file ? file.name : null, fileType: file ? file.type : null,
+                    externalUrl, useR2: !!(init.file && init.file.r2),
+                    description, person, hasCover: !!(imageFile && init.cover)
+                })
+            });
+            const fin = await kzSafeJson(finRes);
+            if (!fin.success) return fail("❌ " + (fin.message || "Upload failed"));
+
+            statusEl.style.color = 'lightgreen';
+            statusEl.innerText = "✅ Upload successful! Admin approve කරාට පස්සේ site එකේ පේනවා.";
+            document.getElementById('upload-form').reset();
+            document.getElementById('upload-image-group').style.display = 'none';
+            document.getElementById('upload-description-group').style.display = 'none';
+            document.getElementById('upload-person-group').style.display = 'none';
+            document.getElementById('upload-person').required = false;
+            document.getElementById('upload-mode-group').style.display = 'block';
+            kzSetUploadMode('file');
+            document.querySelectorAll('.kz-file-drop-text').forEach(function (el, i) { el.textContent = i === 0 ? 'Tap to choose a cover image' : 'Tap to choose your file'; });
+            loadMyUploads();
         } catch (err) {
-            statusEl.style.color = 'red';
-            statusEl.innerText = "⚠️ Error uploading file. (large files may take longer or exceed size limit)";
+            fail("⚠️ Upload error: " + (err && err.message ? err.message : 'try again'));
+        } finally {
+            kzProgress(false);
+            submitBtn.disabled = false;
         }
     }
 
-    async function loadMyUploads() {
+        async function loadMyUploads() {
         const listEl = document.getElementById('my-uploads-list');
         if (!listEl) return;
         const { data: sessionData } = await window.kzSupabase.auth.getSession();
@@ -3105,11 +3779,11 @@ function copyLinkToClipboard(url, btn) {
             listEl.innerHTML = data.items.map(item => `
                 <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 14px 18px; margin-bottom: 12px;">
                     <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;">
-                        <b style="color:#fff;">${item.name}</b>
+                        <b style="color:#fff;">${kzEsc(item.name)}</b>
                         <span style="color:${statusColors[item.status] || '#999'}; font-weight:bold;">${statusLabels[item.status] || item.status}</span>
                     </div>
-                    <div style="color:#999; font-size:0.85rem; margin-top:4px;">Category: ${item.category} | ${new Date(item.submittedAt).toLocaleString()}</div>
-                    ${item.status === 'rejected' && item.reason ? `<div style="color:#ff8080; font-size:0.85rem; margin-top:6px;">Reason: ${item.reason}</div>` : ''}
+                    <div style="color:#999; font-size:0.85rem; margin-top:4px;">Category: ${kzEsc(item.category)} | ${new Date(item.submittedAt).toLocaleString()}</div>
+                    ${item.status === 'rejected' && item.reason ? `<div style="color:#ff8080; font-size:0.85rem; margin-top:6px;">Reason: ${kzEsc(item.reason)}</div>` : ''}
                 </div>
             `).join('');
         } catch (err) {
@@ -3117,12 +3791,166 @@ function copyLinkToClipboard(url, btn) {
         }
     }
 
+    // ===== helpers for uploaded AI / Special cards =====
+    var KZ_FILE_TYPES = {
+        audio:   { exts: ['mp3','wav','ogg','m4a','flac','aac','opus','wma'], icon: '🎵', label: 'Audio' },
+        video:   { exts: ['mp4','mkv','webm','mov','avi','m4v','3gp'],        icon: '🎬', label: 'Video' },
+        image:   { exts: ['jpg','jpeg','png','gif','webp','bmp','svg'],       icon: '🖼️', label: 'Image' },
+        archive: { exts: ['zip','rar','7z','tar','gz'],                       icon: '📦', label: 'Archive' },
+        apk:     { exts: ['apk','xapk'],                                      icon: '🤖', label: 'Android App' },
+        program: { exts: ['exe','msi','bat'],                                 icon: '💻', label: 'Program' },
+        jar:     { exts: ['jar'],                                             icon: '☕', label: 'Java / Mod' },
+        pdf:     { exts: ['pdf'],                                             icon: '📕', label: 'PDF' },
+        doc:     { exts: ['doc','docx','txt','rtf','odt'],                    icon: '📝', label: 'Document' },
+        sheet:   { exts: ['xls','xlsx','csv'],                                icon: '📊', label: 'Spreadsheet' },
+        slides:  { exts: ['ppt','pptx'],                                      icon: '📽️', label: 'Presentation' },
+        code:    { exts: ['js','py','html','css','json','xml','java','cs','cpp','c','php','sh'], icon: '🧑‍💻', label: 'Code' }
+    };
+
+    function kzFileInfo(item) {
+        var fn = item.fileName || item.name || '';
+        var m = /\.([a-zA-Z0-9]+)$/.exec(fn);
+        var ext = m ? m[1].toLowerCase() : '';
+        for (var k in KZ_FILE_TYPES) {
+            if (KZ_FILE_TYPES[k].exts.indexOf(ext) !== -1) {
+                return { kind: k, ext: ext, icon: KZ_FILE_TYPES[k].icon, label: KZ_FILE_TYPES[k].label };
+            }
+        }
+        return { kind: 'file', ext: ext, icon: '📁', label: 'File' };
+    }
+
+    function kzPersonOf(item) {
+        var p = String(item.person || '').toLowerCase();
+        if (!p) {
+            var m = /person:\s*([a-z]+)/i.exec(item.description || '');
+            p = m ? m[1].toLowerCase() : '';
+        }
+        return p || 'other';
+    }
+
+    function kzBtn(tag, cls, text) {
+        var el = document.createElement(tag);
+        el.className = cls;
+        el.textContent = text;
+        if (tag === 'button') el.type = 'button';
+        return el;
+    }
+
+    function kzBuildAiCard(item, downloadUrl, imageUrl) {
+        var div = document.createElement('div');
+        div.className = 'download-item uploaded-item';
+        div.setAttribute('data-person', kzPersonOf(item));
+
+        if (item.hasImage) {
+            var box = document.createElement('div');
+            box.className = 'img-box';
+            var img = document.createElement('img');
+            img.alt = item.name || 'AI Video';
+            img.src = imageUrl;
+            box.appendChild(img);
+            div.appendChild(box);
+        }
+
+        var h = document.createElement('h3');
+        h.textContent = item.name || '';
+        div.appendChild(h);
+
+        var row = document.createElement('div');
+        row.className = 'video-buttons';
+        var play = kzBtn('button', 'play-btn', '▶ Play');
+        play.addEventListener('click', function () { if (item.isLink) window.open(downloadUrl, '_blank', 'noopener'); else playVideo(downloadUrl); });
+        var dl = kzBtn('a', 'download-btn-ai', '⬇ Download');
+        dl.href = downloadUrl;
+        dl.setAttribute('download', item.fileName || '');
+        row.appendChild(play);
+        row.appendChild(dl);
+        div.appendChild(row);
+        return div;
+    }
+
+    function kzBuildSpecialCard(item, downloadUrl) {
+        var info = kzFileInfo(item);
+        var div = document.createElement('div');
+        div.className = 'doc-item uploaded-item';
+
+        var icon = document.createElement('div');
+        icon.className = 'doc-icon';
+        icon.textContent = info.icon;
+        div.appendChild(icon);
+
+        var h = document.createElement('h3');
+        h.textContent = item.name || '';
+        div.appendChild(h);
+
+        var badge = document.createElement('span');
+        badge.className = 'doc-type-badge';
+        badge.textContent = (info.ext ? info.ext.toUpperCase() + ' • ' : '') + info.label;
+        div.appendChild(badge);
+
+        var row = document.createElement('div');
+        row.className = 'video-buttons';
+
+        var canPreview = info.kind === 'audio' || info.kind === 'video' || info.kind === 'image';
+        if (canPreview) {
+            var main = kzBtn('button', 'play-btn', info.kind === 'image' ? '👁 View' : '▶ Play');
+            main.addEventListener('click', function () {
+                if (info.kind === 'audio') kzPlayAudio(downloadUrl, item.name || 'Audio');
+                else if (info.kind === 'video') playVideo(downloadUrl);
+                else window.open(downloadUrl, '_blank');
+            });
+            row.appendChild(main);
+        }
+
+        var dl = kzBtn('a', canPreview ? 'download-btn-ai' : 'doc-btn sp-full', canPreview ? '⬇ Download' : '⬇ Download');
+        dl.href = downloadUrl;
+        dl.setAttribute('download', item.fileName || '');
+        row.appendChild(dl);
+
+        div.appendChild(row);
+        return div;
+    }
+
+    // ---- audio player modal (pauses the background song while it plays) ----
+    var kzBgPausedForAudio = false;
+
+    function kzPlayAudio(src, title) {
+        var modal = document.getElementById('audioModal');
+        var player = document.getElementById('audioPlayer');
+        document.getElementById('audioTitle').textContent = '🎵 ' + title;
+        var bg = document.getElementById('bg-music');
+        if (bg && !bg.paused) { bg.pause(); kzBgPausedForAudio = true; }
+        player.src = src;
+        modal.style.display = 'flex';
+        var p = player.play();
+        if (p && p.catch) p.catch(function () {});
+    }
+
+    function closeAudio() {
+        var modal = document.getElementById('audioModal');
+        var player = document.getElementById('audioPlayer');
+        if (!modal) return;
+        player.pause();
+        player.removeAttribute('src');
+        player.load();
+        modal.style.display = 'none';
+        if (kzBgPausedForAudio) {
+            kzBgPausedForAudio = false;
+            var bg = document.getElementById('bg-music');
+            if (bg) { var p = bg.play(); if (p && p.catch) p.catch(function () {}); }
+        }
+    }
+
+    document.addEventListener('keydown', function (e) {
+        var m = document.getElementById('audioModal');
+        if (e.key === 'Escape' && m && m.style.display === 'flex') closeAudio();
+    });
+
     // ===== DYNAMIC APPROVED UPLOADS LOADER =====
     const categoryTargets = {
         'Hot': { grid: '#downloads .downloads-grid', style: 'poster' },
         'Images': { grid: '#news .downloads-grid', style: 'image' },
-        'Special': { grid: '#special-uploads-grid', style: 'generic' },
-        'AI': { grid: '#request .downloads-grid', style: 'generic' },
+        'Special': { grid: '#special-uploads-grid', style: 'special' },
+        'AI': { grid: '#request .downloads-grid', style: 'ai' },
         'Minecraft-TexturePacks': { grid: '#texture-packs .mc-grid', style: 'mc' },
         'Minecraft-Mods': { grid: '#mods .mc-grid', style: 'mc' }
     };
@@ -3145,29 +3973,32 @@ function copyLinkToClipboard(url, btn) {
                 const downloadUrl = `/api/serve-file?id=${encodeURIComponent(item.id)}`;
                 const imageUrl = `/api/serve-file?id=${encodeURIComponent(item.id)}&asset=image`;
 
+                if (target.style === 'ai') { gridEl.appendChild(kzBuildAiCard(item, downloadUrl, imageUrl)); return; }
+                if (target.style === 'special') { gridEl.appendChild(kzBuildSpecialCard(item, downloadUrl)); return; }
+
                 if (target.style === 'mc') {
                     div.className = 'mc-card uploaded-item';
                     div.innerHTML = `
-                        <div class="mc-card-thumb">${item.hasImage ? `<img src="${imageUrl}" alt="${item.name}">` : '📦'}</div>
-                        <h4>${item.name}</h4>
-                        <p>${item.description || 'Uploaded by user'}</p>
+                        <div class="mc-card-thumb">${item.hasImage ? `<img src="${imageUrl}" alt="${kzEsc(item.name)}">` : '📦'}</div>
+                        <h4>${kzEsc(item.name)}</h4>
+                        <p>${kzEsc(item.description || 'Uploaded by user')}</p>
                         <a href="${downloadUrl}" class="mc-dl-btn">Download</a>
                     `;
                 } else if (target.style === 'poster') {
                     div.className = 'download-item uploaded-item';
                     div.innerHTML = `
-                        ${item.hasImage ? `<div class="img-box"><img src="${imageUrl}" alt="${item.name}"></div>` : ''}
-                        <h3>${item.name}</h3>
+                        ${item.hasImage ? `<div class="img-box"><img src="${imageUrl}" alt="${kzEsc(item.name)}"></div>` : ''}
+                        <h3>${kzEsc(item.name)}</h3>
                         <a target="_blank" href="${downloadUrl}" class="download-btn">Watch or DL</a>
                     `;
                 } else if (target.style === 'image') {
                     div.className = 'download-item uploaded-item';
-                    div.innerHTML = `<div class="img-box"><img src="${downloadUrl}" alt="${item.name}"></div>`;
+                    div.innerHTML = `<div class="img-box"><img src="${downloadUrl}" alt="${kzEsc(item.name)}"></div>`;
                 } else {
                     div.className = 'download-item uploaded-item';
                     div.innerHTML = `
-                        ${item.hasImage ? `<div class="img-box"><img src="${imageUrl}" alt="${item.name}"></div>` : ''}
-                        <h3>${item.name}</h3>
+                        ${item.hasImage ? `<div class="img-box"><img src="${imageUrl}" alt="${kzEsc(item.name)}"></div>` : ''}
+                        <h3>${kzEsc(item.name)}</h3>
                         <a target="_blank" href="${downloadUrl}" class="download-btn">Download</a>
                     `;
                 }
@@ -3181,7 +4012,7 @@ function copyLinkToClipboard(url, btn) {
     function loadUploadsForSection(sectionId) {
         const sectionCategoryMap = {
             'downloads': ['Hot'],
-            'news': ['Images'],
+            'news': [],
             'video': ['Special'],
             'request': ['AI'],
             'contact': ['Minecraft-TexturePacks', 'Minecraft-Mods'],
@@ -3190,6 +4021,9 @@ function copyLinkToClipboard(url, btn) {
 
         if (sectionId === 'about') {
             kzRefreshAuthUI();
+        }
+        if (sectionId === 'news' && window.kzImagesOnOpen) {
+            window.kzImagesOnOpen();
         }
 
         const cats = sectionCategoryMap[sectionId];
@@ -3200,48 +4034,6 @@ function copyLinkToClipboard(url, btn) {
         getSubscriberCount();
     };
 
-    var audio = document.getElementById('bg-music');
-    var musicToggle = document.getElementById('music-toggle');
-    var musicMuted = localStorage.getItem('background-music-muted') === 'true';
-    audio.volume = 0.6; // Volume එක අඩු කිරීම
-
-    function updateMusicToggle() {
-        musicToggle.textContent = musicMuted ? '🔇' : '🔊';
-        musicToggle.setAttribute('aria-label', musicMuted ? 'Play background music' : 'Pause background music');
-        musicToggle.title = musicMuted ? 'Play background music' : 'Pause background music';
-    }
-
-    function toggleBackgroundMusic(event) {
-        event.stopPropagation();
-        musicMuted = !musicMuted;
-        localStorage.setItem('background-music-muted', musicMuted);
-        if (musicMuted) audio.pause();
-        else audio.play().catch(function() {});
-        updateMusicToggle();
-    }
-
-    updateMusicToggle();
-
-  // User ප්‍රථම වරට click කල විට play වීම
-  document.addEventListener('click', function() {
-        if (!musicMuted && audio.paused) {
-      audio.play().catch(function(error) {
-        console.log("Autoplay blocked:", error);
-      });
-    }
-  }, { once: true });
-
-  // 💥 ප්‍රධාන විසඳුම: User වෙනත් Tab එකකට හෝ වෙනත් Window එකකට ගිය සැනින් සින්දුව Pause කිරීම
-  document.addEventListener('visibilitychange', function() {
-    if (document.hidden) {
-      audio.pause(); // Tab එක hidden වූ විට සින්දුව නවතී
-    } else {
-      // User නැවත මුල් පිටුවේ Tab එකට ආවොත් සින්දුව නැවත Play වේ
-    if (!musicMuted && (!audio.paused || audio.currentTime > 0)) {
-        audio.play().catch(function(e) {});
-      }
-    }
-  });
 </script>
 
 
@@ -3325,12 +4117,7 @@ function copyLinkToClipboard(url, btn) {
     });
 })();
 </script>
-<script>
-(function(s){
-    s.dataset.zone='11868233';
-    s.src='https://nap5k.com/tag.min.js';
-})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
-</script>
+
 
 <script>
 window.kzFilterMenu = function (q) {
@@ -3624,12 +4411,12 @@ window.kzFilterMenu = function (q) {
     sb.auth.getSession().then(function (r) {
       var session = r.data && r.data.session;
       if (session && (window.kzUserRole === 'owner' || window.kzUserRole === 'admin')) {
-        window.open('admin.html?token=' + encodeURIComponent(session.access_token), '_blank');
+        window.open('admin.html#token=' + encodeURIComponent(session.access_token), '_blank');
         return;
       }
       var pw = prompt('🔒 Enter Admin Page Password:');
       if (pw === null) return;
-      window.open('admin.html?pw=' + encodeURIComponent(pw), '_blank');
+      window.open('admin.html#pw=' + encodeURIComponent(pw), '_blank');
     });
   };
 
@@ -3752,9 +4539,8 @@ window.kzFilterMenu = function (q) {
     if (session) kzCloseAuth();
   });
 
-  // ===== EPHEMERAL LIVE CHAT (Supabase Realtime broadcast — nothing is stored) =====
-  var kzChatChannel = null;
-  var kzChatId = Math.random().toString(36).slice(2);
+  // ===== PERSISTENT CHAT (Supabase table chat_messages + Realtime) =====
+  var kzChatId = null;
 
   function kzEscapeHtml(str) {
     return String(str).replace(/[&<>"']/g, function (c) {
@@ -3762,56 +4548,266 @@ window.kzFilterMenu = function (q) {
     });
   }
 
-  function kzAppendChatMessage(msg, isOwn) {
+    function copyText() {
+            var wordToCopy = document.getElementById("myWord").innerText;
+
+            // තාවකාලිකව input element එකක් හදනවා
+            var tempInput = document.createElement("input");
+            tempInput.value = wordToCopy;
+            document.body.appendChild(tempInput);
+
+            // එය select කරලා copy කරගන්නවා
+            tempInput.select();
+            tempInput.setSelectionRange(0, 99999); // මොබයිල් ෆෝන්ස් සඳහා
+
+            document.execCommand("copy");
+
+            // හදපු තාවකාලික input එක අයින් කරනවා
+            document.body.removeChild(tempInput);
+
+            // සාර්ථකයි කියා පෙන්වීමට ඇලර්ට් එකක්
+            alert("වචනය සාර්ථකව කොපි වුණා: " + wordToCopy);
+        }
+  window.copyText = copyText;
+
+var KZ_ROLE_ICON = { owner: '👑', admin: '🛡️', vip: '💎', client: '🙂' };
+  var kzChatSub = null;
+
+  function kzFmtTime(iso) {
+    var d = new Date(iso);
+    if (isNaN(d)) return '';
+    return d.toLocaleDateString([], { year: 'numeric', month: 'short', day: 'numeric' }) + ' · ' +
+           d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  function kzCanDeleteMsg(m) {
+    var u = window.kzCurrentUser;
+    return !!u && (m.user_id === u.id || window.kzUserRole === 'owner');
+  }
+
+  function kzRenderChatMessage(m) {
     var box = document.getElementById('kzChatMessages');
-    if (!box) return;
+    if (!box || !m || box.querySelector('[data-id="' + m.id + '"]')) return;
     var empty = box.querySelector('.empty');
     if (empty) empty.remove();
+
+    var own = window.kzCurrentUser && m.user_id === window.kzCurrentUser.id;
+    var icon = KZ_ROLE_ICON[(m.role || 'client').toLowerCase()] || '🙂';
     var row = document.createElement('div');
-    row.className = 'kz-chat-msg' + (isOwn ? ' kz-own' : '');
+    row.className = 'kz-chat-msg' + (own ? ' kz-own' : '');
+    row.setAttribute('data-id', m.id);
+    if (m.file_path) row.setAttribute('data-path', m.file_path);
     row.innerHTML =
-      '<img src="' + (msg.avatar || '') + '" onerror="this.style.display=\'none\'">' +
+      (m.avatar_url ? '<img src="' + kzEscapeHtml(m.avatar_url) + '" alt="" onerror="this.style.display=\'none\'">' : '<img alt="" style="visibility:hidden">') +
       '<div class="kz-chat-msg-body">' +
-      '<div class="kz-chat-msg-name">' + kzEscapeHtml(msg.name) + '</div>' +
-      '<div class="kz-chat-msg-text">' + kzEscapeHtml(msg.text) + '</div>' +
-      '</div>';
+        '<div class="kz-chat-msg-name"><span class="kz-chat-icon">' + icon + '</span> ' + kzEscapeHtml(m.username) + '</div>' +
+        kzChatTextHtml(m) +
+        kzChatAttachHtml(m) +
+        '<div class="kz-chat-msg-time">' + kzFmtTime(m.created_at) + '</div>' +
+      '</div>' +
+      (kzCanDeleteMsg(m) ? '<button type="button" class="kz-chat-del" title="Delete message" aria-label="Delete message">🗑️</button>' : '');
+
+    var del = row.querySelector('.kz-chat-del');
+    if (del) del.addEventListener('click', function () { kzDeleteChat(m.id, row); });
+
+    var nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 120;
     box.appendChild(row);
-    box.scrollTop = box.scrollHeight;
+    if (nearBottom || own) box.scrollTop = box.scrollHeight;
   }
 
-  function kzInitChat() {
+
+  // ===== links + attachments =====
+  var KZ_CHAT_BUCKET = 'chat-files';
+  var KZ_CHAT_MAX = 20 * 1024 * 1024;   // SQL එකේ bucket limit එකත් මේකටම සමාන කරන්න
+  var KZ_CHAT_BLOCKED = ['.exe', '.msi', '.bat', '.cmd', '.com', '.scr', '.vbs', '.ps1', '.js', '.html', '.htm', '.svg', '.php', '.dll'];
+  var KZ_CHAT_IMG = /^image\/(jpeg|png|gif|webp)$/;
+  var kzChatPending = null;
+  var kzChatBusy = false;
+
+  function kzLinkify(escaped) {
+    return escaped.replace(/\b(?:https?:\/\/|www\.)[^\s<]+/gi, function (url) {
+      var tail = '';
+      var t = url.match(/(?:[.,!?;:)\]}]|&gt;|&quot;|&#39;)+$/);
+      if (t) { tail = t[0]; url = url.slice(0, -tail.length); }
+      if (!url) return tail;
+      var href = /^www\./i.test(url) ? 'https://' + url : url;
+      return '<a href="' + href + '" target="_blank" rel="noopener noreferrer nofollow ugc">' + url + '</a>' + tail;
+    });
+  }
+
+  function kzFmtSize(n) {
+    n = Number(n) || 0;
+    if (n >= 1048576) return (n / 1048576).toFixed(1) + ' MB';
+    if (n >= 1024) return Math.round(n / 1024) + ' KB';
+    return n + ' B';
+  }
+
+  function kzChatTextHtml(m) {
+    var msg = m.message || '';
+    if (m.file_path && msg === '📎 ' + (m.file_name || '')) return '';   // file විතරක් යැව්වා නම් text bubble එක නෑ
+    return '<div class="kz-chat-msg-text">' + kzLinkify(kzEscapeHtml(msg)) + '</div>';
+  }
+
+  function kzChatAttachHtml(m) {
+    if (!m.file_path || /\.\./.test(m.file_path)) return '';
+    var st = sb.storage.from(KZ_CHAT_BUCKET);
+    var name = kzEscapeHtml(m.file_name || 'file');
+    if (KZ_CHAT_IMG.test(m.file_type || '')) {
+      var u = kzEscapeHtml(st.getPublicUrl(m.file_path).data.publicUrl);
+      return '<a href="' + u + '" target="_blank" rel="noopener noreferrer"><img class="kz-chat-att-img" loading="lazy" decoding="async" src="' + u + '" alt="' + name + '"></a>';
+    }
+    var d = kzEscapeHtml(st.getPublicUrl(m.file_path, { download: m.file_name || true }).data.publicUrl);
+    return '<a class="kz-chat-att-file" href="' + d + '" target="_blank" rel="noopener noreferrer">' +
+             '<span class="kz-chat-att-ico">📎</span>' +
+             '<span class="kz-chat-att-meta"><div class="kz-chat-att-name">' + name + '</div>' +
+             '<div class="kz-chat-att-size">' + kzFmtSize(m.file_size) + ' · Download</div></span></a>';
+  }
+
+  // slow internet අයට: ලොකු photo එකක් upload කරන්න කලින් 1600px / JPEG 82% වලට හකුළනවා
+  function kzCompressImage(file) {
+    return new Promise(function (resolve) {
+      if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size < 300 * 1024) return resolve(file);
+      var url = URL.createObjectURL(file), img = new Image();
+      img.onload = function () {
+        URL.revokeObjectURL(url);
+        var max = 1600, w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, max / Math.max(w, h));
+        var c = document.createElement('canvas');
+        c.width = Math.round(w * k); c.height = Math.round(h * k);
+        var x = c.getContext('2d');
+        x.fillStyle = '#fff'; x.fillRect(0, 0, c.width, c.height);
+        x.drawImage(img, 0, 0, c.width, c.height);
+        c.toBlob(function (b) {
+          if (!b || b.size >= file.size) return resolve(file);
+          var nn = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+          resolve(new File([b], nn, { type: 'image/jpeg' }));
+        }, 'image/jpeg', 0.82);
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); resolve(file); };
+      img.src = url;
+    });
+  }
+
+  function kzChatClearFile() {
+    kzChatPending = null;
+    var f = document.getElementById('kzChatFile'); if (f) f.value = '';
+    var pv = document.getElementById('kzChatPreview');
+    if (pv) { pv.style.display = 'none'; pv.innerHTML = ''; }
+  }
+
+  async function kzChatPickFile(file) {
+    if (!file) return;
+    var ext = (/\.[a-z0-9]+$/i.exec(file.name) || [''])[0].toLowerCase();
+    if (KZ_CHAT_BLOCKED.indexOf(ext) !== -1) { alert('මේ file type එක (' + ext + ') chat එකේ allow නෑ.'); return kzChatClearFile(); }
+    file = await kzCompressImage(file);
+    if (file.size > KZ_CHAT_MAX) { alert('File එක ලොකු වැඩියි — max ' + (KZ_CHAT_MAX / 1048576) + ' MB.'); return kzChatClearFile(); }
+    kzChatPending = file;
+    var pv = document.getElementById('kzChatPreview');
+    if (!pv) return;
+    pv.innerHTML = '<span>📎</span><span class="kz-prev-name"></span><span style="color:#999">' + kzFmtSize(file.size) + '</span><button type="button" aria-label="Remove file">✕</button>';
+    pv.querySelector('.kz-prev-name').textContent = file.name;
+    pv.querySelector('button').addEventListener('click', kzChatClearFile);
+    pv.style.display = 'flex';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var f = document.getElementById('kzChatFile'), a = document.getElementById('kzChatAttach');
+    var inp = document.getElementById('kzChatInput'), box = document.getElementById('kzChatMessages');
+    if (a && f) a.addEventListener('click', function () { f.click(); });
+    if (f) f.addEventListener('change', function () { kzChatPickFile(f.files[0]); });
+    // Ctrl+V කරලා photo paste කරන්න
+    if (inp) inp.addEventListener('paste', function (e) {
+      var items = (e.clipboardData && e.clipboardData.files) || [];
+      if (items.length) { e.preventDefault(); kzChatPickFile(items[0]); }
+    });
+    // drag & drop (desktop)
+    if (box) {
+      ['dragenter', 'dragover'].forEach(function (ev) { box.addEventListener(ev, function (e) { e.preventDefault(); box.classList.add('kz-drag'); }); });
+      ['dragleave', 'drop'].forEach(function (ev) { box.addEventListener(ev, function (e) { e.preventDefault(); box.classList.remove('kz-drag'); }); });
+      box.addEventListener('drop', function (e) { if (window.kzCurrentUser && e.dataTransfer.files.length) kzChatPickFile(e.dataTransfer.files[0]); });
+    }
+  });
+
+  async function kzDeleteChat(id, row) {
+    if (!confirm('මේ message එක delete කරන්නද?')) return;
+    var r = await sb.from('chat_messages').delete().eq('id', id);
+    if (r.error) { alert('Delete failed: ' + r.error.message); return; }
+    var fp = row && row.getAttribute('data-path');
+    if (fp) { try { await sb.storage.from(KZ_CHAT_BUCKET).remove([fp]); } catch (e) {} }
+    if (row && row.parentNode) row.remove();
+  }
+
+  async function kzInitChat() {
     var box = document.getElementById('kzChatMessages');
-    if (box) box.innerHTML = '<p class="empty" style="color:#666; font-size:0.85rem;">Chat එකට connect වෙනවා...</p>';
+    if (box) box.innerHTML = '<p class="empty" style="color:#666; font-size:0.85rem;">Chat එක load වෙනවා...</p>';
 
-    if (kzChatChannel) { sb.removeChannel(kzChatChannel); kzChatChannel = null; }
+    if (kzChatSub) { sb.removeChannel(kzChatSub); kzChatSub = null; }
 
-    kzChatChannel = sb.channel('kz-global-chat', { config: { broadcast: { self: false } } });
-    kzChatChannel.on('broadcast', { event: 'message' }, function (payload) {
-      kzAppendChatMessage(payload.payload, false);
-    });
-    kzChatChannel.subscribe(function (status) {
-      if (status === 'SUBSCRIBED' && box) {
-        box.innerHTML = '<p class="empty" style="color:#666; font-size:0.85rem;">Connected — chat එකට messages එවන්න පුළුවන් දැන්.</p>';
-      }
-    });
+    var r = await sb.from('chat_messages').select('*').order('created_at', { ascending: false }).limit(100);
+    if (r.error) {
+      if (box) box.innerHTML = '<p class="empty" style="color:#ff6666; font-size:0.85rem;">Chat load වුණේ නෑ: ' + kzEscapeHtml(r.error.message) + '</p>';
+      return;
+    }
+    if (box) box.innerHTML = '';
+    (r.data || []).slice().reverse().forEach(kzRenderChatMessage);
+    if (box && !box.children.length) {
+      box.innerHTML = '<p class="empty" style="color:#666; font-size:0.85rem;">තාම messages නෑ — පළවෙනියා ඔයා වෙන්න 😎</p>';
+    }
+
+    kzChatSub = sb.channel('kz-chat-db')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'chat_messages' }, function (p) {
+        kzRenderChatMessage(p.new);
+      })
+      .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'chat_messages' }, function (p) {
+        var b = document.getElementById('kzChatMessages');
+        var el = b && p.old && b.querySelector('[data-id="' + p.old.id + '"]');
+        if (el) el.remove();
+      })
+      .subscribe();
   }
 
-  window.kzSendChat = function () {
+  window.kzSendChat = async function () {
     var input = document.getElementById('kzChatInput');
+    var sendBtn = document.getElementById('kzChatSend');
     var text = input.value.trim();
-    if (!text || !kzChatChannel) return;
     var user = window.kzCurrentUser;
-    if (!user) return;
+    var file = kzChatPending;
+    if ((!text && !file) || !user || kzChatBusy) return;
 
     var head = document.getElementById('kzHeadTitle');
     var name = head ? head.textContent.replace('✔', '').trim() : 'User';
-    var avatar = document.getElementById('kzHeadAvatar');
-    var avatarSrc = avatar ? avatar.src : '';
-
-    var msg = { name: name, avatar: avatarSrc, text: text, id: kzChatId, ts: Date.now() };
-    kzChatChannel.send({ type: 'broadcast', event: 'message', payload: msg });
-    kzAppendChatMessage(msg, true);
+    kzChatBusy = true;
+    if (sendBtn) sendBtn.disabled = true;
     input.value = '';
+
+    var row = { user_id: user.id, username: name || 'User', message: text || ('📎 ' + file.name).slice(0, 500) };
+    var uploadedPath = null;
+
+    try {
+      if (file) {
+        var ext = (/\.[a-z0-9]{1,8}$/i.exec(file.name) || [''])[0].toLowerCase();
+        uploadedPath = user.id + '/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + ext;
+        if (sendBtn) sendBtn.textContent = '⏳';
+        var up = await sb.storage.from(KZ_CHAT_BUCKET).upload(uploadedPath, file, {
+          contentType: file.type || 'application/octet-stream', cacheControl: '31536000', upsert: false
+        });
+        if (up.error) { uploadedPath = null; throw new Error('Upload failed: ' + up.error.message); }
+        row.file_path = uploadedPath; row.file_name = file.name.slice(0, 200);
+        row.file_size = file.size; row.file_type = file.type || '';
+      }
+
+      // Name / avatar / rank are set by the database trigger (cannot be faked); `username` is only a fallback.
+      var r = await sb.from('chat_messages').insert(row).select().single();
+      if (r.error) throw new Error('Message send වුණේ නෑ: ' + r.error.message);
+      kzChatClearFile();
+      kzRenderChatMessage(r.data);
+    } catch (err) {
+      input.value = text;
+      if (uploadedPath) { try { await sb.storage.from(KZ_CHAT_BUCKET).remove([uploadedPath]); } catch (e) {} }
+      alert(err.message || 'Send වුණේ නෑ');
+    } finally {
+      kzChatBusy = false;
+      if (sendBtn) { sendBtn.disabled = false; sendBtn.textContent = '➤'; }
+    }
   };
 
   document.addEventListener('DOMContentLoaded', function () {
@@ -3842,6 +4838,590 @@ window.kzFilterMenu = function (q) {
       }
     }
   };
+})();
+</script>
+
+<script>
+// ===== Rank helpers + protected Images tab =====
+(function () {
+  window.kzIsVipPlus = function () { return ['vip', 'admin', 'owner'].indexOf(window.kzUserRole) !== -1; };
+  window.kzGetToken = async function () {
+    try {
+      var r = await window.kzSupabase.auth.getSession();
+      return r.data && r.data.session ? r.data.session.access_token : null;
+    } catch (e) { return null; }
+  };
+
+  // The secret code now lives in memory only. (Older versions saved it in sessionStorage,
+  // which anyone could read in F12 -> Application.)
+  try { sessionStorage.removeItem('kzImgCode'); } catch (e) {}
+  var imagesCode = null;
+  var runId = 0;          // every open()/unlock bumps this; stale async work checks it and stops
+  var lastUserKey;        // user id we last checked access for
+
+  function $(id) { return document.getElementById(id); }
+
+  function setArrow(t) {
+    document.querySelectorAll('[id="kzImagesTabArrow"]').forEach(function (el) { el.textContent = t; });
+  }
+
+  // state: 'loading' | 'lock' | 'content'. Starts on 'loading' so VIPs never see the code box flash.
+  function show(state, msg) {
+    $('kzImagesLoading').style.display = state === 'loading' ? 'block' : 'none';
+    $('kzImagesLock').style.display = state === 'lock' ? 'block' : 'none';
+    $('kzImagesContent').style.display = state === 'content' ? 'block' : 'none';
+    if (state === 'lock') {
+      $('kzImagesMsg').style.color = '#ff6666';
+      $('kzImagesMsg').textContent = msg || '';
+      setArrow('🔒');
+    } else if (state === 'content') {
+      setArrow('›');
+    }
+  }
+
+  function clearGrid() {
+    var g = $('kzImagesGrid');
+    if (g) g.innerHTML = '';
+  }
+
+  async function request() {
+    var token = null;
+    try {
+      var s = await window.kzSupabase.auth.getSession();
+      var sess = s.data && s.data.session;
+      token = sess ? sess.access_token : null;
+      lastUserKey = sess && sess.user ? sess.user.id : null;
+    } catch (e) {}
+    if (!token && !imagesCode) return { status: 401, data: {} };
+
+    var res = await fetch('/api/images-access', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: token, code: imagesCode || undefined })
+    });
+    var data = {};
+    try { data = await res.json(); } catch (e) {}
+    return { status: res.status, data: data };
+  }
+
+  function download(blob, fileName) {
+    var u = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = u; a.download = fileName || 'image';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(u); }, 4000);
+  }
+
+  // Decode the blob and paint a downscaled preview onto a <canvas>. No <img src>/blob: URL is left in the page,
+  // so the preview does not show up under DevTools -> Application -> Frames -> Images.
+  async function toCanvas(blob) {
+    var MAX = 900, src = null, w, h, cleanup = function () {};
+    if (window.createImageBitmap) {
+      try {
+        src = await createImageBitmap(blob);
+        w = src.width; h = src.height;
+        cleanup = function () { if (src && src.close) src.close(); };
+      } catch (e) { src = null; }
+    }
+    if (!src) {
+      var url = URL.createObjectURL(blob);
+      src = await new Promise(function (ok, bad) {
+        var im = new Image();
+        im.onload = function () { ok(im); };
+        im.onerror = bad;
+        im.src = url;
+      });
+      w = src.naturalWidth; h = src.naturalHeight;
+      cleanup = function () { URL.revokeObjectURL(url); };
+    }
+    var scale = Math.min(1, MAX / Math.max(w, h));
+    var c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(w * scale));
+    c.height = Math.max(1, Math.round(h * scale));
+    c.getContext('2d').drawImage(src, 0, 0, c.width, c.height);
+    cleanup();
+    return c;
+  }
+
+  async function render(items, my) {
+    var grid = $('kzImagesGrid');
+    clearGrid();
+    show('content');
+
+    if (!items.length) {
+      grid.innerHTML = '<p style="color:#888;">තාම images නෑ.</p>';
+      return;
+    }
+
+    await Promise.all(items.map(async function (it) {
+      // card is added right away (in order); the picture fills in when it is ready
+      var card = document.createElement('div');
+      card.className = 'download-item';
+      card.innerHTML = '<div class="img-box kz-protected"><span class="kz-img-loading">Loading…</span><div class="kz-img-shield"></div></div>' +
+                       '<button type="button" class="download-btn" disabled>⬇ Download</button>';
+      grid.appendChild(card);
+      try {
+        var resp = await fetch(it.url);
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        var blob = await resp.blob();
+        if (my !== runId) return;
+        var canvas = await toCanvas(blob);
+        if (my !== runId) return;
+        var box = card.querySelector('.img-box');
+        var ph = box.querySelector('.kz-img-loading');
+        if (ph) ph.remove();
+        box.insertBefore(canvas, box.firstChild);
+        var btn = card.querySelector('button');
+        btn.disabled = false;
+        btn.addEventListener('click', function () { download(blob, it.fileName); });
+      } catch (e) {
+        if (my === runId) card.remove();
+      }
+    }));
+  }
+
+  async function open() {
+    var my = ++runId;
+    show('loading');
+    var r;
+    try { r = await request(); } catch (e) { r = { status: 0, data: {} }; }
+    if (my !== runId) return;               // a newer open() / tab switch took over
+    if (r.data && r.data.success) { await render(r.data.items || [], my); return; }
+    imagesCode = null;
+    var netErr = r.status === 0 || r.status >= 500;
+    show('lock', netErr ? '⚠️ Load වුණේ නෑ — ටිකකින් ආයෙ try කරන්න.' : '');
+  }
+  window.kzImagesOnOpen = open;
+
+  window.kzSubmitImagesCode = async function (e) {
+    e.preventDefault();
+    var input = $('kzImagesCode'), btn = $('kzImagesCodeBtn'), msg = $('kzImagesMsg');
+    var code = input.value.trim();
+    if (!code) return false;
+    btn.disabled = true;
+    msg.style.color = 'yellow'; msg.textContent = 'Checking...';
+    var my = ++runId;
+    imagesCode = code;
+    var r;
+    try { r = await request(); } catch (e2) { r = { status: 0, data: {} }; }
+    btn.disabled = false;
+    if (my !== runId) return false;
+    if (r.data && r.data.success) {
+      input.value = '';
+      msg.textContent = '';
+      await render(r.data.items || [], my);
+    } else {
+      imagesCode = null;
+      msg.style.color = '#ff6666';
+      msg.textContent = (r.status === 0 || r.status >= 500) ? '⚠️ Network error, try again' : '❌ Wrong code';
+    }
+    return false;
+  };
+
+  // Leaving the Images tab wipes the pictures from the page; they are fetched again (with a fresh check) on return.
+  var prevShow = window.showSection;
+  window.showSection = function (id, btn) {
+    if (id !== 'news') { runId++; clearGrid(); show('loading'); }
+    return prevShow.apply(this, arguments);
+  };
+
+  // Deterrents while the Images tab is open (real protection = server check + short-lived URLs)
+  function imagesVisible() { var n = $('news'); return n && getComputedStyle(n).display !== 'none'; }
+  document.addEventListener('contextmenu', function (e) {
+    if (imagesVisible() && e.target.closest && e.target.closest('#news')) e.preventDefault();
+  });
+  document.addEventListener('dragstart', function (e) {
+    if (imagesVisible() && e.target.closest && e.target.closest('#news')) e.preventDefault();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (!imagesVisible()) return;
+    var k = (e.key || '').toLowerCase();
+    if (e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].indexOf(k) !== -1) ||
+        (e.ctrlKey && (k === 'u' || k === 's'))) {
+      e.preventDefault();
+    }
+  });
+
+  // Log in / out while the tab is open -> re-check. Token refreshes for the same user are ignored
+  // (those used to restart the render and caused the flicker / missing images).
+  if (window.kzSupabase) {
+    window.kzSupabase.auth.onAuthStateChange(function (ev, session) {
+      var key = session && session.user ? session.user.id : null;
+      if (key === lastUserKey) return;
+      lastUserKey = key;
+      if (imagesVisible()) setTimeout(open, 0);   // don't call supabase inside its own auth callback
+    });
+  }
+})();
+</script>
+
+<script>
+// ===== AI Videos filter: each video card carries data-person="ushan" (or "ushan sadaru" for several people) =====
+(function () {
+  var KNOWN = ['ushan', 'sadaru', 'chamuditha', 'widumith', 'senhas'];
+  var current = 'all';
+
+  function apply() {
+    var grid = document.querySelector('#request .downloads-grid');
+    if (!grid) return;
+    var shown = 0;
+    grid.querySelectorAll('.download-item').forEach(function (card) {
+      var tags = (card.getAttribute('data-person') || '').toLowerCase().split(/\s+/).filter(Boolean);
+      var hasKnown = tags.some(function (t) { return KNOWN.indexOf(t) !== -1; });
+      // "Other" = anything not tagged with one of the five names (this includes user uploads with no tag)
+      var match = current === 'all' || (current === 'other' ? !hasKnown : tags.indexOf(current) !== -1);
+      card.style.display = match ? '' : 'none';
+      if (match) shown++;
+    });
+    var empty = document.getElementById('aiFilterEmpty');
+    if (empty) empty.style.display = shown ? 'none' : 'block';
+  }
+
+  document.addEventListener('click', function (e) {
+    var chip = e.target.closest && e.target.closest('#aiFilter .ai-chip');
+    if (!chip) return;
+    current = chip.getAttribute('data-filter');
+    document.querySelectorAll('#aiFilter .ai-chip').forEach(function (c) { c.classList.toggle('active', c === chip); });
+    apply();
+  });
+
+  // approved user uploads are added to the grid later -> keep the filter applied to them too
+  var grid = document.querySelector('#request .downloads-grid');
+  if (grid && window.MutationObserver) new MutationObserver(apply).observe(grid, { childList: true });
+  apply();
+})();
+</script>
+<script>
+(function () {
+    // ---- add more songs here ----
+    var TRACKS = [
+    { name: 'Manasha (Over-Slowed)', src: 'music/MANASHA (OVER-SLOWED) - ASHREVEAL  ASHISH SWARGIARY_1762602800795.mp3' },
+    { name: 'Warriyo', src: 'music/Warriyo, LXNGVX - Mortals Funk Remix [NCS Release].mp3' },
+    { name: 'X-Cool', src: 'music/X-COOL! (Ultra Slowed).mp3' },
+    { name: 'Armor Na Praia (slowed)', src: 'music/Amor Na Praia (Slowed)_1753782958144.mp3' },
+    { name: 'Airtel Phonk', src: 'music/MASHUQ HAQUE - AIRTEL PHONK  A. R. RAHMAN (PHONK)_1770387853094.mp3' },
+    { name: 'Next!', src: 'music/NEXT!_1996.mp3' },
+    { name: 'Paren (slowed + Reverb)', src: 'music/paaren-slowed-reverb-sanuka-wickramasinghe.mp3' },
+    { name: 'Tiki Tiki (slowed)', src: 'music/TIKI TIKI NI FUNK (SLOWED) - EDITSAN _1770388103761.mp3' },
+    { name: 'Funk Sereno (Super SLowed)', src: 'music/FUNK_SERENO__SUPER_SLOWED_.mp3' },
+    { name: 'Raya (SLowed)', src: 'music/Zericxxn_-_Raya_-_Slowed_(mp3.pm).mp3' }
+];
+
+    var audio   = document.getElementById('bg-music');
+    var iconBtn = document.getElementById('music-toggle');
+    var panel   = document.getElementById('kzMusicPanel');
+    var sel     = document.getElementById('kzmTrack');
+    var playBtn = document.getElementById('kzmPlay');
+    var nextBtn = document.getElementById('kzmNext');
+    var vol     = document.getElementById('kzmVol');
+    var volText = document.getElementById('kzmVolText');
+
+    function load(k, d) { try { var v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } }
+    function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+    var stopped = load('background-music-muted', 'false') === 'true';
+    var track   = parseInt(load('kz-music-track', '0'), 10);
+    if (!(track >= 0 && track < TRACKS.length)) track = 0;
+    var volume  = parseInt(load('kz-music-volume', '60'), 10);
+    if (!(volume >= 0 && volume <= 100)) volume = 60;
+    var resumeAfterHidden = false;
+
+    var bgBox  = document.getElementById('kzmBg');
+var bgPlay = load('kz-music-bg', 'false') === 'true';
+bgBox.checked = bgPlay;
+
+bgBox.addEventListener('change', function () {
+    bgPlay = bgBox.checked;
+    save('kz-music-bg', bgPlay);
+    if (bgPlay && !stopped && audio.paused) play();   // on karama ekapara play wenna
+});
+
+function setMediaSession() {
+    if (!('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return;
+    navigator.mediaSession.metadata = new MediaMetadata({ title: TRACKS[track].name, artist: 'KyZer_HADOC' });
+    navigator.mediaSession.setActionHandler('play',  function () { stopped = false; save('background-music-muted', false); play(); ui(); });
+    navigator.mediaSession.setActionHandler('pause', function () { stopped = true;  save('background-music-muted', true);  audio.pause(); ui(); });
+    navigator.mediaSession.setActionHandler('nexttrack', function () { setTrack(track + 1); });
+}
+
+    TRACKS.forEach(function (t, i) {
+        var o = document.createElement('option');
+        o.value = i; o.textContent = t.name;
+        sel.appendChild(o);
+    });
+
+    function play() { audio.play().catch(function () {}); }
+
+    function ui() {
+        iconBtn.textContent = (stopped || volume === 0) ? '🔇' : '🔊';
+        playBtn.textContent = stopped ? '▶ Play' : '⏸ Stop';
+        sel.value = track;
+        vol.value = volume;
+        volText.textContent = volume + '%';
+        audio.volume = volume / 100;
+        audio.loop = TRACKS.length === 1;
+        nextBtn.style.display = TRACKS.length > 1 ? '' : 'none';
+    }
+
+    function setTrack(i) {
+        track = ((i % TRACKS.length) + TRACKS.length) % TRACKS.length;
+        save('kz-music-track', track);
+        audio.src = TRACKS[track].src;
+        audio.load();
+        if (!stopped) play();
+        ui();
+    }
+
+    // initial state
+    audio.src = TRACKS[track].src;
+    ui();
+
+    // controls
+    playBtn.addEventListener('click', function () {
+        stopped = !stopped;
+        save('background-music-muted', stopped);
+        if (stopped) audio.pause(); else play();
+        ui();
+    });
+    nextBtn.addEventListener('click', function () { setTrack(track + 1); });
+    sel.addEventListener('change', function () { setTrack(parseInt(sel.value, 10)); });
+    vol.addEventListener('input', function () {
+        volume = parseInt(vol.value, 10);
+        save('kz-music-volume', volume);
+        ui();
+    });
+    audio.addEventListener('ended', function () { if (TRACKS.length > 1) setTrack(track + 1); });
+
+    // panel open / close
+    window.kzToggleMusicPanel = function (e) {
+        if (e) e.stopPropagation();
+        var open = panel.classList.toggle('open');
+        iconBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    function closePanel() { panel.classList.remove('open'); iconBtn.setAttribute('aria-expanded', 'false'); }
+    document.addEventListener('click', function (e) {
+        if (panel.classList.contains('open') && !panel.contains(e.target) && e.target !== iconBtn) closePanel();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePanel(); });
+
+    // autoplay: try right away on page load; if the browser blocks it,
+    // start on the first click / tap / key press anywhere on the page (unless the user stopped the music)
+    (function autoplay() {
+        if (stopped) return;
+        var evs = ['pointerdown', 'keydown', 'touchstart'];
+        function remove() { evs.forEach(function (e) { document.removeEventListener(e, unlock, true); }); }
+        function unlock() {
+            if (stopped) return;
+            var p = audio.play();
+            if (p && p.then) p.then(remove).catch(function () {}); else remove();
+        }
+        var first = audio.play();
+        if (first && first.catch) {
+            first.catch(function () { evs.forEach(function (e) { document.addEventListener(e, unlock, true); }); });
+        }
+    })();
+
+    // pause when the tab is hidden, resume when it is back
+    document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+        if (bgPlay) return;                 // tick karala nam pause karanna epa
+        if (!audio.paused) { resumeAfterHidden = true; audio.pause(); }
+    } else if (resumeAfterHidden && !stopped) {
+        play();
+        resumeAfterHidden = false;
+    }
+});
+})();
+
+</script>
+<script>
+(function () {
+    // ===== මේ ටික විතරක් edit කරන්න =====
+    var HEADER_VIDEOS = [
+        { src: 'media/header1.mp4', ratio: 16 / 9 },
+        { src: 'media/header2.mp4', ratio: 16 / 9 },
+        { src: 'media/header3.mp4', ratio: 16 / 9 },
+        { src: 'media/header4.mp4', ratio: 16 / 9 }
+    ];
+    // =====================================
+    var NET = window.KZ_NET || {};
+    var FPS = NET.weak ? 15 : 24;
+    var header = document.querySelector('header');
+    var canvas = document.getElementById('hvCanvas');
+    if (!header || !canvas) { window.kzHeader = { on: function () {}, off: function () {}, isOn: function () { return false; } }; return; }
+    var ctx = canvas.getContext('2d', { alpha: false });
+
+    var vids = null, holder = null, tiles = [], W = 0, H = 0;
+    var running = false, gen = 0, rafId = 0, last = 0, poll = null;
+
+    function ratioOf(i) {
+        var v = vids[i];
+        return (v.videoWidth && v.videoHeight) ? v.videoWidth / v.videoHeight : HEADER_VIDEOS[i].ratio;
+    }
+
+    function layout() {
+        if (!vids) return;
+        W = header.clientWidth; H = header.clientHeight;
+        if (!W || !H) return;
+        var dpr = NET.weak ? 1 : Math.min(window.devicePixelRatio || 1, 1.5);
+        canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        var ratios = vids.map(function (_, i) { return ratioOf(i); });
+        var setSum = ratios.reduce(function (a, b) { return a + b; }, 0);
+        var loops = Math.max(1, Math.round(W / (H * setSum)));
+        var total = loops * setSum, acc = 0, x0 = 0;
+        tiles = [];
+        for (var l = 0; l < loops; l++) {
+            for (var i = 0; i < vids.length; i++) {
+                acc += ratios[i];
+                var x1 = Math.round(W * acc / total);
+                tiles.push({ v: vids[i], x: x0, w: x1 - x0 });
+                x0 = x1;
+            }
+        }
+    }
+
+    function make() {
+        if (vids) return;
+        holder = document.createElement('div');
+        holder.className = 'hv-sources';
+        document.body.appendChild(holder);
+        vids = HEADER_VIDEOS.map(function (cfg) {
+            var v = document.createElement('video');
+            v.muted = true; v.defaultMuted = true; v.loop = true; v.playsInline = true;
+            v.disablePictureInPicture = true; v.preload = 'none';
+            v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('webkit-playsinline', '');
+            v._src = cfg.src;
+            v.addEventListener('loadedmetadata', layout);
+            holder.appendChild(v);
+            return v;
+        });
+        if (window.ResizeObserver) new ResizeObserver(layout).observe(header);
+        else window.addEventListener('resize', layout);
+        document.addEventListener('visibilitychange', function () {
+            if (!running) return;
+            if (document.hidden) pauseAll(); else playAll();
+        });
+        ['pointerdown', 'touchstart', 'keydown'].forEach(function (e) {
+            document.addEventListener(e, function () { if (running) playAll(); }, { passive: true });
+        });
+        var conn = navigator.connection;
+        if (conn && conn.addEventListener) {
+            conn.addEventListener('change', function () {
+                if (running && (conn.saveData || /^(slow-2g|2g|3g)$/.test(conn.effectiveType || ''))) off();
+            });
+        }
+    }
+
+    function playAll() {
+        vids.forEach(function (v) {
+            if (v.getAttribute('src') && v.paused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        });
+    }
+    function pauseAll() { vids.forEach(function (v) { v.pause(); }); }
+
+    // video 4ම එකපාර බාන්නේ නෑ: එකක් play කරන්න පුළුවන් වුණාම ඊළඟ එක
+    function loadFrom(idx, g) {
+        if (!running || g !== gen || idx >= vids.length) return;
+        var v = vids[idx], done = false;
+        function go() { if (done) return; done = true; loadFrom(idx + 1, g); }
+        v.addEventListener('canplay', go, { once: true });
+        v.addEventListener('error', go, { once: true });
+        v.preload = 'auto';
+        v.src = v._src;
+        var p = v.play(); if (p && p.catch) p.catch(function () {});
+    }
+
+    function draw(t) {
+        if (!running) return;
+        rafId = requestAnimationFrame(draw);
+        if (t - last < 1000 / FPS) return;
+        last = t;
+        if (!W || !H) return;
+        ctx.fillStyle = '#000';
+        ctx.fillRect(0, 0, W, H);
+        for (var k = 0; k < tiles.length; k++) {
+            var tl = tiles[k], v = tl.v;
+            if (v.readyState < 2 || !v.videoWidth) continue;
+            var vw = v.videoWidth, vh = v.videoHeight;
+            var ta = tl.w / H, va = vw / vh;
+            var sx = 0, sy = 0, sw = vw, sh = vh;
+            if (va > ta) { sw = vh * ta; sx = (vw - sw) / 2; }
+            else         { sh = vw / ta; sy = (vh - sh) / 2; }
+            ctx.drawImage(v, sx, sy, sw, sh, tl.x, 0, tl.w, H);
+        }
+    }
+
+    function on() {
+        if (running) return;
+        make();
+        running = true; gen++;
+        header.classList.remove('hv-lite');
+        layout();
+        loadFrom(0, gen);
+        rafId = requestAnimationFrame(draw);
+        poll = setInterval(function () { if (!document.hidden) playAll(); }, 4000);
+        window.dispatchEvent(new Event('kzmedia'));
+    }
+    function off() {
+        if (!running) return;
+        running = false; gen++;
+        cancelAnimationFrame(rafId); clearInterval(poll);
+        vids.forEach(function (v) { v.pause(); v.removeAttribute('src'); v.load(); });
+        header.classList.add('hv-lite');
+        window.dispatchEvent(new Event('kzmedia'));
+    }
+    window.kzHeader = { on: on, off: off, isOn: function () { return running; } };
+})();
+</script>
+
+<script>
+// ===== Naruto buttons: 🍥 = header videos, shuriken = bg video =====
+(function () {
+    var bH = document.getElementById('kzBtnHeader'), bB = document.getElementById('kzBtnBg');
+    var header = document.querySelector('header');
+    if (!bH || !bB) return;
+
+    function load(k) { try { return localStorage.getItem(k) === '1'; } catch (e) { return false; } }
+    function save(k, v) { try { localStorage.setItem(k, v ? '1' : '0'); } catch (e) {} }
+
+    function sync() {
+        var h = window.kzHeader.isOn(), b = window.kzBg.isOn();
+        bH.classList.toggle('kz-active', h); bH.setAttribute('aria-pressed', h);
+        bB.classList.toggle('kz-active', b); bB.setAttribute('aria-pressed', b);
+    }
+    window.addEventListener('kzmedia', sync);
+
+    bH.addEventListener('click', function () {
+        if (window.kzHeader.isOn()) { window.kzHeader.off(); save('kz-hv-on', false); }
+        else { window.kzHeader.on(); save('kz-hv-on', true); }
+    });
+    bB.addEventListener('click', function () {
+        if (window.kzBg.isOn()) { window.kzBg.off(); save('kz-bgv-on', false); }
+        else { window.kzBg.on(); save('kz-bgv-on', true); }
+    });
+
+    // 🍥 = header එක ඇතුළේ (sound icon එකට යටින්), shuriken = header එකට යටින්
+    function place() {
+        var hb = header ? Math.max(header.getBoundingClientRect().bottom, 0) : 0;
+        bH.style.top = '54px';
+        bB.style.top = Math.max(hb + 10, 54 + 46 + 4) + 'px';
+    }
+    place();
+    window.addEventListener('scroll', place, { passive: true });
+    window.addEventListener('resize', place);
+    if (window.ResizeObserver && header) new ResizeObserver(place).observe(header);
+
+    // කලින් on කරලා තිබුණා නම් page load වුණාට පස්සේ ආයෙත් on කරනවා
+    function restore() {
+        if (load('kz-hv-on')) window.kzHeader.on();
+        if (load('kz-bgv-on')) window.kzBg.on();
+        sync();
+    }
+    if (document.readyState === 'complete') restore(); else window.addEventListener('load', restore, { once: true });
+    sync();
 })();
 </script>
 </body>

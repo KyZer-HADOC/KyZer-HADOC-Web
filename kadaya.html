@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="images/kadaya 2d.jpg" rel="icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kadaya</title>
+    <style>
+        :root {
+            --cyan: #0B0C10;
+            --blue: #1F2833;
+            --kadaya: #45A29E;
+            --ashgray: #C5C6C7;
+            --dark: #05070a;
+            --panel: rgba(10, 18, 24, 0.92);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: white;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            background: radial-gradient(circle at top, #12313b, var(--dark) 58%);
+        }
+
+        .page {
+            width: min(900px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 48px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 24px;
+            color: var(--cyan);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .panel {
+            padding: 28px;
+            background: var(--panel);
+            border: 1px solid rgba(102, 250, 255, 0.35);
+            border-radius: 20px;
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+        }
+
+        .product-image {
+            display: block;
+            width: min(100%, 560px);
+            max-height: 360px;
+            margin: 0 auto 24px;
+            object-fit: contain;
+            border-radius: 14px;
+        }
+
+        h1 { margin: 0 0 8px; color: var(--cyan); }
+        .description { color: #c7d4d8; margin: 0 0 24px; }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .button {
+            flex: 1 1 240px;
+            display: block;
+            padding: 14px 18px;
+            border: 0;
+            border-radius: 10px;
+            color: #000000;
+            background: linear-gradient(135deg, var(--cyan), var(--blue), var(--kadaya));
+            font-weight: 800;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .guide-title { margin: 0 0 12px; }
+
+        video {
+            display: block;
+            width: 100%;
+            max-height: 560px;
+            border-radius: 12px;
+            background: black;
+        }
+        .gradient-text-teal {
+  background: linear-gradient(135deg, #C5C6C7 0%, #45A29E 50%, #1F2833 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-weight: bold;
+}
+.gradient-text-dark {
+  background: linear-gradient(90deg, #1F2833 0%, #45A29E 45%, #C5C6C7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-weight: bold;
+}
+.gradient-text-dark-steel {
+  background: linear-gradient(135deg, #1F2833 0%, #C5C6C7 50%, #1F2833 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-weight: bold;
+}
+.gradient-text-shadow {
+  background: linear-gradient(180deg, #C5C6C7 0%, #1F2833 80%, #0B0C10 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-weight: bold;
+}
+.dark-glow-text {
+  font-family: 'Cinzel', serif; /* Game titles walata galapena font ekak */
+  color: #C5C6C7;
+  text-shadow: 0 0 10px rgba(31, 40, 51, 0.8), 0 0 20px rgba(11, 12, 16, 0.9);
+}
+
+
+
+        @media (max-width: 600px) {
+            .page { width: min(100% - 20px, 900px); padding-top: 18px; }
+            .panel { padding: 18px; }
+            h1 { font-size: 1.7rem; }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <a href="Index_02.html" class="back-link">&larr; Go Back</a>
+
+        <section class="panel">
+            <img src="images/kadaya 2d.jpg" alt="Kadaya" class="product-image">
+            <h1 class="gradient-text-dark-steel"><i><b>Kadaya</b></i></h1><br>
+            <h3 class="gradient-text-shadow">THE AGE OF SHADOWS</h3>
+            <p class="dark-glow-text">The Grim Reaper awaits your arrival.</p>
+            
+            <div class="actions">
+                <a href="Other/Kadaya PC 2D.exe" download class="button"><b class="gradient-text-dark-steel">Download Kadaya Setup</b>&nbsp;&nbsp;&nbsp;&nbsp;<sup><span style=color:orange>2D</span></sup></b></a>
+            </div>
+            <p class="description" style="text-align:left;"><span style=color:goldenrod>තාම 2D Version එක විතරයි යකෝ.<br>ඔය Demo එක Full කෑලි නෑ තාම.</span></p>
+
+        </section>
+    </main>
+</body>
+</html>

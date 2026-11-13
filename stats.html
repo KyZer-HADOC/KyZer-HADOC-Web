@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>KyZer_HADOC | Site Stats</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07051a;--card:rgba(255,255,255,.07);--line:rgba(255,255,255,.15);--tx:#ede9fe;--mu:#a9a0d6;--a:#8b5cf6;--b:#22d3ee;--c:#ff4fd0}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;padding:24px 16px 60px;font-family:Poppins,system-ui,sans-serif;color:var(--tx);background:radial-gradient(900px circle at 15% 0,rgba(139,92,246,.3),transparent 60%),radial-gradient(800px circle at 100% 40%,rgba(34,211,238,.18),transparent 60%),var(--bg)}
+.w{max-width:1100px;margin:0 auto}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:22px}
+h1{margin:0;font-size:clamp(1.4rem,4vw,2.2rem);font-weight:800}
+h1 span{background:linear-gradient(100deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;color:var(--mu);font-size:.85rem}
+button,.back{font:600 .85rem Poppins,sans-serif;color:#fff;border:1px solid var(--line);background:rgba(255,255,255,.1);padding:9px 16px;border-radius:99px;cursor:pointer;text-decoration:none;backdrop-filter:blur(8px)}
+button:hover,.back:hover{background:rgba(255,255,255,.2)}
+.grid{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:14px}
+.two{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-bottom:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:18px;backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 rgba(255,255,255,.2);margin-bottom:14px}
+.grid .card,.two .card{margin:0}
+.k,.sub{color:var(--mu);font-size:.8rem}
+.n{font-size:clamp(1.6rem,4vw,2.3rem);font-weight:800;margin-top:4px}
+h2{margin:0 0 12px;font-size:1.05rem}
+.bar{margin:10px 0}
+.bar div{display:flex;justify-content:space-between;gap:10px;font-size:.85rem;margin-bottom:4px}
+.tr{display:block;height:8px;border-radius:9px;background:rgba(255,255,255,.08);overflow:hidden}
+.tr i{display:block;height:100%;border-radius:9px;background:linear-gradient(90deg,var(--a),var(--b),var(--c))}
+#chart{width:100%;height:210px;display:block}
+.sum{line-height:1.8;color:#d9d3ff}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.82rem;min-width:560px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--mu);font-weight:600}
+.v{color:var(--b)}.c{color:var(--c)}
+#msg{display:none;padding:14px;border-radius:14px;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.4);color:#fde68a;margin-bottom:14px}
+#scope{margin:6px 2px 12px;font-weight:600;color:var(--b)}
+.sites{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.sc{display:flex;flex-direction:column;gap:4px;text-align:left;font:400 .85rem Poppins,sans-serif;color:var(--tx);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:16px;padding:14px;text-decoration:none}
+button.sc{cursor:pointer}
+.sc:hover{background:rgba(255,255,255,.12)}
+.sc.on{border-color:var(--b);box-shadow:0 0 0 1px var(--b),0 8px 24px rgba(34,211,238,.18)}
+.sc small{color:var(--mu);word-break:break-all}
+.sc span{color:#d9d3ff}
+.sc a{color:var(--b);font-size:.8rem}
+</style>
+</head>
+<body>
+<div class="w">
+  <header>
+    <h1>📊 <span>KyZer_HADOC</span> Site Stats</h1>
+    <div class="tools"><span id="upd">Loading…</span><button id="rf" type="button">Refresh</button><a class="back" href="index.html">← Back</a></div>
+  </header>
+  <div id="msg"></div>
+  <div class="card"><h2>Your sites <span class="sub">(tap one to see its full details below)</span></h2><div class="sites" id="sites"></div><div class="sub" id="oth" style="margin-top:12px"></div></div>
+  <div class="card"><h2>Other links</h2><div class="sites" id="ext"></div></div>
+  <div id="scope"></div>
+  <div class="grid" id="cards"></div>
+  <div class="card"><h2>Summary</h2><div class="sum" id="sum">Loading…</div></div>
+  <div class="card"><h2>Last 14 days</h2><svg id="chart" viewBox="0 0 700 210" preserveAspectRatio="none"></svg><div class="sub"><span class="v">■</span> Views &nbsp; <span class="c">■</span> Clicks</div></div>
+  <div class="two">
+    <div class="card"><h2>Button clicks</h2><div id="btns"></div></div>
+    <div class="card"><h2>Devices</h2><div id="dev"></div><h2 style="margin-top:18px">Time zones</h2><div id="cty"></div><h2 style="margin-top:18px">Where visitors come from</h2><div id="ref"></div></div>
+  </div>
+  <div class="card"><h2>Recent activity (last 50)</h2><div class="tw"><table><thead><tr><th>Time (Sri Lanka)</th><th>Type</th><th>Button</th><th>Device</th><th>Time zone</th><th>Source</th></tr></thead><tbody id="rec"></tbody></table></div></div>
+</div>
+<script>
+var API = 'https://script.google.com/macros/s/AKfycbyWG86T--o9TOikXbdv3IbmCID-KEzTJZ23Z0zRLFY6AiQSB96M_IlZ7WmcpMuqdj2Bug/exec';   // <- Apps Script "Web app" URL (ends with /exec)
+var $ = function (id) { return document.getElementById(id); };
+var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+var fmt = function (n) { return (n || 0).toLocaleString(); };
+var dayOf = function (t) { return new Date(t).toLocaleDateString('en-CA', { timeZone: 'Asia/Colombo' }); };
+function rank(o, n) { return Object.keys(o || {}).map(function (k) { return [k, o[k]]; }).sort(function (a, b) { return b[1] - a[1]; }).slice(0, n || 8); }
+function bars(el, list, total) {
+  el.innerHTML = list.length ? list.map(function (x) {
+    var p = total ? x[1] / total * 100 : 0;
+    return '<div class="bar"><div><span>' + esc(x[0]) + '</span><b>' + fmt(x[1]) + ' · ' + Math.round(p) + '%</b></div><span class="tr"><i style="width:' + p + '%"></i></span></div>';
+  }).join('') : '<div class="sub">No data yet</div>';
+}
+// ---- your sites: "host" = every page of that website, "page" = one exact page (host + path, lower case) ----
+var SITES = [
+  { name: 'Main website', page: 'kyzerhadoc.netlify.app/' },
+  { name: 'Download page', page: 'kyzerhadoc.netlify.app/index_02.html' },
+  { name: 'Services', page: 'kyzerhadoc.netlify.app/services.html' },
+  { name: 'BedWars Train', host: 'bedwars.gamer.free' },
+  { name: 'KyZer YouTube (Pages)', host: 'kyzer-yoube.pages.dev' },
+  { name: 'Web Discovery', host: 'kyzer-web-discovery.gamer.gd' },
+  { name: 'KyZer AI Pro', host: 'kyzer-ai-pro.netlify.app' },
+  { name: 'HADOC AI', host: 'hadoc-ai.netlify.app' }
+];
+// links you cannot put a tracker on: we count the clicks that came from YOUR sites + show public numbers
+var EXTERNAL = [
+  { name: 'Fiverr', url: 'https://www.fiverr.com/s/ZmERyjR', re: /fiverr/i, note: 'Gig views and orders: see your Fiverr dashboard.' },
+  { name: 'GitHub', url: 'https://github.com/KyZer-HADOC/', re: /github/i, note: 'Loading public numbers…' },
+  { name: 'YouTube', url: 'https://www.youtube.com/@HADOC307', re: /youtube/i, note: 'Subscribers/views: put a YouTube API key in YT_KEY (optional).' }
+];
+var YT_KEY = '';   // optional: YouTube Data API key
+var EMPTY = { views: 0, clicks: 0, uniques: 0, byDay: {}, buttons: {}, devices: {}, tz: {}, refs: {}, recent: [] };
+var DATA = null, SEL = 'all', PUB = {};
+function siteData(s) { return (s.page ? DATA.pages[s.page] : DATA.hosts[s.host]) || EMPTY; }
+function draw() {
+  var today = dayOf(Date.now()), h = '';
+  h += '<button type="button" class="sc' + (SEL === 'all' ? ' on' : '') + '" data-i="all"><b>All sites together</b><small>every tracked page</small><span>' + fmt(DATA.all.views) + ' views · ' + fmt(DATA.all.clicks) + ' clicks</span></button>';
+  SITES.forEach(function (s, i) {
+    var a = siteData(s), t = (a.byDay || {})[today] || { v: 0, c: 0 };
+    h += '<button type="button" class="sc' + (SEL === String(i) ? ' on' : '') + '" data-i="' + i + '"><b>' + esc(s.name) + '</b><small>' + esc(s.page || s.host) + '</small><span>' + fmt(a.views) + ' views · ' + fmt(a.clicks) + ' clicks</span><span>today ' + fmt(t.v) + ' · from Google ' + fmt((a.refs || {}).Google || 0) + '</span></button>';
+  });
+  $('sites').innerHTML = h;
+  [].forEach.call($('sites').querySelectorAll('.sc'), function (b) { b.onclick = function () { SEL = b.getAttribute('data-i'); draw(); }; });
+  var hosts = SITES.map(function (s) { return s.host; }), pgs = SITES.map(function (s) { return s.page; });
+  var other = Object.keys(DATA.pages).filter(function (k) { return pgs.indexOf(k) < 0 && !hosts.some(function (x) { return x && k.indexOf(x + '/') === 0; }); });
+  $('oth').innerHTML = other.length ? 'Other pages that sent data: ' + other.map(function (k) { return esc(k) + ' (' + fmt(DATA.pages[k].views) + ' views)'; }).join(' · ') : '';
+  drawExt();
+  $('scope').textContent = 'Showing: ' + (SEL === 'all' ? 'All sites together' : SITES[+SEL].name);
+  render(SEL === 'all' ? DATA.all : siteData(SITES[+SEL]));
+}
+function drawExt() {
+  var btn = DATA.all.buttons || {};
+  $('ext').innerHTML = EXTERNAL.map(function (x) {
+    var n = 0; Object.keys(btn).forEach(function (k) { if (x.re.test(k)) { n += btn[k]; } });
+    return '<div class="sc"><b>' + x.name + '</b><small>' + esc(x.url) + '</small><span>Clicks from your sites: <b>' + fmt(n) + '</b></span><span class="sub">' + esc(PUB[x.name] || x.note) + '</span><a href="' + x.url + '" target="_blank" rel="noopener">Open ↗</a></div>';
+  }).join('');
+}
+var pubDone = false;
+function loadPublic() {
+  if (pubDone) { return; } pubDone = true;
+  fetch('https://api.github.com/users/KyZer-HADOC').then(function (r) { return r.json(); }).then(function (u) {
+    if (u.followers === undefined) { return; }
+    PUB.GitHub = 'Followers ' + fmt(u.followers) + ' · Public repos ' + fmt(u.public_repos); drawExt();
+    return fetch('https://api.github.com/users/KyZer-HADOC/repos?per_page=100').then(function (r) { return r.json(); }).then(function (rs) {
+      var st = 0; rs.forEach(function (x) { st += x.stargazers_count || 0; }); PUB.GitHub += ' · Stars ' + fmt(st); drawExt();
+    });
+  }).catch(function () {});
+  if (YT_KEY) {
+    fetch('https://www.googleapis.com/youtube/v3/channels?part=statistics&forHandle=@HADOC307&key=' + encodeURIComponent(YT_KEY)).then(function (r) { return r.json(); }).then(function (j) {
+      var c = j.items && j.items[0] && j.items[0].statistics; if (!c) { return; }
+      PUB.YouTube = 'Subscribers ' + fmt(+c.subscriberCount) + ' · Total views ' + fmt(+c.viewCount) + ' · Videos ' + fmt(+c.videoCount); drawExt();
+    }).catch(function () {});
+  }
+}
+async function load() {
+  var key = localStorage.getItem('kx_stats_key') || '';
+  try {
+    if (API.indexOf('PASTE') === 0) { throw new Error('paste your Web app URL into the API line at the top of the script in this file'); }
+    var r = await fetch(API + '?key=' + encodeURIComponent(key), { cache: 'no-store' });
+    var d = await r.json();
+    if (d.error === 'unauthorized') { var k = prompt('Stats password:'); if (k) { localStorage.setItem('kx_stats_key', k); return load(); } throw new Error('password required'); }
+    if (d.error) { throw new Error(d.error); }
+    if (!d.all) { throw new Error('Code.gs is the old version: paste the new Code.gs, then Deploy > Manage deployments > Edit > New version'); }
+    DATA = d; draw(); loadPublic(); $('msg').style.display = 'none';
+  } catch (e) { $('msg').textContent = 'Could not load stats: ' + e.message; $('msg').style.display = 'block'; }
+}
+function render(d) {
+  var today = dayOf(Date.now()), t = (d.byDay || {})[today] || { v: 0, c: 0 };
+  var btn = rank(d.buttons, 50), best = btn[0], g = (d.refs || {}).Google || 0;
+  var ctr = d.views ? (d.clicks / d.views * 100).toFixed(1) : '0';
+  $('cards').innerHTML = [['Total views', fmt(d.views)], ['Total clicks', fmt(d.clicks)], ['Unique visitors', fmt(d.uniques)], ['Views today', fmt(t.v)], ['Clicks today', fmt(t.c)], ['From Google', fmt(g)], ['Click rate', ctr + '%']]
+    .map(function (x) { return '<div class="card"><div class="k">' + x[0] + '</div><div class="n">' + x[1] + '</div></div>'; }).join('');
+  var busiest = rank(Object.keys(d.byDay || {}).reduce(function (o, k) { o[k] = d.byDay[k].v; return o; }, {}), 1)[0];
+  var dev = d.devices || {}, dt = (dev.mobile || 0) + (dev.desktop || 0);
+  $('sum').innerHTML = [
+    'The page has <b>' + fmt(d.views) + '</b> total views from <b>' + fmt(d.uniques) + '</b> unique visitors.',
+    'From Google search: <b>' + fmt(g) + '</b> views' + (d.views ? ' (' + Math.round(g / d.views * 100) + '% of all views).' : '.'),
+    'Today: <b>' + fmt(t.v) + '</b> views and <b>' + fmt(t.c) + '</b> button clicks.',
+    best ? 'Most clicked button: <b>' + esc(best[0]) + '</b> (' + fmt(best[1]) + ' clicks).' : 'No button clicks recorded yet.',
+    busiest ? 'Busiest day: <b>' + busiest[0] + '</b> with ' + fmt(busiest[1]) + ' views.' : '',
+    'Overall click rate: <b>' + ctr + '%</b>' + (dt ? ' · ' + Math.round((dev.mobile || 0) / dt * 100) + '% of visitors use mobile.' : '.')
+  ].filter(Boolean).join('<br>');
+  var days = [], i; for (i = 13; i >= 0; i--) { days.push(dayOf(Date.now() - i * 864e5)); }
+  var mx = 1; days.forEach(function (k) { var o = (d.byDay || {})[k] || { v: 0, c: 0 }; mx = Math.max(mx, o.v, o.c); });
+  $('chart').innerHTML = days.map(function (k, n) {
+    var o = (d.byDay || {})[k] || { v: 0, c: 0 }, x = n * 50 + 6, hv = o.v / mx * 160, hc = o.c / mx * 160;
+    return '<rect x="' + x + '" y="' + (180 - hv) + '" width="18" height="' + hv + '" rx="4" fill="#22d3ee"/>' +
+      '<rect x="' + (x + 20) + '" y="' + (180 - hc) + '" width="18" height="' + hc + '" rx="4" fill="#ff4fd0"/>' +
+      '<text x="' + (x + 19) + '" y="200" font-size="11" text-anchor="middle" fill="#a9a0d6">' + k.slice(5) + '</text>';
+  }).join('');
+  bars($('btns'), btn, d.clicks); bars($('dev'), rank(d.devices), d.views);
+  bars($('cty'), rank(d.tz), d.views); bars($('ref'), rank(d.refs), d.views);
+  $('rec').innerHTML = (d.recent || []).slice(0, 50).map(function (e) {
+    return '<tr><td>' + new Date(e.t).toLocaleString('en-GB', { timeZone: 'Asia/Colombo', hour12: false }) + '</td><td class="' + (e.type === 'click' ? 'c' : 'v') + '">' + e.type + '</td><td>' + esc(e.label || '–') + '</td><td>' + esc(e.device) + '</td><td>' + esc(e.tz) + '</td><td>' + esc(e.ref) + '</td></tr>';
+  }).join('') || '<tr><td colspan="6" class="sub">No activity yet</td></tr>';
+  $('upd').textContent = 'Updated ' + new Date().toLocaleTimeString('en-GB', { timeZone: 'Asia/Colombo' });
+}
+$('rf').onclick = load; load(); setInterval(load, 20000);
+</script>
+</body>
+</html>

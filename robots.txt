@@ -1,0 +1,4 @@
+<escape>User-agent: *
+Allow: /
+
+Sitemap: https://kyzerhadoc.netlify.app/sitemap.xml</escape>

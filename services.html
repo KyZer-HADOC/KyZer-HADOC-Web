@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+
+      <!-- Paste this just before </body> on EVERY site you want in stats.html (same snippet everywhere) -->
+<script>
+(function () {
+  var API = 'https://script.google.com/macros/s/AKfycbyWG86T--o9TOikXbdv3IbmCID-KEzTJZ23Z0zRLFY6AiQSB96M_IlZ7WmcpMuqdj2Bug/exec';   // <- Apps Script "Web app" URL (ends with /exec)
+  var me = false; try { me = !!localStorage.getItem('kx_me'); } catch (e) {}   // run localStorage.kx_me=1 in the console to ignore your own visits
+  if (API.indexOf('PASTE') === 0 || me || navigator.webdriver) { return; }
+  var vid;
+  try { vid = localStorage.getItem('kx_vid'); if (!vid) { vid = Math.random().toString(36).slice(2) + Date.now().toString(36); localStorage.setItem('kx_vid', vid); } } catch (e) { vid = 'anon'; }
+  function send(type, label) {
+    var ref = document.referrer;
+    try { if (new URL(ref).hostname === location.hostname) { ref = ''; } } catch (e) { ref = ''; }
+    var d = JSON.stringify({ type: type, label: label || '', ref: ref, vid: vid, site: location.hostname, page: location.pathname,
+      tz: (Intl.DateTimeFormat().resolvedOptions().timeZone || ''), ua: navigator.userAgent.slice(0, 180) });
+    try {
+      if (navigator.sendBeacon) { navigator.sendBeacon(API, new Blob([d], { type: 'text/plain' })); }
+      else { fetch(API, { method: 'POST', mode: 'no-cors', keepalive: true, body: d }); }
+    } catch (e) {}
+  }
+  send('view');
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a, button');
+    if (!a) { return; }
+    var h = a.querySelector('h3');
+    var l = a.getAttribute('data-track') || a.getAttribute('aria-label') || (h ? h.textContent : a.textContent) || a.getAttribute('title') || a.getAttribute('href') || '';
+    l = l.replace(/\s+/g, ' ').trim().slice(0, 40);
+    if (l) { send('click', l); }
+  });
+})();
+</script>
+
+<!-- SEO Meta Tags for KyZer_HADOC Services Page -->
+<meta name="description" content="Get professional, high-quality, and affordable digital services from KyZer_HADOC. We build Custom Websites, Android Apps, Windows PC Softwares, Voice-Controlled AI Assistants (Jarvis), and Minecraft Mods & Plugins. Pay only after 100% satisfaction.">
+<meta name="keywords" content="KyZer HADOC, KyZer_HADOC, KyZer, HADOC, Nessa, Minecraft, Website Creating, Fiverr, Nesara Thathsindu, buy minecraft mods sri lanka, web developer sri lanka, custom fabric mods, windows software developer, custom android apps apk, Jarvis AI assistant PC voice command, Spigot plugins, Paper plugins sri lanka, cheap web design sri lanka">
+<meta name="author" content="KyZer_HADOC">
+
+<!-- Open Graph / Facebook Meta Tags (Social Media වල Share වෙද්දී ලස්සනට පේන්න) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://netlify.app">
+<meta property="og:title" content="Professional Tech & Coding Services | KyZer_HADOC">
+<meta property="og:description" content="Affordable custom software, websites, Android apps, and Minecraft development with a 100% satisfaction guarantee. Pay after the work is done!">
+<meta property="og:image" content="https://netlify.app"> <!-- ඔයාගේ සයිට් එකේ Logo එකක ලින්ක් එකක් මෙතනට දාන්න පුළුවන් -->
+
+<!-- Twitter Meta Tags -->
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://netlify.app">
+<meta property="twitter:title" content="Professional Tech & Coding Services | KyZer_HADOC">
+<meta property="twitter:description" content="Affordable custom software, websites, Android apps, and Minecraft development with a 100% satisfaction guarantee.">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KyZer_HADOC — Services</title>
+<link href="images/logo32.png" rel="icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#15111f;--card:#241c38;--line:#3a3050;--ink:#f2eefc;--dim:#a99fc4;--accent:#ff6b3d;--accent2:#3ec9b0;--gold:#f2b705}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+#vignette{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse at 60% 50%,transparent 28%,#0d0a1495 72%,#08050f 100%)}
+
+/* header */
+header{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;gap:10px;
+ padding:calc(9px + env(safe-area-inset-top,0px)) 12px 9px;background:#0e0a17e8;backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.mq{flex:1;overflow:hidden;white-space:nowrap;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mq b{display:inline-block;padding-left:100%;animation:mv 11s linear infinite;font:800 16px Sora,sans-serif;letter-spacing:.04em}
+.mq b span{color:var(--accent)}
+@keyframes mv{to{transform:translateX(-100%)}}
+.wabtn{flex-shrink:0;background:#25D366;color:#fff;text-decoration:none;font-weight:700;font-size:13px;padding:9px 16px;border-radius:99px;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.mainbtn{flex-shrink:0;background:linear-gradient(135deg,#ff3dbd,#8a3dff);color:#fff;text-decoration:none;font-weight:700;font-size:13px;padding:9px 14px;border-radius:99px;white-space:nowrap;box-shadow:0 6px 18px #8a3dff55;transition:.2s}
+.mainbtn:hover{box-shadow:0 10px 26px #ff3dbd77;transform:translateY(-2px)}
+
+.btn.wa{background:#25D366;color:#fff;display:inline-flex;align-items:center;gap:8px}
+.btn.wa:hover{box-shadow:0 10px 30px #25d36655}
+.btn.wa svg{width:17px;height:17px;flex-shrink:0}
+.btn.wa.sm{padding:7px 13px;font-size:12px;margin-top:9px;gap:6px}
+
+#svcnav{position:relative;z-index:1;display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:20px 6vw 4px;max-width:1000px;margin:0 auto}
+#svcnav a{background:#1e1830c0;border:1px solid var(--line);color:var(--ink);text-decoration:none;font:600 12.5px Inter;padding:8px 14px;border-radius:99px;backdrop-filter:blur(6px);transition:.2s}
+#svcnav a:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:760px){#svcnav{gap:6px;padding:14px 4vw 3px}#svcnav a{font-size:11px;padding:6px 11px}
+ .mainbtn{font-size:10.5px;padding:7px 10px}}
+
+#widget{position:absolute;top:calc(70px + env(safe-area-inset-top,0px));right:14px;z-index:6;width:320px;display:flex;flex-direction:column;gap:10px}
+.offer{background:linear-gradient(135deg,var(--gold),var(--accent));border-radius:14px;padding:11px 14px;font:800 14px Sora,sans-serif;color:#241000;text-align:center;line-height:1.25;box-shadow:0 10px 28px #f2b70555}
+.offer small{display:block;font:600 10.5px Inter;color:#3a1e00;margin-top:2px}
+#slidebox{position:relative;height:300px;background:#1e1830e6;backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:18px;overflow:hidden;cursor:pointer;box-shadow:0 16px 40px #00000060}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:11px;padding:16px;opacity:0;transform:translateX(28px);transition:.55s ease}
+.slide.on{opacity:1;transform:none}
+.slide img{width:160px;height:160px;border-radius:16px;object-fit:cover;background:#0d0a14;box-shadow:0 10px 26px #000a}
+.slide .t{font:700 18px Sora,sans-serif;line-height:1.2;text-align:center}
+.slide .p{color:var(--gold);font:800 14px Sora,sans-serif}
+.dots{position:absolute;bottom:9px;left:0;right:0;display:flex;justify-content:center;gap:6px}
+.dots i{width:6px;height:6px;border-radius:50%;background:#4a4066}
+.dots i.on{background:var(--accent)}
+@media(max-width:760px){#widget{width:195px;top:calc(60px + env(safe-area-inset-top,0px));right:8px;gap:7px}
+ .offer{font-size:10px;padding:8px}.offer small{font-size:8.5px}
+ #slidebox{height:190px;border-radius:14px}.slide{padding:10px;gap:6px}.slide img{width:96px;height:96px;border-radius:11px}.slide .t{font-size:12.5px}.slide .p{font-size:10.5px}}
+
+/* පැවති CSS එක:
+section{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:0 6vw}
+*/
+
+/* නිවැරදි කළ CSS එක: */
+section {
+  position: relative;
+  z-index: 1;
+  min-height: auto;               /* 100vh වෙනුවට auto කරන්න */
+  display: flex;
+  align-items: center;
+  padding: 40px 6vw;              /* උඩට සහ යටට 40px වැනි සුදුසු gap එකක් දෙන්න */
+}
+
+/* Hero (පළමු) section එකට පමණක් උස තබා ගැනීමට: */
+#s0 {
+  min-height: 85vh;
+  padding-top: calc(80px + env(safe-area-inset-top, 0px));
+}
+
+/* Mobile screens වලදී gaps තවත් අඩු කිරීමට: */
+@media(max-width:760px){
+  section {
+    padding: 25px 4vw;
+  }
+  #s0 {
+    min-height: auto;
+    padding-top: calc(70px + env(safe-area-inset-top, 0px));
+  }
+}
+section.L{justify-content:flex-start}section.R{justify-content:flex-end}section.C{justify-content:center;text-align:center;align-items:flex-end;padding-bottom:4.5vh}
+.card{max-width:min(520px,44vw);background:#1e1830b8;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:20px;padding:22px;opacity:0;transform:translateY(40px) rotateX(12deg);transition:.9s cubic-bezier(.2,.8,.2,1);transform-origin:bottom}
+.card.in{opacity:1;transform:none}
+.card.wide{max-width:min(760px,90vw)}
+.card.svc{cursor:pointer}
+.card.svc:hover{border-color:var(--accent)}
+.tap{display:inline-block;margin-top:8px;font:700 11px Sora;color:var(--accent2)}
+.num{font:800 13px Sora;color:var(--accent);letter-spacing:.2em}
+h1,h2{font-family:Sora,sans-serif;line-height:1.1;margin:6px 0 10px}
+h1{font-size:clamp(30px,4.4vw,58px)}h2{font-size:clamp(26px,3vw,40px)}
+h1 em{font-style:normal;color:var(--accent)}
+p{color:var(--dim);line-height:1.6;font-size:15px;margin-bottom:6px}
+.price{margin:12px 0;color:var(--dim);font-size:13px}
+.price b{display:block;font:800 28px Sora;color:var(--gold)}
+.btn{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;padding:11px 18px;border-radius:12px;font-weight:600;font-size:14px;margin:5px 7px 0 0;transition:.2s;border:none;cursor:pointer;font-family:Inter}
+.btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 10px 30px #ff6b3d55}
+.btn.g{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.term{font:13px ui-monospace,Menlo,monospace;color:var(--accent2);background:#0d0a14;border-radius:10px;padding:10px 12px;margin-top:10px;line-height:1.7}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:left}
+.steps p{font-size:13px}
+@media(max-width:760px){
+ section{align-items:flex-end;padding:0 4vw 3.5vh}section.L,section.R{justify-content:center}
+ .card{max-width:100%;padding:17px}.steps{grid-template-columns:1fr 1fr}
+ header nav a:not(.wabtn){display:none}
+}
+
+.brand{font-weight:800; font-size:1.1rem; letter-spacing:0.2px; display:flex; align-items:center; gap:8px;}
+ .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent2); box-shadow:0 0 12px var(--accent2);}
+ header nav a{font-size:0.9rem; color:var(--ink-dim); margin-left:18px;}
+ header nav a:hover{color:var(--ink);}
+
+ .hero h1 .hl{color:var(--accent);}
+  .hero p{
+    font-size:1.05rem; color:var(--ink-dim); max-width:60ch; line-height:1.65; margin:0 0 34px;
+  }
+  .term{
+    margin-top:56px; max-width:560px;
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    overflow:hidden; box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);
+  }
+  /* ===== NEW SERVICES: preserve existing 3D scenes ===== */
+.extra-services {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 32px 6vw;
+  background: rgba(13, 10, 20, 0.25);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.extra-services-heading {
+  text-align: center;
+  margin-bottom: 22px;
+}
+
+.extra-services-grid {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.extra-services .card.extra-service-card {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+  min-height: 270px;
+  padding: 20px;
+}
+
+.extra-service-card h2 {
+  font-size: clamp(20px, 2.2vw, 28px);
+  overflow-wrap: anywhere;
+}
+
+.extra-service-card .service-icon {
+  font-size: 30px;
+}
+
+.extra-service-card .price b {
+  font-size: 18px;
+}
+
+@media (max-width: 760px) {
+  .extra-services {
+    padding: 25px 4vw;
+  }
+
+  .extra-services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .extra-services .card.extra-service-card {
+    min-height: 0;
+  }
+}
+  .term-bar{display:flex; gap:7px; padding:12px 16px; border-bottom:1px solid var(--line);}
+  .term-bar span{width:11px;height:11px;border-radius:50%;background:#463a63;}
+  .term-body{padding:20px 22px; font-family:'Sora',sans-serif; font-size:0.94rem; line-height:1.9;}
+  .term-body .l1{color:var(--accent2);}
+  .term-body .l2{color:var(--ink-dim);}
+  .term-body .l3{color:var(--gold);}
+  .caret{display:inline-block; width:8px; height:1.1em; background:var(--ink); margin-left:2px; vertical-align:text-bottom; animation:blink 1s steps(1) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+</style>
+</head>
+<body>
+<canvas id="gl"></canvas>
+<div id="vignette"></div>
+
+<header>
+ <div class="brand mq"><span class="dot"></span><b><span style=color:gold>✦</span><span style=color:red> KyZer<span>_</span>HADOC</span>&nbsp;&nbsp;&nbsp; <span></span></b></div>
+ <a class="mainbtn" href="index.html">🏠 Main Site</a>
+ <a class="btn" href="#all-services">Services</a>
+ <a class="btn" href="#s9">Trust</a>
+ <a class="wabtn" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20service%20ekk%20gana%20details%20one"><svg viewBox='0 0 24 24' fill='currentColor'><path d='M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.19 1.25-1.95 1.41-.53.11-1.22.2-3.55-.76-2.98-1.23-4.9-4.26-5.05-4.46-.15-.2-1.21-1.61-1.21-3.07 0-1.46.76-2.17 1.03-2.47.27-.3.6-.37.8-.37.2 0 .4 0 .58.01.19.01.44-.07.68.53.25.6.85 2.08.92 2.23.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.3.76 1.26 1.64 2.04 1.13 1 2.08 1.32 2.38 1.47.3.15.47.13.65-.08.18-.2.75-.88.95-1.18.2-.3.4-.25.68-.15.28.1 1.77.83 2.07.98.3.15.5.23.57.35.08.13.08.7-.16 1.38z'/></svg> WhatsApp</a>
+</header>
+
+<div id="widget">
+ <div class="offer">🔥 First 3 orders of EACH service<h4><span style=color:red>get 50% OFF</span> — WhatsApp fast!</h4></div>
+ <div id="slidebox"><div class="dots" id="dots"></div></div>
+
+<div style="width: 100%; margin: 0 auto;" class="term">
+    <div class="term-body">
+      <div class="l1">$ Now Available--Services →9<span class="caret"></span></div>
+      <p>Mobile Apps</p><p>Pc Softwares</p><p>Ai Assistant</p><p>Websites</p><p>MC Mods</p><p>MC Plugins</p><p>AI Video Creation</p>
+<p>AI Music / Diss</p>
+<p>Minecraft Server Fixing & Setup</p>
+      <div class="l3">$ Currently Unavailable →2<span class="caret"></span></div>
+      <p>Phone Hacking</p><p>Minecraft Web Dashboard Integration</p>
+    </div>
+  </div>
+</div>
+       
+
+<main>
+<section class="L" id="s0"><div class="card wide" style="max-width:min(600px,46vw)">
+ <div class="num">Custom Dev Services · Web · Mods · Apps · AI</div><br>
+ <h4>Welcome To Service Page</h4><h2><span style=color:lawngreen>Looking</span> For A <em>Services</em>,</h2>
+ <p style="color:var(--ink)"><span style=color:yellow>You've come to the right place</span></p>
+ <h1><span class="hl" style="font-size: 5.5rem;color:rgb(255, 72, 0)"><b>build </b></span> කරලා ඕනම Service එකක් දෙන්න පුලුවන්.</h1><br>
+ <p>⭕ Websites, Apps, Minecraft mods & plugins, softwares, AI Assistants<br>⭕ ඕනම එකක් හොද quality එකකට,<br>⭕ අඩු prices වලට හදලා දෙනවා. WhatsApp එකෙන් තොරතුරු දැනගන්න,<br>⭕ requirement එක discuss කරලා price එක confirm කරමු<br>⭕ ඔයා satisfied වුනාට පස්සේ විතරයි payment එක.</p>
+ <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i>👇 Default Services ටික</i></p>
+ <a class="btn" href="#s1">Services බලන්න</a>
+ <a class="btn wa" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20service%20ekk%20gena%20danna%20one"><svg viewBox='0 0 24 24' fill='currentColor'><path d='M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.19 1.25-1.95 1.41-.53.11-1.22.2-3.55-.76-2.98-1.23-4.9-4.26-5.05-4.46-.15-.2-1.21-1.61-1.21-3.07 0-1.46.76-2.17 1.03-2.47.27-.3.6-.37.8-.37.2 0 .4 0 .58.01.19.01.44-.07.68.53.25.6.85 2.08.92 2.23.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.3.76 1.26 1.64 2.04 1.13 1 2.08 1.32 2.38 1.47.3.15.47.13.65-.08.18-.2.75-.88.95-1.18.2-.3.4-.25.68-.15.28.1 1.77.83 2.07.98.3.15.5.23.57.35.08.13.08.7-.16 1.38z'/></svg> WhatsApp Message යවන්න</a>
+ <a class="btn g" href="#s9">Trust නැද්ද?</a>
+</div></section>
+
+<section id="all-services" ><p style="text-align: center;">8 Services</p>
+<div id="svcnav">
+ <a href="#s1">Phone Hacking</a><a href="#s2">Mobile Apps</a><a href="#s3">Pc Software</a><a href="#s4">AI Assistant</a>
+ <a href="#s5">Website</a><a href="#s6">MC Mods</a><a href="#s7">MC Plugin</a><a href="#s8">MC Bridge</a>
+ <a href="#svc9">AI Video</a>
+<a href="#svc10">AI Music / Diss</a>
+<a href="#svc11">MC Server Setup</a>
+</div>
+</section>
+
+<section class="R" id="s1"><div class="card svc" data-page="phone-hacking.html">
+ <div class="num">01 · Services & Prices</div><h2>Phone Hacking</h2>
+ <p>ඔයාගෙ File එකක්/ ඔයාට ඕන දෙයක් ගන්න හෝ එයාට මොකක් හරි දෙයක් කරන්න ඕනෙද. නැත්තම් Ex ගෙ Phone එක Hack කරගන්න ඕනද. එහෙනම් මෙන්න Service එක.</p>
+ <div class="price">Starting from<b>Rs. 500</b></div>
+ <span class="tap">👆 වැඩිය දැනගන්න click කරන්න</span><br>
+ <a class="btn wa sm" target="_blank" onclick="event.stopPropagation()" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20Phone%20Hacking%20service%20eka%20gana%20danna%20one">💬 WhatsApp</a>
+</div></section>
+
+<section class="L" id="s2"><div class="card svc" data-page="mobile-app.html">
+ <div class="num">02</div><h2>Mobile App Creating</h2>
+ <p>Android apps (Apk)— business apps, utility apps, ඔයාගේ custom idea එකක් app එකක් විදිහට hadala දෙනවා. UI/UX ලස්සනට, smooth performance එකකින්.</p>
+ <div class="price">Starting from<b>Rs. 300</b></div>
+ <span class="tap">👆 වැඩිය දැනගන්න click කරන්න</span><br>
+ <a class="btn wa sm" target="_blank" onclick="event.stopPropagation()" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20Mobile%20App%20ekak%20hadala%20denna%20one">💬 WhatsApp</a>
+</div></section>
+
+<section class="R" id="s3"><div class="card svc" data-page="pc-software.html">
+ <div class="num">03</div><h2>Pc Software Creating</h2>
+ <p>Windows apps — automation tools, small utilities, custom software — ඔයාට ඕන requirement එකට match වෙන විදිහට design + build කරලා දෙනවා. Game එකක් උනත් අවුලක් නෑ</p>
+ <div class="price">Starting from<b>Rs. 300</b></div>
+ <span class="tap">👆 වැඩිය දැනගන්න click කරන්න</span><br>
+ <a class="btn wa sm" target="_blank" onclick="event.stopPropagation()" href="https://wa.me/94706008383?text=Hi%2C%20mata%20Software%20ekak%20hadala%20denna%20one">💬 WhatsApp</a>
+</div></section>
+
+<section class="L" id="s4"><div class="card svc" data-page="ai-assistant.html">
+ <div class="num">04</div><h2>Pc Ai Assistant - Jarvis</h2>
+ <p>Iron Man ගේ Jarvis වගේ Voice-controlled AI Assistant එකක් ඔයාගේ PC එකට hadala දෙනවා — voice commands, automation, system control, smart replies.</p>
+ <div class="price">Starting from<b>Rs. 200</b></div>
+ <span class="tap">👆 වැඩිය දැනගන්න click කරන්න</span><br>
+ <a class="btn wa sm" target="_blank" onclick="event.stopPropagation()" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20PC%20AI%20Assistant%20(Jarvis)%20ekak%20hadala%20denna%20one">💬 WhatsApp</a>
+</div></section>
+
+<section class="R" id="s5"><div class="card svc" data-page="website.html">
+ <div class="num">05</div><h2>Website Creating</h2>
+ <p>ඔයාගේ business/product එකට ගැලපෙන website එකක් — portfolio, download site, business page, ඕන කරන ඕනම type එකක්. Mobile & PC දෙකටම optimize කරලා.</p>
+ <div class="price">Starting from<b>Rs. 150</b></div>
+ <span class="tap">👆 වැඩිය දැනගන්න click කරන්න</span><br>
+ <a class="btn wa sm" target="_blank" onclick="event.stopPropagation()" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20Website%20ekak%20hadala%20denna%20one">💬 WhatsApp</a>
+</div></section>
+
+<section class="L" id="s6"><div class="card svc" data-page="mc-mod.html">
+ <div class="num">06</div><h2>MC Mod Creating</h2>
+ <p>Custom Fabric/Forge mods — new mobs, bosses, blocks, items, mechanics — ඔයාගේ idea එකට ගැලපෙන විදිහට hadala දෙනවා. Testing සහ fixes ඇතුළත්.</p>
+ <div class="price">Starting from<b>Rs. 350</b></div>
+ <span class="tap">👆 වැඩිය දැනගන්න click කරන්න</span><br>
+ <a class="btn wa sm" target="_blank" onclick="event.stopPropagation()" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20Minecraft%20Mod%20ekak%20hadala%20denna%20one">💬 WhatsApp</a>
+</div></section>
+
+<section class="R" id="s7"><div class="card svc" data-page="mc-plugin.html">
+ <div class="num">07</div><h2>MC Pl Creating</h2>
+ <p>Server plugins — custom commands, gameplay mechanics, economy/rank systems, ඕන feature එකක් — Spigot/Paper server එකට ගැලපෙන විදිහට hadala දෙනවා.</p>
+ <div class="price">Starting from<b>Rs. 250</b></div>
+ <span class="tap">👆 වැඩිය දැනගන්න click කරන්න</span><br>
+ <a class="btn wa sm" target="_blank" onclick="event.stopPropagation()" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20Minecraft%20Plugin%20ekak%20hadala%20denna%20one">💬 WhatsApp</a>
+</div></section>
+
+<section class="L" id="s8"><div class="card svc" data-page="mc-server-bridge.html">
+ <div class="num">08</div><h2>Minecraft Web Dashboard Integration</h2>
+ <p>MineCraft Server Host එකේ Options මදිද/. මෙන්න එහෙනම් pot එක. Host එකේ නැති Options Web එකකට අරන් දෙන්නම්. Ex- Server එකේ Players ලව Control කරන System එකක්.</p>
+ <div class="price">Starting from<b>Rs. 400</b></div>
+ <span class="tap">👆 වැඩිය දැනගන්න click කරන්න</span><br>
+ <a class="btn wa sm" target="_blank" onclick="event.stopPropagation()" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20MC%20Server%20Bridge%20ekak%20hadala%20denna%20one">💬 WhatsApp</a>
+</div></section>
+
+<!-- ===== EXTRA SERVICES: cards only, no new 3D models ===== -->
+<div class="extra-services" id="extra-services">
+
+  <div class="extra-services-heading">
+    <div class="num">09 — 11 · NEW SERVICES</div>
+    <h2>More Services</h2>
+    <p>අලුත් services තුන ගැන වැඩි විස්තර බලන්න card එක click කරන්න.</p>
+  </div>
+
+  <div class="extra-services-grid">
+
+    <!-- 09: AI VIDEO -->
+    <div class="card svc extra-service-card" id="svc9"
+         data-page="ai-video-creation.html">
+      <div class="service-icon">🎬</div>
+      <div class="num">09 · AI CREATION</div>
+      <h2>AI Video Creation</h2>
+      <p>
+        AI-powered cinematic videos, promotional clips, social media videos
+        සහ creative video concepts ඔයාගේ idea එකට ගැළපෙන විදිහට
+        create කරගන්න.
+      </p>
+      <div class="price">
+        Price
+        <b>Ask on WhatsApp</b>
+      </div>
+      <span class="tap">👆 වැඩි විස්තර සඳහා click කරන්න</span>
+      <a class="btn wa sm" target="_blank" rel="noopener"
+         onclick="event.stopPropagation()"
+         href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20AI%20Video%20Creation%20service%20eka%20gana%20danna%20one">
+        💬 WhatsApp
+      </a>
+    </div>
+
+    <!-- 10: AI MUSIC / DISS TRACK -->
+    <div class="card svc extra-service-card" id="svc10"
+         data-page="ai-music-diss-creation.html">
+      <div class="service-icon">🎤</div>
+      <div class="num">10 · TINELKA | KENZO</div>
+      <h2>AI Music / Diss Track Creation</h2>
+      <p>
+        AI-assisted songs, custom diss tracks සහ creative music ideas.
+        Lyrics, vibe සහ concept එක ගැන discuss කරලා ඔයාට අවශ්‍ය
+        style එකට ගැළපෙන වැඩක් සැලසුම් කරමු.
+      </p>
+      <p><strong>by Tinelka | Kenzo</strong></p>
+      <div class="price">
+        Price
+        <b>Ask on WhatsApp</b>
+      </div>
+      <span class="tap">👆 වැඩි විස්තර සඳහා click කරන්න</span>
+      <a class="btn wa sm" target="_blank" rel="noopener"
+         onclick="event.stopPropagation()"
+         href="https://wa.me/94706008383?text=Hi%2C%20mata%20AI%20Music%20or%20Diss%20Track%20Creation%20by%20Tinelka%20%7C%20Kenzo%20gana%20danna%20one">
+        💬 WhatsApp
+      </a>
+    </div>
+
+    <!-- 11: MINECRAFT SERVER FIXING -->
+    <div class="card svc extra-service-card" id="svc11"
+         data-page="minecraft-server-setup-fix.html">
+      <div class="service-icon">⛏️</div>
+      <div class="num">11 · MINECRAFT</div>
+      <h2>Minecraft Server Fixing & Setup</h2>
+      <p>
+        Minecraft server setup, plugin installation, configuration,
+        plugin conflicts සහ server errors troubleshoot කිරීම.
+        Paper/Spigot server එකේ requirements අනුව setup කරමු.
+      </p>
+      <div class="price">
+        Price
+        <b>Ask on WhatsApp</b>
+      </div>
+      <span class="tap">👆 වැඩි විස්තර සඳහා click කරන්න</span>
+      <a class="btn wa sm" target="_blank" rel="noopener"
+         onclick="event.stopPropagation()"
+         href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20Minecraft%20Server%20Fixing%20and%20Setup%20service%20eka%20gana%20danna%20one">
+        💬 WhatsApp
+      </a>
+    </div>
+
+  </div>
+</div>
+<!-- ===== END EXTRA SERVICES ===== -->
+
+<section class="R" id="s9"><div class="card">
+ <div class="num">✓ Pay After Satisfaction</div><h2>Trust එක තමයි වැදගත්ම දේ</h2>
+ <p>ඔයාට වැඩේ ගැන සතුටුයි කියලා හිතුනාට පස්සේ විතරයි payment එක. කලින් advance එකක් ගන්නේ නෑ — වැඩේ delivery වෙනකම් risk එක මගේ පැත්තෙන්.</p>
+ <div class="term">$ status --KyZer_HADOC<br>→ orders: open<br>→ reply time: fast (WhatsApp)<br>→ payment: satisfied ⇒ pay</div>
+</div></section>
+
+<section class="C" id="s10"><div class="card wide">
+ <h2 style="text-align:center">වැඩේ යන්නේ මෙහෙමයි</h2>
+ <div class="steps">
+  <div><div class="num">1</div><p>WhatsApp එකෙන් message එකක් යවන්න — ඕන service එක ගැන</p></div>
+  <div><div class="num">2</div><p>Requirements ටික discuss කරලා, final price එක confirm</p></div>
+  <div><div class="num">3</div><p>Work එක complete කරලා ඔයාට deliver කරනවා</p></div>
+  <div><div class="num">4</div><p>ඔයා satisfied නම් විතරක් — payment</p></div>
+ </div>
+ <p style="margin-top:12px;font-size:12px">Price ටික "starting from" විදිහට — වැඩේ අනුව final price එක WhatsApp එකෙන් කතා කරලා confirm කරගමු.</p>
+</div></section>
+
+<section class="C" id="s11"><div class="card wide">
+ <h2 style="text-align:center">Order එකක් දාන්න ready ද?</h2>
+ <p>Any other work එකකුත් තියෙනවා නම්, contact කරලා details කියන්න — කරගන්න පුළුවන් වැඩක් නම් කියනවා.</p>
+ <a class="btn wa" style="font-size:16px" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20service%20ekk%20gena%20danna%20one"><svg viewBox='0 0 24 24' fill='currentColor'><path d='M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.19 1.25-1.95 1.41-.53.11-1.22.2-3.55-.76-2.98-1.23-4.9-4.26-5.05-4.46-.15-.2-1.21-1.61-1.21-3.07 0-1.46.76-2.17 1.03-2.47.27-.3.6-.37.8-.37.2 0 .4 0 .58.01.19.01.44-.07.68.53.25.6.85 2.08.92 2.23.07.15.12.33.02.53-.1.2-.15.33-.3.5-.15.18-.31.4-.44.53-.15.15-.3.31-.13.6.17.3.76 1.26 1.64 2.04 1.13 1 2.08 1.32 2.38 1.47.3.15.47.13.65-.08.18-.2.75-.88.95-1.18.2-.3.4-.25.68-.15.28.1 1.77.83 2.07.98.3.15.5.23.57.35.08.13.08.7-.16 1.38z'/></svg> WhatsApp — 070 600 8383</a>
+ <p style="margin-top:14px;font-size:12px">~KyZer_HADOC © 2026</p>
+ <a href="privacy.html" target="_blank" style="color: gray; margin-left: 10px;">Privacy Policy</a>&nbsp;&nbsp;&nbsp;
+ <a href="terms.html" target="_blank" style="color: gray; margin-left: 10px;">Terms of Service</a>&nbsp;&nbsp;&nbsp;
+ <a href="disclaimer.html" target="_blank" style="color: gray; margin-left: 10px;">Disclaimer</a>
+</div></section>
+</main>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script src="/music-panel.js" defer></script>
+<script>
+  
+(()=>{
+const cv=document.getElementById('gl');
+const R=new THREE.WebGLRenderer({canvas:cv,antialias:true});
+R.setPixelRatio(Math.min(devicePixelRatio,2));
+const S=new THREE.Scene();S.background=new THREE.Color(0x15111f);S.fog=new THREE.Fog(0x15111f,16,34);
+const cam=new THREE.PerspectiveCamera(45,1,.1,80);cam.position.z=14;
+S.add(new THREE.AmbientLight(0xffffff,.55));
+const l1=new THREE.PointLight(0xff6b3d,1.4,40);const l2=new THREE.PointLight(0x3ec9b0,1.3,40);
+S.add(l1,l2);
+const M=(c,o={})=>new THREE.MeshStandardMaterial(Object.assign({color:c,roughness:.45,metalness:.3},o));
+const BG=new THREE.BoxGeometry(1,1,1);
+const box=(w,h,d,m,p=[0,0,0],par)=>{const x=new THREE.Mesh(BG,m);x.scale.set(w,h,d);x.position.set(...p);par&&par.add(x);return x};
+const cvTex=(w,h,fn)=>{const c=document.createElement('canvas');c.width=w;c.height=h;const x=c.getContext('2d');fn(x,w,h);const t=new THREE.CanvasTexture(c);return{t,x,c,w,h}};
+const objs=[];
+const add=(i,g,upd)=>{const h=new THREE.Group();h.add(g);S.add(h);objs.push({i,h,g,upd})};
+function glowTex(color){const c=document.createElement('canvas');c.width=256;c.height=256;const x=c.getContext('2d');const gr=x.createRadialGradient(128,128,0,128,128,128);gr.addColorStop(0,color+'cc');gr.addColorStop(.5,color+'33');gr.addColorStop(1,color+'00');x.fillStyle=gr;x.fillRect(0,0,256,256);return new THREE.CanvasTexture(c)}
+function addGlow(parent,color,size){const spr=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(color),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false}));spr.scale.set(size,size,1);spr.position.z=-1.4;parent.add(spr)}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath()}
+
+/* starfield */
+{const n=700,p=new Float32Array(n*3);for(let k=0;k<n;k++){p[k*3]=(Math.random()-.5)*50;p[k*3+1]=-Math.random()*125+8;p[k*3+2]=-Math.random()*20-2}
+const g=new THREE.BufferGeometry();g.setAttribute('position',new THREE.BufferAttribute(p,3));
+S.add(new THREE.Points(g,new THREE.PointsMaterial({color:0xa99fc4,size:.07,transparent:true,opacity:.7})))}
+
+/* 0 HERO */
+{const g=new THREE.Group();
+ g.add(new THREE.Mesh(new THREE.IcosahedronGeometry(2.2,1),M(0x241c38,{flatShading:true,metalness:.6})));
+ const w=new THREE.Mesh(new THREE.IcosahedronGeometry(2.7,1),new THREE.MeshBasicMaterial({color:0xff6b3d,wireframe:true}));g.add(w);
+ const r1=new THREE.Mesh(new THREE.TorusGeometry(3.6,.05,8,80),M(0x3ec9b0,{emissive:0x3ec9b0}));g.add(r1);
+ const r2=r1.clone();g.add(r2);
+ const cubes=[];for(let k=0;k<26;k++){const c=box(.3,.3,.3,M(k%2?0xf2b705:0xff6b3d,{emissive:k%2?0x332600:0x331100}),[0,0,0],g);c.userData={a:Math.random()*6.28,r:3.2+Math.random()*1.6,y:(Math.random()-.5)*4,s:.2+Math.random()*.4};cubes.push(c)}
+ add(0,g,t=>{g.rotation.y=t*.2;w.rotation.x=t*.15;r1.rotation.x=1.2+t*.3;r2.rotation.y=1.2;r2.rotation.x=t*-.25;
+  cubes.forEach(c=>{const u=c.userData,a=u.a+t*u.s;c.position.set(Math.cos(a)*u.r,u.y+Math.sin(t+u.a)*.3,Math.sin(a)*u.r);c.rotation.x=t;c.rotation.y=t*.7})})}
+
+/* 1 PHONE HACKING */
+{const g=new THREE.Group();
+ box(2.3,4.5,.4,M(0x0e0b16,{metalness:.8,roughness:.25}),[0,0,0],g);
+ const cols=[];const T=cvTex(256,512,(x,w,h)=>{x.fillStyle='#000';x.fillRect(0,0,w,h);for(let k=0;k<16;k++)cols.push(Math.random()*30)});
+ const tx=()=>{const x=T.x;x.fillStyle='rgba(0,8,0,.18)';x.fillRect(0,0,256,512);x.font='16px monospace';cols.forEach((y,k)=>{x.fillStyle=Math.random()<.1?'#fff':'#3ec9b0';x.fillText(String.fromCharCode(0x30A0+Math.random()*60),k*16,y*16);cols[k]=y>32&&Math.random()>.95?0:y+.5});T.t.needsUpdate=true};
+ const sc=new THREE.Mesh(new THREE.PlaneGeometry(2,4.1),new THREE.MeshBasicMaterial({map:T.t}));sc.position.z=.21;g.add(sc);
+ const lock=new THREE.Group();box(.9,.7,.35,M(0xf2b705,{metalness:.7}),[0,0,0],lock);
+ const sh=new THREE.Mesh(new THREE.TorusGeometry(.3,.08,8,20,Math.PI),M(0xcccccc,{metalness:1,roughness:.2}));sh.position.set(.15,.35,0);sh.rotation.z=.5;lock.add(sh);lock.position.set(2.2,1.2,.8);g.add(lock);
+ const ring=new THREE.Mesh(new THREE.TorusGeometry(3,.03,8,80),M(0xff6b3d,{emissive:0xff6b3d}));g.add(ring);
+ let f=0;add(1,g,t=>{g.rotation.y=Math.sin(t*.6)*.6;g.position.y=Math.sin(t)*.2;lock.rotation.y=t*1.5;ring.rotation.x=1.3;ring.rotation.z=t*.5;if(f++%3==0)tx()})}
+
+/* 2 MOBILE SOFTWARE */
+{const g=new THREE.Group();
+ box(1.8,3.6,.3,M(0x0e0b16,{metalness:.8,roughness:.25}),[0,0,0],g);
+ const T=cvTex(220,440,(x,w,h)=>{x.fillStyle='#15111f';x.fillRect(0,0,w,h);
+  const cs=['#ff6b3d','#3ec9b0','#f2b705','#8a6bff','#ff3dbd','#4caf50'];
+  for(let r=0;r<4;r++)for(let c=0;c<3;c++){const i=r*3+c;x.fillStyle=cs[i%cs.length];rr(x,16+c*68,28+r*90,52,52,14);x.fill()}});
+ const sc=new THREE.Mesh(new THREE.PlaneGeometry(1.6,3.2),new THREE.MeshBasicMaterial({map:T.t}));sc.position.z=.16;g.add(sc);
+ const icons=[];const cs=[0xff6b3d,0x3ec9b0,0xf2b705,0x8a6bff,0xff3dbd];
+ for(let k=0;k<5;k++){const ic=box(.55,.55,.14,M(cs[k],{emissive:cs[k],emissiveIntensity:.3}),[0,0,0],g);ic.userData={a:k*1.26,r:2.6,y:(k-2)*.6};icons.push(ic)}
+ add(2,g,t=>{g.rotation.y=Math.sin(t*.5)*.5;icons.forEach(ic=>{const u=ic.userData,a=u.a+t*.4;ic.position.set(Math.cos(a)*u.r,u.y,Math.sin(a)*u.r);ic.rotation.y=t})})}
+
+/* 3 PC SOFTWARE */
+{const g=new THREE.Group();
+ box(4.4,2.7,.2,M(0x0e0b16,{metalness:.7}),[0,.9,0],g);
+ const T=cvTex(440,270,(x,w,h)=>{x.fillStyle='#0d0a14';x.fillRect(0,0,w,h);x.fillStyle='#2a2140';x.fillRect(0,0,w,26);
+  const cs=['#ff6b3d','#3ec9b0','#f2b705','#a99fc4','#8a6bff'];for(let k=0;k<13;k++){x.fillStyle=cs[(k*7)%5];x.fillRect(24+(k%3)*30,44+k*16,40+((k*53)%150),8)}});
+ const sc=new THREE.Mesh(new THREE.PlaneGeometry(4.2,2.5),new THREE.MeshBasicMaterial({map:T.t}));sc.position.set(0,.9,.11);g.add(sc);
+ box(.3,.9,.2,M(0x241c38),[0,-.9,0],g);box(1.4,.1,.8,M(0x241c38),[0,-1.4,0],g);
+ const keys=[];for(let r=0;r<4;r++)for(let c=0;c<11;c++){const k=box(.3,.12,.3,M((r+c)%7==0?0xff6b3d:0x3a3050),[(c-5)*.38,-2.2,1.1+r*.38],g);k.userData={r,c,y:-2.2};keys.push(k)}
+ add(3,g,t=>{g.rotation.y=Math.sin(t*.5)*.5;g.rotation.x=.1;keys.forEach(k=>{k.position.y=k.userData.y+Math.max(0,Math.sin(t*3-k.userData.c*.5+k.userData.r))*.15})})}
+
+/* 4 PC AI JARVIS */
+{const g=new THREE.Group();
+ const core=new THREE.Mesh(new THREE.IcosahedronGeometry(1.5,2),M(0x0e3a38,{emissive:0x3ec9b0,emissiveIntensity:.6,metalness:.4,roughness:.3}));g.add(core);
+ const wf=new THREE.Mesh(new THREE.IcosahedronGeometry(1.9,1),new THREE.MeshBasicMaterial({color:0x3ec9b0,wireframe:true}));g.add(wf);
+ const rings=[0,1,2].map(k=>{const r=new THREE.Mesh(new THREE.TorusGeometry(2.6+k*.5,.04,8,80),M(0x8a6bff,{emissive:0x8a6bff,emissiveIntensity:.5}));g.add(r);return r});
+ const bars=[];for(let k=0;k<24;k++){const a=k/24*Math.PI*2;const b=box(.08,.4+Math.random()*.5,.08,M(0x3ec9b0,{emissive:0x3ec9b0,emissiveIntensity:.6}),[Math.cos(a)*3.3,0,Math.sin(a)*3.3],g);b.userData={a};bars.push(b)}
+ add(4,g,t=>{g.rotation.y=t*.3;core.scale.setScalar(1+Math.sin(t*2)*.06);wf.rotation.x=t*.2;wf.rotation.y=-t*.15;
+  rings.forEach((r,k)=>{r.rotation.x=1.2+k*.5;r.rotation.z=t*(.3+k*.15)});
+  bars.forEach(b=>{b.scale.y=.6+Math.abs(Math.sin(t*3+b.userData.a*4))*1.4})})}
+
+/* 5 WEBSITE */
+{const g=new THREE.Group();
+ box(5.2,3.5,.25,M(0x1e1830,{metalness:.5}),[0,0,0],g);
+ const T=cvTex(520,340,(x,w,h)=>{x.fillStyle='#15111f';x.fillRect(0,0,w,h);x.fillStyle='#2a2140';x.fillRect(0,0,w,34);
+  [['#ff5f56',20],['#ffbd2e',42],['#27c93f',64]].forEach(([c,px])=>{x.fillStyle=c;x.beginPath();x.arc(px,17,6,0,7);x.fill()});
+  const gr=x.createLinearGradient(0,50,w,190);gr.addColorStop(0,'#ff6b3d');gr.addColorStop(1,'#3ec9b0');x.fillStyle=gr;x.fillRect(20,50,w-40,120);
+  x.fillStyle='#fff';x.fillRect(40,80,200,16);x.fillStyle='#ffffff88';x.fillRect(40,108,140,10);
+  for(let k=0;k<3;k++){x.fillStyle='#241c38';x.fillRect(20+k*163,190,150,110);x.fillStyle=['#ff6b3d','#3ec9b0','#f2b705'][k];x.fillRect(32+k*163,202,50,50);x.fillStyle='#a99fc4';x.fillRect(32+k*163,264,120,8)}});
+ const sc=new THREE.Mesh(new THREE.PlaneGeometry(4.9,3.2),new THREE.MeshBasicMaterial({map:T.t}));sc.position.z=.14;g.add(sc);
+ const fl=[];[[-2.9,1.6,1.4,0xff6b3d],[2.9,-1.4,1.8,0x3ec9b0],[2.6,1.9,.9,0xf2b705],[-2.7,-1.6,1.1,0x8a6bff]].forEach(([x,y,z,c],k)=>{const b=box(.9,.6,.08,M(c,{emissive:c,emissiveIntensity:.25}),[x,y,z],g);b.userData={y,k};fl.push(b)});
+ add(5,g,t=>{g.rotation.y=Math.sin(t*.5)*.5;g.rotation.x=Math.sin(t*.4)*.1;fl.forEach(b=>{b.position.y=b.userData.y+Math.sin(t*1.3+b.userData.k)*.25;b.rotation.z=Math.sin(t+b.userData.k)*.2})})}
+
+/* 6 MC MODS */
+{const g=new THREE.Group();const u=.5,brown=M(0x8a5a2b,{roughness:.9,metalness:0}),head=M(0x3ec9b0,{emissive:0x0d4a40,roughness:.4});
+ const cell=(x,y,m)=>{for(const z of[-.25,.25])box(u,u,u,m,[x,y,z],g)};
+ for(let k=0;k<7;k++)cell(-.5+k*u*.9,.5-k*u*.9,brown);
+ for(let k=-3;k<=3;k++){const c=1-(k/3)**2;cell(-.5+k*u-.5*c*.6,.5+k*u+.5*c*.6,head)}
+ const ore=box(.7,.7,.7,M(0xf2b705,{emissive:0x443300}),[2.4,1.6,0],g);
+ add(6,g,t=>{g.rotation.y=t*.5;g.rotation.z=.2+Math.sin(t*2)*.12;ore.rotation.set(t,t*1.3,0);ore.position.y=1.6+Math.sin(t*2)*.25})}
+
+/* 7 MC PLUGIN */
+{const g=new THREE.Group();
+ box(2.8,2.8,1.2,M(0x241c38,{metalness:.6}),[-1.6,0,0],g);
+ [.5,-.5].forEach(y=>box(.9,.18,1.3,M(0x000000),[-1.6,y,0],g));
+ const plug=new THREE.Group();box(1.8,1.8,1.2,M(0xff6b3d,{emissive:0x331100}),[0,0,0],plug);
+ [.45,-.45].forEach(y=>{const p=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,1.1,12),M(0xdddddd,{metalness:1,roughness:.2}));p.rotation.z=Math.PI/2;p.position.set(-1.1,y,0);plug.add(p)});
+ g.add(plug);
+ const orb=[];for(let k=0;k<3;k++){const o=box(.35,.35,.35,M(0x3ec9b0,{emissive:0x3ec9b0,emissiveIntensity:.5}),[0,0,0],g);orb.push(o)}
+ add(7,g,t=>{const p=(Math.sin(t*1.6)+1)/2;plug.position.x=1.6+p*1.7;g.rotation.y=Math.sin(t*.5)*.7-.3;g.rotation.x=.2;
+  orb.forEach((o,k)=>{const a=t*1.5+k*2.1;o.position.set(0+Math.cos(a)*.6,Math.sin(a)*2.3,Math.sin(a*.7)*1.2);o.rotation.x=t})})}
+
+/* 8 MC SERVER BRIDGE */
+{const g=new THREE.Group();
+ const isl=(x,c)=>{box(2.6,.7,2.6,M(0x6b4423,{roughness:1,metalness:0}),[x,-.4,0],g);box(2.6,.15,2.6,M(c,{roughness:.9,metalness:0}),[x,-.02,0],g)};
+ isl(-3.6,0x4caf50);isl(3.6,0x3ec9b0);
+ box(1,.9,1,M(0x241c38,{metalness:.6}),[-3.6,.5,0],g);
+ [.3,.7].forEach(y=>box(.7,.08,1.02,M(0x3ec9b0,{emissive:0x3ec9b0}),[-3.6,y,0],g));
+ box(1.6,1.6,.1,M(0x1e1830),[3.6,.9,0],g);box(1.4,1.4,.12,M(0xff6b3d,{emissive:0x331100}),[3.6,.9,0],g);
+ const arch=x=>1.4*(1-(x/2.3)**2);
+ for(let k=0;k<9;k++){const x=-2.3+k*.575;box(.5,.25,1.1,M(k%2?0xf2b705:0xff6b3d,{emissive:0x221100}),[x,arch(x)-.1,0],g)}
+ const pl=[];for(let k=0;k<4;k++){const p=box(.3,.3,.3,M(0xffffff,{emissive:0xffffff,emissiveIntensity:.6}),[0,0,0],g);pl.push(p)}
+ add(8,g,t=>{g.rotation.y=Math.sin(t*.45)*.55;g.rotation.x=.25;pl.forEach((p,k)=>{const q=((t*.25+k/4)%1),x=-2.3+q*4.6;p.position.set(x,arch(x)+.3,0);p.rotation.y=t})})}
+
+/* 9 TRUST */
+{const g=new THREE.Group();
+ g.add(new THREE.Mesh(new THREE.OctahedronGeometry(1.7),M(0xf2b705,{metalness:.9,roughness:.2,emissive:0x332600})));
+ const w=new THREE.Mesh(new THREE.OctahedronGeometry(2.4),new THREE.MeshBasicMaterial({color:0x3ec9b0,wireframe:true}));g.add(w);
+ const rs=[0,1,2].map(k=>{const r=new THREE.Mesh(new THREE.TorusGeometry(3+k*.3,.04,8,80),M(0xff6b3d,{emissive:0xff6b3d}));g.add(r);return r});
+ add(9,g,t=>{g.rotation.y=t*.5;w.rotation.x=t*.3;rs.forEach((r,k)=>{r.rotation.x=t*.4*(k+1)*.5+k;r.rotation.y=k*1.2})})}
+
+/* 10 STEPS */
+{const g=new THREE.Group();const cs=[];
+ for(let k=0;k<4;k++){const T=cvTex(128,128,(x,w,h)=>{x.fillStyle=['#ff6b3d','#f2b705','#3ec9b0','#8a6bff'][k];x.fillRect(0,0,w,h);x.fillStyle='#fff';x.font='800 84px Sora,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(k+1,64,70)});
+  const m=new THREE.MeshStandardMaterial({map:T.t,roughness:.4});const c=new THREE.Mesh(BG,m);c.scale.set(1.5,1.5,1.5);c.position.x=(k-1.5)*2.6;g.add(c);cs.push(c)}
+ add(10,g,t=>{cs.forEach((c,k)=>{c.rotation.y=t*.8+k;c.rotation.x=t*.5;c.position.y=Math.sin(t*1.5+k)*.3})})}
+
+/* 11 CTA */
+{const g=new THREE.Group();
+ const s=new THREE.Mesh(new THREE.SphereGeometry(1.2,32,24),M(0x25d366,{emissive:0x0a4a22,roughness:.3}));g.add(s);
+ const rs=[0,1,2].map(k=>{const r=new THREE.Mesh(new THREE.TorusGeometry(2+k*.6,.06,10,80),M(k%2?0xff6b3d:0x3ec9b0,{emissive:k%2?0xff6b3d:0x3ec9b0,emissiveIntensity:.5}));g.add(r);return r});
+ add(11,g,t=>{s.scale.setScalar(1+Math.sin(t*2)*.06);rs.forEach((r,k)=>{r.rotation.x=t*(.4+k*.2);r.rotation.y=t*.3*(k+1)})})}
+
+/* cinematic glow behind every product, like a studio spotlight */
+const GLOW_C=['#ff6b3d','#3ec9b0','#8a6bff','#8a6bff','#3ec9b0','#ff6b3d','#f2b705','#3ec9b0','#f2b705','#f2b705','#8a6bff','#3ec9b0'];
+objs.forEach(o=>addGlow(o.g,GLOW_C[o.i]||'#ff6b3d',9.5));
+
+/* ---- layout: fixed, deterministic spacing ---- */
+const SPACING = 10;
+const secs = [...document.querySelectorAll('section')];
+let wide = true, cs = [], cy = 0, mx = 0, my = 0;
+
+function size(){
+  const W = innerWidth, H = innerHeight;
+  R.setSize(W, H, false);
+  cam.aspect = W / H;
+  cam.updateProjectionMatrix();
+  wide = W > 760 && W / H > 1.05;
+  cs = secs.map(s => s.offsetTop + s.offsetHeight / 2);
+}
+
+function place(){
+  // yOff එක -1.0 (Desktop) සහ -0.5 (Mobile) වැනි සෘණ අගයන්ට වෙනස් කිරීමෙන් 
+  // 3D models ටික පහළට align වේ.
+  const yOff = wide ? -8.5 : -0.5;
+
+  objs.forEach(o => {
+    const side = o.i % 2 == 0 ? 1 : -1;
+    let x = 0, scale = wide ? 1 : .62;
+    if(o.i >= 1 && o.i <= 8) x = wide ? side * 4.6 : 0;
+    if(o.i === 0) { x = wide ? 4.8 : 0; scale = wide ? .95 : .58; }
+    if(o.i === 9) { x = wide ? -4.6 : 0; scale = wide ? .9 : .55; }
+    if(o.i >= 10) { x = 0; scale = wide ? .85 : .5; }
+
+    // මෙතන yOff එක එකතු වන නිසා position එක පහළට සකස් වේ
+    o.h.position.set(x, -o.i * SPACING + yOff, 0);
+    o.h.scale.setScalar(scale);
+  });
+}
+addEventListener('resize',()=>{size();place()});
+addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+function frac(){const s=scrollY+innerHeight/2;if(s<=cs[0])return 0;for(let i=0;i<cs.length-1;i++)if(s<cs[i+1])return i+(s-cs[i])/(cs[i+1]-cs[i]);return cs.length-1}
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('in')),{threshold:.2});
+document.querySelectorAll('.card').forEach(c=>io.observe(c));
+const clock=new THREE.Clock();
+function loop(){requestAnimationFrame(loop);const t=clock.getElapsedTime();
+ const f=frac(),ty=-f*SPACING;cy+=(ty-cy)*.09;
+ cam.position.y=cy;cam.position.x+=(mx*1.0-cam.position.x)*.05;
+ cam.lookAt(0,cy,0);
+ l1.position.set(-6+mx*4,cy+4,8);l2.position.set(6-mx*4,cy-3,8);
+ objs.forEach(o=>{o.upd(t);o.h.rotation.y+=((mx*.5)-o.h.rotation.y)*.05;o.h.rotation.x+=((my*.35)-o.h.rotation.x)*.05});
+ R.render(S,cam)}
+size();place();loop();
+
+/* ================= service data + detail overlay + carousel ================= */
+const SVC_PAGE={
+    1:"phone-hacking.html",
+    2:"mobile-app.html",
+    3:"pc-software.html",
+    4:"ai-assistant.html",
+    5:"website.html",
+    6:"mc-mod.html",
+    7:"mc-plugin.html",
+    8:"mc-server-bridge.html",
+    9:"ai-video-creation.html",
+    10:"ai-music-diss-creation.html",
+    11:"minecraft-server-setup-fix.html"
+};
+
+const SVC={
+ 1:{title:'Phone Hacking',price:'Rs. 500',
+  desc:'ඔයාගෙ File එකක්/ ඔයාට ඕන දෙයක් ගන්න හෝ එයාට මොකක් හරි දෙයක් කරන්න ඕනෙද. නැත්තම් Ex ගෙ Phone එක Hack කරගන්න ඕනද — Apple ද, Android ද, Pixel ද කියල අදාල නෑ, ඕන device එකක් handle කරගන්න පුළුවන්. Access ලබාගන්නා විදිහ, ගැලපෙන tools, සහ risk එක අවම කරගෙන process එක discuss කරලා confirm කරගමු. සම්පූර්ණයෙන්ම confidential — details කවුරුත් දකින්නෙ නෑ.',
+  wa:'https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20Phone%20Hacking%20service%20eka%20gana%20danna%20one',
+  art:c=>{const g=c.createLinearGradient(0,0,0,500);g.addColorStop(0,'#1e1830');g.addColorStop(1,'#0e0b16');c.fillStyle=g;c.fillRect(0,0,500,500);
+   c.fillStyle='#0e0b16';rr(c,150,60,200,380,26);c.fill();c.strokeStyle='#3a3050';c.lineWidth=4;c.stroke();
+   c.fillStyle='#000';rr(c,166,100,168,300,10);c.fill();
+   c.fillStyle='#3ec9b0';c.font='18px monospace';for(let i=0;i<14;i++)c.fillText(String.fromCharCode(0x30A0+Math.random()*60),176+(i%6)*24,124+Math.floor(i/6)*24);
+   c.save();c.translate(380,150);c.rotate(-.3);c.fillStyle='#f2b705';rr(c,-30,-24,60,48,10);c.fill();c.strokeStyle='#ddd';c.lineWidth=8;c.beginPath();c.arc(0,-24,20,Math.PI,0);c.stroke();c.restore();}},
+ 2:{title:'Mobile Software Creating',price:'Rs. 400',
+  desc:'ඔයාගේ idea එක Android (සහ ඉල්ලුවොත් iOS) App එකක් විදිහට build කරලා දෙනවා — business apps, utility tools, custom features සහිත apps, ඕනෑම category එකක්. Design එක clean & modern විදිහට, smooth performance එකක් ඇතුළත් කරලා, APK/Install file එක delivery කරනවා. ඕන නම් Play Store publish කරගන්නත් guide කරනවා. Testing සහ bug fixes ඇතුළත්.',
+  wa:'https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20Mobile%20App%20ekak%20hadala%20denna%20one',
+  art:c=>{c.fillStyle='#15111f';c.fillRect(0,0,500,500);c.fillStyle='#0e0b16';rr(c,150,40,200,420,32);c.fill();c.strokeStyle='#3a3050';c.lineWidth=4;c.stroke();
+   c.fillStyle='#000';rr(c,166,80,168,340,10);c.fill();
+   const cs=['#ff6b3d','#3ec9b0','#f2b705','#8a6bff','#ff3dbd','#4caf50'];
+   for(let r=0;r<4;r++)for(let k=0;k<3;k++){const i=r*3+k;c.fillStyle=cs[i%cs.length];rr(c,180+k*54,100+r*76,42,42,12);c.fill()}}},
+ 3:{title:'Pc Software Creating',price:'Rs. 300',
+  desc:'Windows apps — automation tools, small utilities, custom desktop software — ඔයාට ඕන requirement එකට match වෙන විදිහට design + build කරලා දෙනවා. UI clean & simple විදිහට, use කරන්න ලේසි විදිහට hadanawa. Automation scripts, file handling tools, custom dashboards — ඕනෑම idea එකක් software එකක් විදිහට හදාගන්න පුළුවන්.',
+  wa:'https://wa.me/94706008383?text=Hi%2C%20mata%20Software%20ekak%20hadala%20denna%20one',
+  art:c=>{c.fillStyle='#15111f';c.fillRect(0,0,500,500);c.fillStyle='#0d0a14';rr(c,60,90,380,260,14);c.fill();
+   c.fillStyle='#2a2140';rr(c,60,90,380,30,14);c.fill();
+   const cs=['#ff6b3d','#3ec9b0','#f2b705','#a99fc4','#8a6bff'];for(let k=0;k<11;k++){c.fillStyle=cs[k%5];rr(c,80+(k%3)*30,140+k*16,40+((k*53)%150),8,2);c.fill()}
+   c.fillStyle='#241c38';rr(c,120,370,260,60,8);c.fill();
+   for(let r=0;r<3;r++)for(let cc2=0;cc2<10;cc2++){c.fillStyle=(r+cc2)%6==0?'#ff6b3d':'#3a3050';rr(c,130+cc2*24,380+r*16,20,12,3);c.fill()}}},
+ 4:{title:'Pc Ai Assistant - Jarvis',price:'Rs. 600',
+  desc:'ඔයාගේ PC එකට Jarvis වගේ Personal AI Assistant එකක් hadala දෙනවා — voice commands එකෙන් apps open කරගන්න, files search කරගන්න, system control කරගන්න (volume, brightness, shutdown), reminders/notes set කරගන්න, smart chat/replies ලබාගන්න පුළුවන්. Custom wake-word, voice (ඔයාට ඕන style එකක්), සහ ඕන automation features add කරගන්නත් පුළුවන් — සම්පූර්ණයෙන්ම ඔයාගේ idea එකට ගැලපෙන විදිහට build කරනවා.',
+  wa:'https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20PC%20AI%20Assistant%20(Jarvis)%20ekak%20hadala%20denna%20one',
+  art:c=>{c.fillStyle='#0d1a19';c.fillRect(0,0,500,500);
+   const gr=c.createRadialGradient(250,250,10,250,250,190);gr.addColorStop(0,'#3ec9b0');gr.addColorStop(.5,'#0e3a38');gr.addColorStop(1,'#0d1a1900');c.fillStyle=gr;c.beginPath();c.arc(250,250,190,0,7);c.fill();
+   c.strokeStyle='#8a6bff';c.lineWidth=3;[80,120,160].forEach(r=>{c.beginPath();c.arc(250,250,r,0,7);c.stroke()});
+   c.fillStyle='#3ec9b0';for(let k=0;k<28;k++){const a=k/28*Math.PI*2,x=250+Math.cos(a)*205,y=250+Math.sin(a)*205,h=14+Math.random()*26;c.save();c.translate(x,y);c.rotate(a+Math.PI/2);c.fillRect(-3,0,6,h);c.restore()}}},
+ 5:{title:'Website Creating',price:'Rs. 150',
+  desc:'ඔයාගේ business/product එකට ගැලපෙන website එකක් — portfolio, download site, business page, landing page ඕන කරන ඕනම type එකක් hadala දෙනවා. Design eka clean, modern, mobile & PC දෙකටම fully optimize කරලා. Loading speed, SEO basics, WhatsApp/contact integration වගේ දේවල් ඇතුළත් කරගන්නත් පුළුවන්.',
+  wa:'https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20Website%20ekak%20hadala%20denna%20one',
+  art:c=>{c.fillStyle='#15111f';c.fillRect(0,0,500,500);c.fillStyle='#1e1830';rr(c,50,70,400,360,18);c.fill();
+   c.fillStyle='#2a2140';rr(c,50,70,400,44,18);c.fill();c.fillStyle='#0d0a14';rr(c,50,96,400,18,0);c.fill();
+   ['#ff5f56','#ffbd2e','#27c93f'].forEach((col,i)=>{c.fillStyle=col;c.beginPath();c.arc(78+i*24,92,7,0,7);c.fill()});
+   const gr=c.createLinearGradient(70,130,430,260);gr.addColorStop(0,'#ff6b3d');gr.addColorStop(1,'#3ec9b0');c.fillStyle=gr;rr(c,70,130,360,130,10);c.fill();
+   c.fillStyle='#fff';rr(c,90,160,160,18,4);c.fill();c.fillStyle='#ffffffaa';rr(c,90,190,110,12,4);c.fill();
+   for(let k=0;k<3;k++){c.fillStyle='#241c38';rr(c,70+k*128,280,112,120,10);c.fill();c.fillStyle=['#ff6b3d','#3ec9b0','#f2b705'][k];rr(c,82+k*128,294,40,40,8);c.fill();c.fillStyle='#a99fc4';rr(c,82+k*128,346,88,10,3);c.fill();}}},
+ 6:{title:'MC Mod Creating',price:'Rs. 350',
+  desc:'Custom Fabric/Forge mods — අලුත් mobs, bosses, blocks, items, tools, mechanics — ඔයාගේ idea එකට ගැලපෙන විදිහට design + code කරලා hadala දෙනවා. Testing ඇතුළත් — bugs fix කරලා stable version එකක් delivery කරනවා. Single-player, multiplayer, modpack integration — ඕනෑම requirement එකකට support කරනවා.',
+  wa:'https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20Minecraft%20Mod%20ekak%20hadala%20denna%20one',
+  art:c=>{c.fillStyle='#15111f';c.fillRect(0,0,500,500);
+   const px=(x,y,s,col)=>{c.fillStyle=col;c.fillRect(x,y,s,s)};
+   for(let i=0;i<9;i++){const x=140+i*24,y=340-i*26;px(x,y,26,'#8a5a2b');px(x+4,y+4,8,'#a06e3a')}
+   for(let k=-4;k<=4;k++){const cc=1-(k/4)**2,x=200+k*20-cc*10,y=120+k*20+cc*10;px(x,y,26,'#3ec9b0');px(x+4,y+4,8,'#6be3cd')}
+   px(360,150,60,'#f2b705');px(368,158,18,'#ffe27a');}},
+ 7:{title:'MC Pl Creating',price:'Rs. 250',
+  desc:'Server plugins — custom commands, gameplay mechanics, economy/rank systems, custom GUIs, minigames — ඕන feature එකක් Spigot/Paper server එකට ගැලපෙන විදිහට hadala දෙනවා. Server performance එකට හානියක් නොවෙන විදිහට optimize කරලා, ඔයාගේ server-eke rules වලට match වෙන custom logic එකක් හදලා දෙනවා.',
+  wa:'https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20Minecraft%20Plugin%20ekak%20hadala%20denna%20one',
+  art:c=>{c.fillStyle='#15111f';c.fillRect(0,0,500,500);
+   c.fillStyle='#241c38';rr(c,60,180,160,160,14);c.fill();c.fillStyle='#000';rr(c,90,200,40,10,4);c.fill();rr(c,90,320,40,10,4);c.fill();
+   c.fillStyle='#ff6b3d';rr(c,260,190,140,140,14);c.fill();c.strokeStyle='#ddd';c.lineWidth=10;c.beginPath();c.moveTo(230,220);c.lineTo(260,220);c.stroke();c.beginPath();c.moveTo(230,300);c.lineTo(260,300);c.stroke();
+   ['#3ec9b0','#f2b705','#8a6bff'].forEach((col,i)=>{c.fillStyle=col;c.beginPath();c.arc(250+i*10,80+i*30,18,0,7);c.fill()});}},
+ 8:{title:'MC Server Bridge',price:'Rs. 400',
+  desc:'MineCraft Server Host එකේ Options මදිද? Host එකේ නැති Options Web එකකට අරන් දෙන්නම් — Ex: Server එකේ Players ලව Control කරන System එකක්, custom stats dashboard එකක්, ban/whitelist manage කරගන්න panel එකක් — ඕන feature එකක් web bridge එකක් විදිහට hadala දෙනවා, server APIs ekka connect කරලා.',
+  wa:'https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20MC%20Server%20Bridge%20ekak%20hadala%20denna%20one',
+  art:c=>{c.fillStyle='#15111f';c.fillRect(0,0,500,500);
+   c.fillStyle='#6b4423';rr(c,20,280,160,60,10);c.fill();c.fillStyle='#4caf50';rr(c,20,270,160,16,6);c.fill();
+   c.fillStyle='#6b4423';rr(c,320,280,160,60,10);c.fill();c.fillStyle='#3ec9b0';rr(c,320,270,160,16,6);c.fill();
+   c.strokeStyle='#f2b705';c.lineWidth=10;c.beginPath();
+   for(let x=0;x<=440;x+=10){const y=250-100*(1-((x-220)/220)**2);x===0?c.moveTo(30+x,y):c.lineTo(30+x,y)}
+   c.stroke();
+   [0,1,2].forEach(i=>{c.fillStyle='#fff';c.beginPath();c.arc(150+i*100,190-i*18,9,0,7);c.fill()});}},
+  9: {
+    title: 'AI Video Creation',
+    price: 'WhatsApp Quote',
+    desc: 'AI-assisted cinematic videos, promos and social media video concepts.',
+    wa: 'https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20AI%20Video%20Creation',
+    art: c => {
+      c.fillStyle = '#15111f';
+      c.fillRect(0, 0, 500, 500);
+
+      const g = c.createLinearGradient(70, 100, 430, 400);
+      g.addColorStop(0, '#ff6b3d');
+      g.addColorStop(1, '#8a6bff');
+      c.fillStyle = g;
+      rr(c, 65, 90, 370, 320, 22);
+      c.fill();
+
+      c.fillStyle = '#0d0a14';
+      rr(c, 85, 110, 330, 280, 14);
+      c.fill();
+
+      c.fillStyle = '#3ec9b0';
+      c.fillRect(105, 135, 290, 8);
+      c.fillRect(105, 155, 190, 6);
+
+      c.fillStyle = '#ff6b3d';
+      c.beginPath();
+      c.moveTo(220, 215);
+      c.lineTo(220, 315);
+      c.lineTo(305, 265);
+      c.closePath();
+      c.fill();
+
+      c.strokeStyle = '#8a6bff';
+      c.lineWidth = 5;
+      c.strokeRect(105, 340, 290, 20);
+    }
+  },
+
+  10: {
+    title: 'AI Music / Diss Track — Tinelka | Kenzo',
+    price: 'WhatsApp Quote',
+    desc: 'AI-assisted music concepts, custom songs and diss tracks by Tinelka | Kenzo.',
+    wa: 'https://wa.me/94706008383?text=Hi%2C%20AI%20Music%20Diss%20Track%20by%20Tinelka%20%7C%20Kenzo',
+    art: c => {
+      c.fillStyle = '#15111f';
+      c.fillRect(0, 0, 500, 500);
+
+      const g = c.createRadialGradient(250, 240, 15, 250, 240, 230);
+      g.addColorStop(0, '#702b86');
+      g.addColorStop(1, '#15111f');
+      c.fillStyle = g;
+      c.fillRect(0, 0, 500, 500);
+
+      c.strokeStyle = '#ff3dbd';
+      c.lineWidth = 5;
+      c.beginPath();
+      c.arc(250, 230, 120, 0, Math.PI * 2);
+      c.stroke();
+
+      for (let i = 0; i < 35; i++) {
+        const h = 25 + Math.abs(Math.sin(i * 1.7)) * 130;
+        c.fillStyle = i % 2 ? '#ff3dbd' : '#3ec9b0';
+        rr(c, 55 + i * 11, 400 - h, 6, h, 3);
+        c.fill();
+      }
+
+      c.fillStyle = '#fff';
+      c.font = '800 33px Sora, sans-serif';
+      c.textAlign = 'center';
+      c.fillText('TINELKA | KENZO', 250, 245);
+    }
+  },
+
+  11: {
+    title: 'Minecraft Server Fixing & Setup',
+    price: 'WhatsApp Quote',
+    desc: 'Minecraft server setup, plugin installations, configuration and troubleshooting.',
+    wa: 'https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20Minecraft%20Server%20Fixing%20and%20Setup',
+    art: c => {
+      c.fillStyle = '#15111f';
+      c.fillRect(0, 0, 500, 500);
+
+      function block(x, y, s, top, side, front) {
+        c.fillStyle = top;
+        c.fillRect(x, y, s, s * .25);
+
+        c.fillStyle = front;
+        c.fillRect(x, y + s * .25, s, s * .55);
+
+        c.fillStyle = side;
+        c.fillRect(x + s * .72, y + s * .25, s * .28, s * .55);
+
+        c.fillStyle = '#ffffff22';
+        c.fillRect(x + 5, y + s * .3, s * .12, s * .35);
+      }
+
+      block(85, 160, 135, '#55d96c', '#246a3b', '#368c49');
+      block(270, 220, 135, '#d94b42', '#702922', '#a93430');
+      block(175, 300, 135, '#4dc9b0', '#206b60', '#2b9986');
+
+      c.fillStyle = '#f2b705';
+      c.font = '800 24px Sora, sans-serif';
+      c.textAlign = 'center';
+      c.fillText('SERVER SETUP', 250, 105);
+    }
+  },
+};
+const imgCache={};
+function getImg(id){if(imgCache[id])return imgCache[id];const cvs=document.createElement('canvas');cvs.width=500;cvs.height=500;SVC[id].art(cvs.getContext('2d'));return imgCache[id]=cvs.toDataURL('image/png')}
+
+
+/* sliding carousel widget */
+const order=[1,2,3,4,5,6,7,8,9,10,11];const box2=document.getElementById('slidebox');const dots=document.getElementById('dots');
+order.forEach((id,k)=>{const d=document.createElement('i');if(k===0)d.className='on';dots.appendChild(d)});
+let ci=0;
+function renderSlide(){const id=order[ci];const s=SVC[id];
+ box2.querySelectorAll('.slide').forEach(e=>e.remove());
+ const el=document.createElement('div');el.className='slide on';
+ el.innerHTML=`<img src="${getImg(id)}" alt=""><div><div class="t">${s.title}</div><div class="p">${s.price}</div></div>`;
+ el.addEventListener('click',()=>{
+    window.location.href = "services/" + SVC_PAGE[id];
+});
+ box2.insertBefore(el,dots);
+ [...dots.children].forEach((d,k)=>d.className=k===ci?'on':'')}
+box2.addEventListener('click',e=>{if(e.target===box2){ci=(ci+1)%order.length;renderSlide()}});
+renderSlide();
+setInterval(()=>{ci=(ci+1)%order.length;renderSlide()},2800);
+})();
+
+
+
+document.querySelectorAll(".svc").forEach(card => {
+    card.addEventListener("click", () => {
+        window.location.href = "services/" + card.dataset.page;
+    });
+});
+
+</script>
+</body>
+</html>

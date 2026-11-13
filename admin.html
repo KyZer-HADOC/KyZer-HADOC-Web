@@ -174,7 +174,7 @@
 <div id="gate">
     <h1>KyZer <span>HADOC</span></h1>
     <p class="sub">Admin Page — password required</p>
-    <input type="password" id="gatePassword" placeholder="Admin password">
+    <input type="password" id="gatePassword" name="kz-admin-gate" placeholder="Admin password" autocomplete="new-password">
     <button type="button" onclick="kzGateSubmit()">Unlock</button>
     <p id="gateMsg"></p>
 </div>
@@ -197,7 +197,7 @@
             <h2>👑 User Ranks</h2>
             <button class="refresh-btn" onclick="kzLoadUsers()">🔄 Refresh</button>
         </div>
-        <input type="text" id="userSearchBox" placeholder="🔍 Search by name or email..." class="search-box" oninput="kzFilterUsers()">
+        <input type="search" id="userSearchBox" name="kz-user-filter" placeholder="🔍 Search by name or email..." class="search-box" oninput="kzFilterUsers()" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" readonly onfocus="this.removeAttribute('readonly')">
         <div id="roleLoadingMsg">Loading users…</div>
         <div id="usersList"></div>
     </div>
@@ -225,10 +225,23 @@
     var sb = window.supabase.createClient(KZ_URL, KZ_KEY);
 
     var params = new URLSearchParams(window.location.search);
-    var urlToken = params.get('token');
-    var urlPw = params.get('pw');
+    var hashParams = new URLSearchParams((window.location.hash || '').replace(/^#/, ''));
+    var urlToken = hashParams.get('token') || params.get('token');
+    var urlPw = hashParams.get('pw') || params.get('pw');
+    // remove secrets from the address bar / history right away
+    if (window.location.search || window.location.hash) {
+        try { history.replaceState(null, '', window.location.pathname); } catch (e) {}
+    }
 
     var kzAuth = { token: null, password: null, role: null };
+
+    function esc(str) {
+        return String(str == null ? '' : str).replace(/[&<>"']/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+    }
+    // only allow http(s) URLs in href/src
+    function safeUrl(u) { return /^https?:\/\//i.test(u || '') ? esc(u) : ''; }
 
     function showApp() {
         document.getElementById('gate').style.display = 'none';
@@ -315,18 +328,18 @@
                 return;
             }
             listEl.innerHTML = data.items.map(function (item) {
-                var thumb = item.imageUrl ? '<img src="' + item.imageUrl + '">' : '📄';
+                var thumb = item.imageUrl ? '<img src="' + safeUrl(item.imageUrl) + '">' : '📄';
                 var actions =
-                    (item.fileUrl ? '<a class="btn btn-view" href="' + item.fileUrl + '" target="_blank">🔍 View</a>' : '') +
+                    (item.fileUrl ? '<a class="btn btn-view" href="' + safeUrl(item.fileUrl) + '" target="_blank" rel="noopener">🔍 View</a>' : '') +
                     '<button class="btn btn-approve" onclick="kzReview(\'' + item.id + '\',\'approve\')">✅ Approve</button>' +
                     '<button class="btn btn-reject" onclick="kzReview(\'' + item.id + '\',\'reject\')">❌ Reject</button>';
                 return '<div class="u-row" data-id="' + item.id + '">' +
                     '<div class="u-thumb">' + thumb + '</div>' +
-                    '<div class="u-info"><b>' + item.name + '</b>' +
+                    '<div class="u-info"><b>' + esc(item.name) + '</b>' +
                     '<div class="u-meta">' +
-                    '<span class="u-tag">' + item.category + '</span>' +
-                    '<span class="u-tag">' + kzFormatSize(item.fileSize) + '</span>' +
-                    '<span class="u-tag">' + (item.uploaderEmail || 'unknown') + '</span>' +
+                    '<span class="u-tag">' + esc(item.category) + '</span>' +
+                    '<span class="u-tag">' + (item.isLink ? '🔗 Link' : kzFormatSize(item.fileSize)) + '</span>' +
+                    '<span class="u-tag">' + esc(item.uploaderEmail || 'unknown') + '</span>' +
                     '</div></div>' +
                     '<div class="u-actions">' + actions + '</div></div>';
             }).join('');
@@ -408,20 +421,20 @@
                 return;
             }
             listEl.innerHTML = data.items.map(function (item) {
-                var thumb = item.imageUrl ? '<img src="' + item.imageUrl + '">' : '📄';
+                var thumb = item.imageUrl ? '<img src="' + safeUrl(item.imageUrl) + '">' : '📄';
                 var statusTag = kzHistoryTab === 'approved'
                     ? '<span class="status-tag status-approved">approved</span>'
-                    : '<span class="status-tag status-rejected">rejected' + (item.reason ? ' — ' + item.reason : '') + '</span>';
+                    : '<span class="status-tag status-rejected">rejected' + (item.reason ? ' — ' + esc(item.reason) : '') + '</span>';
                 var actions =
-                    (item.fileUrl ? '<a class="btn btn-view" href="' + item.fileUrl + '" target="_blank">⬇️ Download</a>' : '') +
+                    (item.fileUrl ? '<a class="btn btn-view" href="' + safeUrl(item.fileUrl) + '" target="_blank" rel="noopener">⬇️ Download</a>' : '') +
                     (kzAuth.role === 'owner' ? '<button class="btn btn-delete" onclick="kzDeleteUpload(\'' + item.id + '\', kzLoadHistory)">🗑️ Delete</button>' : '');
                 return '<div class="u-row" data-id="' + item.id + '">' +
                     '<div class="u-thumb">' + thumb + '</div>' +
-                    '<div class="u-info"><b>' + item.name + '</b>' +
+                    '<div class="u-info"><b>' + esc(item.name) + '</b>' +
                     '<div class="u-meta">' +
-                    '<span class="u-tag">' + item.category + '</span>' +
-                    '<span class="u-tag">' + kzFormatSize(item.fileSize) + '</span>' +
-                    '<span class="u-tag">' + (item.uploaderEmail || 'unknown') + '</span>' +
+                    '<span class="u-tag">' + esc(item.category) + '</span>' +
+                    '<span class="u-tag">' + (item.isLink ? '🔗 Link' : kzFormatSize(item.fileSize)) + '</span>' +
+                    '<span class="u-tag">' + esc(item.uploaderEmail || 'unknown') + '</span>' +
                     statusTag +
                     '</div></div>' +
                     '<div class="u-actions">' + actions + '</div></div>';
@@ -441,10 +454,10 @@
         }
         listEl.innerHTML = items.map(function (u) {
             var name = ((u.first_name || '') + ' ' + (u.last_name || '')).trim() || '(no name)';
-            var avatar = u.avatar_url || 'data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23888\'%3E%3Cpath d=\'M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5c0-3-4-5.5-9-5.5z\'/%3E%3C/svg%3E';
+            var avatar = 'data:image/svg+xml;utf8,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23888\'%3E%3Cpath d=\'M12 12a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0 2c-5 0-9 2.5-9 5.5V22h18v-2.5c0-3-4-5.5-9-5.5z\'/%3E%3C/svg%3E';
             return '<div class="r-row" data-id="' + u.id + '">' +
-                '<img class="r-avatar" src="' + avatar + '">' +
-                '<div class="r-info"><b>' + name + '</b><div>' + u.email + '</div></div>' +
+                '<img class="r-avatar" src="' + (u.avatar_url ? safeUrl(u.avatar_url) : avatar) + '">' +
+                '<div class="r-info"><b>' + esc(name) + '</b><div>' + esc(u.email) + '</div></div>' +
                 '<select>' +
                 '<option value="client"' + (u.role === 'client' ? ' selected' : '') + '>Client</option>' +
                 '<option value="vip"' + (u.role === 'vip' ? ' selected' : '') + '>VIP</option>' +
@@ -503,10 +516,16 @@
             var data = await res.json();
             btn.disabled = false;
             btn.textContent = data.success ? '✅ Saved' : 'Failed';
+            if (!data.success) alert('❌ Rank save failed: ' + (data.message || ('HTTP ' + res.status)));
+            if (data.success) {
+                for (var i = 0; i < kzUsersCache.length; i++) { if (kzUsersCache[i].id === userId) kzUsersCache[i].role = role; }
+            }
             setTimeout(function () { btn.textContent = 'Save'; }, 1500);
         } catch (e) {
             btn.disabled = false;
             btn.textContent = 'Failed';
+            alert('⚠️ Network error, try again.');
+            setTimeout(function () { btn.textContent = 'Save'; }, 1500);
         }
     };
 
