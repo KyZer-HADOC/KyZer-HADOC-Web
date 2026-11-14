@@ -1,7 +1,7 @@
 const { getAdminClient } = require("./_supabase");
 const { verifyAdmin } = require("./_adminAuth");
 
-const VALID_ROLES = ["owner", "admin", "client"];
+const VALID_ROLES = ["owner", "admin", "vip", "client"];
 
 exports.handler = async function (event) {
   if (event.httpMethod !== "POST") {

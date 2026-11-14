@@ -11,10 +11,14 @@ exports.handler = async function (event) {
       };
     }
 
+    if (category === "Images") {
+      return { statusCode: 403, body: JSON.stringify({ success: false, message: "Locked" }) };
+    }
+
     const supabase = getAdminClient();
     const { data, error } = await supabase
       .from("uploads")
-      .select("id, name, file_name, description, image_path")
+      .select("*")
       .eq("status", "approved")
       .eq("category", category);
 
@@ -31,6 +35,7 @@ exports.handler = async function (event) {
       fileName: row.file_name,
       description: row.description,
       hasImage: !!row.image_path,
+      isLink: !!row.external_url,
     }));
 
     return { statusCode: 200, body: JSON.stringify({ success: true, items }) };

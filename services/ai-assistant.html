@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>KyZer_HADOC — PC AI Assistant - Jarvis</title>
+
+    <link href="images/logo32.png" rel="icon">
+<style>
+    /* ================================
+   ANIMATED BACKGROUND
+================================ */
+
+.bg-container {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -10;
+    overflow: hidden;
+    background: #08060c;
+}
+
+.bg-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            transparent 0%,
+            rgba(5,3,12,.18) 40%,
+            rgba(5,3,12,.72) 100%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(5,3,12,.25),
+            rgba(5,3,12,.65)
+        );
+}
+
+
+/* Background images */
+
+.bg-slide {
+    position: absolute;
+    inset: -5%;
+
+    width: 110%;
+    height: 110%;
+
+    object-fit: cover;
+    object-position: center;
+
+    opacity: 0;
+
+    filter:
+        saturate(1.08)
+        contrast(1.05);
+
+    transform: scale(1.08);
+
+    animation:
+        bgChange 24s infinite,
+        bgMove 12s ease-in-out infinite alternate;
+}
+
+
+/* Image timing */
+
+.bg-slide:nth-child(1) {
+    animation-delay: 0s, 0s;
+}
+
+.bg-slide:nth-child(2) {
+    animation-delay: 8s, 2s;
+}
+
+.bg-slide:nth-child(3) {
+    animation-delay: 16s, 4s;
+}
+
+
+/* Smooth image fade */
+
+@keyframes bgChange {
+
+    0% {
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 1;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    38% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+
+/* Cinematic movement */
+
+@keyframes bgMove {
+
+    0% {
+        transform:
+            scale(1.08)
+            translate3d(-1%, 0, 0);
+    }
+
+    50% {
+        transform:
+            scale(1.15)
+            translate3d(1%, -1%, 0);
+    }
+
+    100% {
+        transform:
+            scale(1.08)
+            translate3d(-1%, 1%, 0);
+    }
+}
+
+
+/* ================================
+   GLASS / INVISIBLE BOX
+================================ */
+
+.card {
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(20,16,32,.30),
+            rgba(10,8,18,.18)
+        );
+
+    border: 1px solid rgba(255,255,255,.10);
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.28),
+        inset 0 1px 0 rgba(255,255,255,.06);
+
+    backdrop-filter:
+        blur(10px)
+        saturate(120%);
+
+    -webkit-backdrop-filter:
+        blur(10px)
+        saturate(120%);
+
+    overflow: hidden;
+}
+
+
+/* Glass shine */
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: inherit;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(255,255,255,.055),
+            transparent 25%,
+            transparent 75%,
+            rgba(255,255,255,.025)
+        );
+}
+
+
+/* ================================
+   BACK BUTTON
+================================ */
+
+.back {
+
+    display: inline-block;
+
+    color: rgba(255,255,255,.65);
+
+    text-decoration: none;
+
+    padding: 9px 14px;
+
+    margin-bottom: 25px;
+
+    border-radius: 10px;
+
+    background: rgba(255,255,255,.035);
+
+    border: 1px solid rgba(255,255,255,.08);
+
+    backdrop-filter: blur(8px);
+
+    transition:
+        color .25s ease,
+        background .25s ease,
+        transform .25s ease;
+}
+
+.back:hover {
+
+    color: #fff;
+
+    background: rgba(255,255,255,.09);
+
+    transform: translateX(-3px);
+}
+
+
+/* ================================
+   WHATSAPP BUTTON
+================================ */
+
+.whatsapp {
+
+    display: inline-block;
+
+    margin-top: 25px;
+
+    padding: 15px 25px;
+
+    border-radius: 12px;
+
+    background: #25D366;
+
+    color: #000;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 10px 35px rgba(37,211,102,.18);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.whatsapp:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 45px rgba(37,211,102,.30);
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 799px) {
+
+    .bg-slide {
+
+        inset: -10%;
+
+        width: 120%;
+        height: 120%;
+    }
+
+    .card {
+
+        border-radius: 22px;
+
+        backdrop-filter: blur(7px);
+        -webkit-backdrop-filter: blur(7px);
+    }
+}
+
+
+/* ================================
+   REDUCE MOTION
+================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .bg-slide {
+        animation: none;
+        opacity: 1;
+    }
+
+    .bg-slide:not(:first-child) {
+        display: none;
+    }
+}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:#09070e;color:#fff;font-family:Arial,sans-serif}.wrap{max-width:1150px;margin:auto;padding:25px}.back{display:inline-block;color:#aaa;text-decoration:none;margin-bottom:25px}.card{background:#15111f;border:1px solid #302644;border-radius:24px;padding:25px;box-shadow:0 25px 70px #0008}.art{max-width:500px;aspect-ratio:1;margin:auto;border-radius:20px;overflow:hidden;background:#0e0b16}canvas{width:100%;height:100%}.content{padding:30px 10px}.badge{display:inline-block;color:#3ec9b0;border:1px solid #3ec9b055;border-radius:30px;padding:8px 14px;margin-bottom:18px}h1{font-size:clamp(34px,6vw,64px);margin:0 0 15px}.price{color:#f2b705;font-size:26px;font-weight:bold;margin-bottom:25px}.desc{color:#c9c2d8;font-size:18px;line-height:1.8}.whatsapp{display:inline-block;margin-top:25px;padding:15px 25px;border-radius:12px;background:#25D366;color:#000;text-decoration:none;font-weight:bold}@media(min-width:800px){.card{display:grid;grid-template-columns:500px 1fr;gap:50px;align-items:center}.content{padding:10px}}
+</style>
+</head>
+<body>
+    <div class="bg-container">
+
+    <!-- IMAGE 1 -->
+    <img
+        src="images/Smartphone_connected_to_cybersec…_20261001220923.jpg"
+        class="bg-slide"
+        alt=""
+    >
+
+    <!-- IMAGE 2 -->
+    <img
+        src="images/Smartphone_protected_by_digital_…_20261001220919.jpg"
+        class="bg-slide"
+        alt=""
+    >
+
+    <!-- IMAGE 3 -->
+    <img
+        src="images/Smartphone_with_digital_security…_20261001220915.jpg"
+        class="bg-slide"
+        alt=""
+    >
+    <img
+        src="images/Smartphone_surrounded_by_floatin…_20261001221233.jpg"
+        class="bg-slide"
+        alt=""
+    >
+    <img
+        src="images/Smartphone_displaying_modern_app…_20261001221443.jpg"
+        class="bg-slide"
+        alt=""
+    >
+    <img
+        src="images/Smartphone_displaying_futuristic…_20261001221230.jpg"
+        class="bg-slide"
+        alt=""
+    >
+    <img
+        src="images/Desktop_workstation_running_auto…_20261002092422.jpg"
+        class="bg-slide"
+        alt=""
+    >
+    <img
+        src="images/Desktop_workstation_running_auto…_20261002092404.jpg"
+        class="bg-slide"
+        alt=""
+    >
+    <img
+        src="images/Desktop_workstation_displaying_a…_20261002092353.jpg"
+        class="bg-slide"
+        alt=""
+    >
+    <img
+        src="images/Desktop_monitor_displaying_softw…_20261002092347.jpg"
+        class="bg-slide"
+        alt=""
+    >
+    <img
+        src="images/Desktop_computer_with_digital_wo…_20261002092408.jpg"
+        class="bg-slide"
+        alt=""
+    >
+    <img
+        src="images/Desktop_computer_with_digital_wo…_20261002092358.jpg"
+        class="bg-slide"
+        alt=""
+    >
+    <img
+        src="images/Desktop_computer_with_digital_wo…_20261002092342.jpg"
+        class="bg-slide"
+        alt=""
+    >
+    <img
+        src="images/Desktop_computer_displaying_soft…_20261002092421.jpg"
+        class="bg-slide"
+        alt=""
+    >
+    <img
+        src="images/Computer_monitor_displaying_soft…_20261002092335.jpg"
+        class="bg-slide"
+        alt=""
+    >
+
+</div>
+<div class="wrap">
+<a class="back" href="../services.html#s4">← Back to Services</a>
+<div class="card">
+<div class="art"><canvas id="canvas" width="500" height="500"></canvas></div>
+<div class="content">
+<div class="badge">AI • AUTOMATION • VOICE</div>
+<h1>PC AI Assistant - Jarvis</h1>
+<div class="price">Rs. 200</div>
+<div class="desc">ඔයාගේ PC එකට Jarvis වගේ Personal AI Assistant එකක් හදලා දෙනවා — voice commands එකෙන් apps open කරගන්න, files search කරගන්න, system controls manage කරගන්න, reminders/notes set කරගන්න සහ smart chat/replies ලබාගන්න පුළුවන්. Custom wake-word, voice සහ අවශ්‍ය automation features add කරගන්නත් පුළුවන්.</div>
+<a class="whatsapp" target="_blank" href="https://wa.me/94706008383?text=Hi%20KyZer_HADOC%2C%20mata%20PC%20AI%20Assistant%20(Jarvis)%20ekak%20hadala%20denna%20one">Order via WhatsApp</a>
+</div>
+<p style="align-items: center; align-self: center; align-content: center; text-align: center; vertical-align: middle ;"> කොයි වගේ එකක්ද කියල පල්ලෙහා img 2ක බලන්නකෝ.    |      *දන්නො දනිති*</p>
+</div>
+<div>
+<img src="images/Screenshot (19).png" alt="jarvis ai"><br>
+<img width="1000" height="700" src="images/Screenshot (20).png" alt="jarvis ai">
+</div>
+</div>
+<script>
+const c=document.getElementById("canvas"),x=c.getContext("2d");
+function draw(){
+x.clearRect(0,0,500,500);let t=Date.now()/1000;
+let g=x.createRadialGradient(250,250,10,250,250,210);g.addColorStop(0,"#3ec9b0");g.addColorStop(.45,"#123c3b");g.addColorStop(1,"transparent");x.fillStyle=g;x.fillRect(0,0,500,500);
+x.save();x.translate(Math.sin(t)*4,Math.cos(t)*4);
+x.strokeStyle="#8a6bff";x.lineWidth=3;
+[70,110,150,190].forEach(r=>{x.beginPath();x.arc(250,250,r,0,Math.PI*2);x.stroke()});
+x.fillStyle="#3ec9b0";x.shadowBlur=40;x.shadowColor="#3ec9b0";x.beginPath();x.arc(250,250,38,0,Math.PI*2);x.fill();x.shadowBlur=0;
+for(let i=0;i<12;i++){let a=i*Math.PI/6+t*.3;x.beginPath();x.moveTo(250+Math.cos(a)*55,250+Math.sin(a)*55);x.lineTo(250+Math.cos(a)*190,250+Math.sin(a)*190);x.stroke()}
+x.restore();requestAnimationFrame(draw)}draw();
+</script>
+</body>
+</html>

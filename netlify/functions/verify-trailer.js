@@ -1,10 +1,12 @@
+const { isVipPlus } = require("./_role");
+
 exports.handler = async function (event) {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
 
   try {
-    const { password, trailer } = JSON.parse(event.body || "{}");
+    const { password, trailer, token } = JSON.parse(event.body || "{}");
     const n = trailer === 2 ? 2 : 1;
 
     const expectedPassword = n === 2 ? process.env.TRAILER02_PASSWORD : process.env.TRAILER01_PASSWORD;
@@ -17,7 +19,8 @@ exports.handler = async function (event) {
       };
     }
 
-    if (password !== expectedPassword) {
+    const vip = await isVipPlus(token);
+    if (!vip && password !== expectedPassword) {
       return { statusCode: 200, body: JSON.stringify({ success: false }) };
     }
 

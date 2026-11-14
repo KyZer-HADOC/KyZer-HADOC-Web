@@ -1,5 +1,6 @@
 const { getAdminClient } = require("./_supabase");
 const { verifyAdmin } = require("./_adminAuth");
+const { remove: r2Remove } = require("./_r2");
 
 exports.handler = async function (event) {
   if (event.httpMethod !== "POST") {
@@ -22,7 +23,7 @@ exports.handler = async function (event) {
 
     const { data: row, error: fetchErr } = await supabase
       .from("uploads")
-      .select("file_path, image_path")
+      .select("*")
       .eq("id", id)
       .maybeSingle();
 
@@ -33,7 +34,9 @@ exports.handler = async function (event) {
       return { statusCode: 404, body: JSON.stringify({ success: false, message: "Upload not found" }) };
     }
 
-    if (row.file_path) {
+    if (row.file_path && row.storage === "r2") {
+      await r2Remove(row.file_path);
+    } else if (row.file_path) {
       await supabase.storage.from("upload-files").remove([row.file_path]);
     }
     if (row.image_path) {

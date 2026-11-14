@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#09070f">
+<meta name="description" content="AI Music / Diss Track Creation by KyZer_HADOC. Contact us on WhatsApp to discuss your project.">
+<title>KyZer_HADOC — AI Music / Diss Track Creation</title>
+<link rel="icon" href="../images/logo32.png">
+<style>
+:root{--bg:#09070f;--panel:rgba(20,16,31,.60);--text:#fff;--muted:#c9c2d8;--accent:#ff526f;--accent2:#ffb347;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-3;background:radial-gradient(ellipse at 18% 18%,color-mix(in srgb,var(--accent) 24%,transparent),transparent 42%),radial-gradient(ellipse at 85% 80%,color-mix(in srgb,var(--accent2) 15%,transparent),transparent 42%),linear-gradient(135deg,#09070f,#100b19 58%,#08070d)}
+body::after{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;opacity:.20;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 90%)}
+.ambient{position:fixed;width:44vw;height:44vw;min-width:280px;min-height:280px;left:55%;top:18%;transform:translateX(-50%);z-index:-1;border-radius:50%;background:var(--accent);filter:blur(140px);opacity:.10;pointer-events:none;animation:floatGlow 10s ease-in-out infinite alternate}
+@keyframes floatGlow{to{transform:translate(4%,-4%) scale(1.16);opacity:.16}}
+.wrap{width:min(1160px,100%);margin:auto;padding:30px 24px 58px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:30px}
+.brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:800;letter-spacing:.2px}
+.brand-mark{width:36px;height:36px;display:grid;place-items:center;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#0a0810;box-shadow:0 0 28px color-mix(in srgb,var(--accent) 35%,transparent)}
+.back{display:inline-flex;align-items:center;gap:8px;color:#cfc8dd;text-decoration:none;padding:10px 14px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.035);border-radius:12px;transition:.25s}
+.back:hover{color:#fff;transform:translateX(-3px);border-color:color-mix(in srgb,var(--accent) 60%,white 10%);background:rgba(255,255,255,.07)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:30px;align-items:center}
+.card{position:relative;min-width:0;border-radius:28px;background:linear-gradient(135deg,rgba(28,22,43,.76),rgba(11,9,18,.58));border:1px solid rgba(255,255,255,.12);box-shadow:0 30px 95px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.06);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);overflow:hidden}
+.art-card{padding:18px;aspect-ratio:1 / .91;display:flex;flex-direction:column}
+.art-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:6px 5px 13px;color:#c9c2d8;font-size:12px;text-transform:uppercase;letter-spacing:1.6px}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent2);box-shadow:0 0 15px var(--accent2);margin-right:7px;animation:pulse 1.8s infinite}
+@keyframes pulse{50%{opacity:.35;transform:scale(.75)}}
+.art{width:100%;height:100%;min-height:260px;flex:1;border-radius:20px;background:linear-gradient(145deg,rgba(7,6,13,.9),rgba(22,16,36,.75));border:1px solid rgba(255,255,255,.07);overflow:hidden}
+canvas{display:block;width:100%;height:100%}
+.content{padding:clamp(24px,4vw,48px)}
+.badge{display:inline-flex;align-items:center;gap:9px;margin:0 0 18px;color:var(--accent2);font-size:12px;font-weight:800;letter-spacing:1.7px;text-transform:uppercase}
+.badge::before{content:"";width:22px;height:2px;background:var(--accent2);box-shadow:0 0 12px var(--accent2)}
+h1{font-size:clamp(35px,5.2vw,62px);line-height:1.04;letter-spacing:-1.8px;margin:0 0 14px;overflow-wrap:anywhere}
+.subtitle{font-size:18px;color:#fff;line-height:1.6;margin:0 0 18px}
+.price{display:inline-flex;align-items:center;gap:10px;color:var(--accent2);font-size:18px;font-weight:800;border:1px solid color-mix(in srgb,var(--accent2) 28%,transparent);background:color-mix(in srgb,var(--accent2) 8%,transparent);padding:10px 14px;border-radius:12px;margin:0 0 18px}
+.desc{color:var(--muted);font-size:16px;line-height:1.85;margin:0}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
+.whatsapp{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 20px;border-radius:13px;background:linear-gradient(120deg,#36e58d,#16bd71);color:#06160d;text-decoration:none;font-weight:900;box-shadow:0 12px 35px rgba(37,211,102,.17);transition:transform .25s,box-shadow .25s}
+.whatsapp:hover{transform:translateY(-3px);box-shadow:0 16px 42px rgba(37,211,102,.30)}
+.secondary{display:inline-flex;align-items:center;justify-content:center;padding:15px 18px;border-radius:13px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.035);color:#e9e3f5;text-decoration:none;font-weight:700;transition:.25s}
+.secondary:hover{background:rgba(255,255,255,.08)}
+.section{margin-top:26px;padding:clamp(22px,3.5vw,38px)}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:23px}
+.eyebrow-small{font-size:11px;letter-spacing:1.8px;color:var(--accent2);font-weight:800;text-transform:uppercase;margin-bottom:8px}
+h2{font-size:clamp(24px,3vw,34px);margin:0;letter-spacing:-.7px}
+.section-head p{max-width:390px;color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.features{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.feature{display:flex;align-items:flex-start;gap:14px;border:1px solid rgba(255,255,255,.085);background:rgba(255,255,255,.025);padding:18px;border-radius:17px;transition:transform .25s,border-color .25s,background .25s}
+.feature:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--accent) 38%,transparent);background:rgba(255,255,255,.045)}
+.feature-icon{flex:0 0 43px;width:43px;height:43px;border-radius:13px;display:grid;place-items:center;background:color-mix(in srgb,var(--accent) 13%,transparent);border:1px solid color-mix(in srgb,var(--accent) 20%,transparent);font-size:21px}
+.feature h3{font-size:16px;margin:1px 0 7px}
+.feature p{font-size:14px;line-height:1.65;color:var(--muted);margin:0}
+.notice{margin-top:16px;padding:15px 17px;border-left:3px solid var(--accent2);background:rgba(255,255,255,.035);border-radius:0 12px 12px 0;color:#cfc8dd;font-size:13px;line-height:1.7}
+.footer{text-align:center;color:#8e879e;font-size:12px;padding:25px 0 0;line-height:1.7}
+.footer strong{color:#d7cfee}
+@media(max-width:850px){.hero{grid-template-columns:1fr;gap:18px}.art-card{aspect-ratio:1.25 / 1;max-height:550px}.content{padding:30px}.section-head{align-items:flex-start;flex-direction:column}}
+@media(max-width:560px){.wrap{padding:18px 14px 36px}.topbar{align-items:flex-start;flex-direction:column;margin-bottom:18px}.back{font-size:13px}.art-card{padding:12px;aspect-ratio:1 / .92}.art-head{font-size:10px;letter-spacing:1.1px}.content{padding:24px 20px}h1{letter-spacing:-1px}.desc{font-size:15px}.features{grid-template-columns:1fr}.section{padding:22px 17px}.actions{flex-direction:column}.whatsapp,.secondary{width:100%}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+<div class="wrap">
+  <header class="topbar">
+    <a class="brand" href="../index.html" aria-label="KyZer_HADOC home"><span class="brand-mark">K</span><span>KyZer_HADOC</span></a>
+    <a class="back" href="../services.html">← Back to Services</a>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="service-title">
+      <div class="card art-card">
+        <div class="art-head"><span><i class="live-dot"></i>CREATIVE LAB / 01</span><span>KYZER STUDIO</span></div>
+        <div class="art"><canvas id="scene" width="640" height="560" role="img" aria-label="Animated illustration for AI Music / Diss Track Creation"></canvas></div>
+      </div>
+      <div class="card content">
+        <div class="badge">AI MUSIC • DISS TRACKS</div>
+        <h1 id="service-title">AI Music / Diss Track Creation</h1>
+        <p class="subtitle">ඔයාගේ vibe එකට ගැළපෙන track එකක් හදමු.</p>
+        <div class="price">✦ &nbsp;Custom quote</div>
+        <p class="desc">AI music creation සහ diss-track concepts සඳහා lyrics ideas, song mood, flow, beat direction සහ track concept එක සකස් කරගන්න පුළුවන්. මේ service එක **Tinelka | Kenzo** සමඟින්.</p>
+        <div class="actions">
+          <a class="whatsapp" target="_blank" rel="noopener noreferrer" href="https://wa.me/94706008383?text=Hi%2C%20I%20want%20an%20AI%20music%20%2F%20diss%20track%20created%20by%20Tinelka%20%7C%20Kenzo.%20My%20idea%20is%3A%20"><span>Order via WhatsApp</span><span aria-hidden="true">↗</span></a>
+          <a class="secondary" href="#included">View service details ↓</a>
+        </div>
+      </div>
+    </section>
+    <section class="card section" id="included" aria-labelledby="included-title">
+      <div class="section-head"><div><div class="eyebrow-small">WHAT WE CAN WORK ON</div><h2 id="included-title">Make your idea real.</h2></div><p>Custom AI music and diss-track concepts.</p></div>
+      <div class="features">
+      <article class="feature"><div class="feature-icon">🎤</div><div><h3>Diss Track Concepts</h3><p>Wordplay, punchlines සහ competitive battle-rap style concepts.</p></div></article>
+      <article class="feature"><div class="feature-icon">🎵</div><div><h3>AI Music Ideas</h3><p>Genre, mood, tempo සහ song concept එකට ගැළපෙන creative direction.</p></div></article>
+      <article class="feature"><div class="feature-icon">✍️</div><div><h3>Lyrics & Hook</h3><p>ඔයාගේ theme එක අනුව original lyrics ideas සහ catchy hook එකක්.</p></div></article>
+      <article class="feature"><div class="feature-icon">🔊</div><div><h3>Beat & Vocal Direction</h3><p>Beat mood, vocal vibe සහ structure එකට creative guidance.</p></div></article>
+      </div>
+      <div class="notice">ℹ️ &nbsp;Track format, length, generation tools සහ අවශ්‍ය edits අනුව deliverables සහ මිල තීරණය වේ. වෙනත් අයෙකු ලෙස රවටන voice imitation වෙනුවට original voice/style එකක් භාවිතා කරන්න.</div>
+    </section>
+  </main>
+  <footer class="footer">Made for your next idea by <strong>KyZer_HADOC</strong> • Creative partner: Tinelka | Kenzo<br>Discuss your requirements on WhatsApp before placing an order.</footer>
+</div>
+<script>
+(() => {
+  const canvas = document.getElementById('scene');
+  const ctx = canvas.getContext('2d');
+  const kind = 'music';
+  const accent = '#ff526f';
+  const accent2 = '#ffb347';
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function rounded(x,y,w,h,r,fill,stroke) {
+    ctx.beginPath(); ctx.roundRect(x,y,w,h,r);
+    if(fill) {ctx.fillStyle=fill;ctx.fill();}
+    if(stroke) {ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke();}
+  }
+  function line(points,color,width=3) {ctx.beginPath();points.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.strokeStyle=color;ctx.lineWidth=width;ctx.lineCap='round';ctx.lineJoin='round';ctx.stroke();}
+  function draw(t) {
+    const w=canvas.width,h=canvas.height;
+    ctx.clearRect(0,0,w,h);
+    const bg=ctx.createLinearGradient(0,0,w,h);bg.addColorStop(0,'#171126');bg.addColorStop(1,'#090810');ctx.fillStyle=bg;ctx.fillRect(0,0,w,h);
+    ctx.save();ctx.globalAlpha=.22;ctx.strokeStyle=accent;ctx.lineWidth=1;
+    for(let x=20;x<w;x+=40){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+    for(let y=20;y<h;y+=40){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke();}
+    ctx.restore();
+    const pulse=1+Math.sin(t*1.4)*.025;
+    // soft colored glow behind the focal artwork
+    const glow=ctx.createRadialGradient(w*.5,h*.43,5,w*.5,h*.43,250);glow.addColorStop(0,accent+'55');glow.addColorStop(1,accent+'00');ctx.fillStyle=glow;ctx.fillRect(0,0,w,h);
+    if(kind==='video') {
+      ctx.save();ctx.translate(w/2,h*.43);ctx.scale(pulse,pulse);
+      // cinematic screen frame
+      rounded(-188,-142,376,248,22,'#0c0a14','#605080');
+      rounded(-173,-127,346,218,14,'#151021','#342946');
+      const sky=ctx.createLinearGradient(0,-120,0,90);sky.addColorStop(0,'#352754');sky.addColorStop(.55,'#b65a87');sky.addColorStop(1,'#f4ad79');rounded(-163,-117,326,198,10,sky);
+      // distant cinematic landscape
+      line([[-163,30],[-90,-5],[-30,24],[25,-32],[89,5],[163,-18]],'#3e315c',24);
+      line([[-163,61],[-90,39],[-38,62],[26,32],[77,49],[163,24]],'#19172e',42);
+      ctx.fillStyle='#fff1cb';ctx.globalAlpha=.95;ctx.beginPath();ctx.arc(92,-69,20,0,Math.PI*2);ctx.fill();ctx.globalAlpha=1;
+      // play symbol
+      ctx.fillStyle='rgba(255,255,255,.90)';ctx.beginPath();ctx.arc(0,-4,37,0,Math.PI*2);ctx.fill();ctx.fillStyle='#241735';ctx.beginPath();ctx.moveTo(-8,-22);ctx.lineTo(18,-4);ctx.lineTo(-8,14);ctx.closePath();ctx.fill();ctx.restore();
+      // timeline
+      rounded(68,250,504,52,13,'#0c0b14','#352a48');
+      for(let i=0;i<7;i++){const x=84+i*68;rounded(x,260,58,25,5,i%2?'#684b88':'#2e8d91');}
+      rounded(68,321,504,9,5,'#282136');rounded(68,321,286+Math.sin(t)*10,9,5,accent);
+      ctx.fillStyle='#eae3fa';ctx.font='bold 17px Arial';ctx.fillText('AI VIDEO STUDIO',68,365);
+      ctx.fillStyle='#9288aa';ctx.font='14px Arial';ctx.fillText('SCENES  •  MOTION  •  STORY',68,389);
+    } else if(kind==='music') {
+      // orbiting sound bars
+      for(let i=0;i<38;i++){const a=i/38*Math.PI*2;const bar=20+(Math.sin(t*2+i*.72)+1)*22;const r=144;const x=w/2+Math.cos(a)*r,y=h*.43+Math.sin(a)*r;ctx.save();ctx.translate(x,y);ctx.rotate(a);ctx.fillStyle=i%2?accent:accent2;ctx.globalAlpha=.85;rounded(-bar/2,-4,bar,8,4,ctx.fillStyle);ctx.restore();}
+      // vinyl record
+      ctx.save();ctx.translate(w/2,h*.43);ctx.rotate(t*.13);ctx.scale(pulse,pulse);
+      let g=ctx.createRadialGradient(0,0,20,0,0,116);g.addColorStop(0,'#39263d');g.addColorStop(.28,'#17131f');g.addColorStop(1,'#050509');ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,116,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle='#534057';for(let r=50;r<112;r+=9){ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.stroke();}
+      ctx.fillStyle=accent;ctx.beginPath();ctx.arc(0,0,39,0,Math.PI*2);ctx.fill();ctx.fillStyle='#17101c';ctx.beginPath();ctx.arc(0,0,7,0,Math.PI*2);ctx.fill();ctx.restore();
+      // equalizer
+      for(let i=0;i<19;i++){const x=75+i*27;const bh=16+((Math.sin(t*2+i*.68)+1)/2)*76;const grad=ctx.createLinearGradient(0,h*.8-bh,0,h*.8);grad.addColorStop(0,accent2);grad.addColorStop(1,accent);rounded(x,h*.8-bh,15,bh,7,grad);}
+      ctx.fillStyle='#f8e9f3';ctx.font='bold 17px Arial';ctx.fillText('MUSIC / DISS LAB',68,505);
+    } else {
+      // voxel island/platform
+      function cube(x,y,size,top,side1,side2){
+        const z=size*.28;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+size,y-z);ctx.lineTo(x+size*2,y);ctx.lineTo(x+size,y+z);ctx.closePath();ctx.fillStyle=top;ctx.fill();ctx.strokeStyle='#101b20';ctx.lineWidth=2;ctx.stroke();
+        ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+size,y+z);ctx.lineTo(x+size,y+size*.8+z);ctx.lineTo(x,y+size*.8);ctx.closePath();ctx.fillStyle=side1;ctx.fill();ctx.stroke();
+        ctx.beginPath();ctx.moveTo(x+size,y+z);ctx.lineTo(x+size*2,y);ctx.lineTo(x+size*2,y+size*.8);ctx.lineTo(x+size,y+size*.8+z);ctx.closePath();ctx.fillStyle=side2;ctx.fill();ctx.stroke();
+      }
+      const bob=Math.sin(t*1.6)*7;
+      cube(170,205+bob,78,'#4de3a0','#237f61','#16513f');cube(325,205-bob*.6,78,'#5eaaff','#285a99','#1b3760');cube(248,305+bob*.4,78,'#9b72f2','#6240a2','#42296c');
+      // floating pixel particles
+      for(let i=0;i<25;i++){const x=(i*83+Math.sin(t+i)*20)%w;const y=(i*47+t*17)%h;ctx.globalAlpha=.35+(i%4)*.12;ctx.fillStyle=i%2?accent:accent2;ctx.fillRect(x,y,5+(i%3)*2,5+(i%3)*2);}ctx.globalAlpha=1;
+      // server console card
+      rounded(78,390,484,92,13,'#0b1015','#26463f');ctx.fillStyle=accent;ctx.font='bold 15px monospace';ctx.fillText('SERVER STATUS  /  READY',101,421);ctx.fillStyle='#9ccbbd';ctx.font='13px monospace';ctx.fillText('plugins.yml  •  permissions  •  logs',101,449);
+      ctx.fillStyle=accent2;ctx.beginPath();ctx.arc(527,417,7+Math.sin(t*2)*2,0,Math.PI*2);ctx.fill();
+    }
+    // subtle scan line
+    const sy=(t*36)%(h+50)-25;ctx.fillStyle=accent;ctx.globalAlpha=.07;ctx.fillRect(0,sy,w,2);ctx.globalAlpha=1;
+    ctx.restore();
+  }
+  let start=performance.now();
+  function frame(now){draw(reduced?1:(now-start)/1000);if(!reduced)requestAnimationFrame(frame);}
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

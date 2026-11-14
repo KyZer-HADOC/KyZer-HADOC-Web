@@ -1,4 +1,5 @@
 const { getAdminClient } = require("./_supabase");
+const { presignGet } = require("./_r2");
 const { verifyAdmin } = require("./_adminAuth");
 
 exports.handler = async function (event) {
@@ -17,7 +18,7 @@ exports.handler = async function (event) {
 
     const { data, error } = await supabase
       .from("uploads")
-      .select("id, name, category, description, image_path, file_path, file_name, file_size, status, uploader_email, uploader_username, submitted_at, approved_at, reason")
+      .select("*")
       .eq("status", status || "pending")
       .order("submitted_at", { ascending: false });
 
@@ -28,7 +29,11 @@ exports.handler = async function (event) {
     const items = await Promise.all((data || []).map(async (row) => {
       let fileUrl = null;
       let imageUrl = null;
-      if (row.file_path) {
+      if (row.external_url) {
+        fileUrl = row.external_url;
+      } else if (row.file_path && row.storage === "r2") {
+        try { fileUrl = await presignGet(row.file_path, row.file_name, 3600); } catch (e) { fileUrl = null; }
+      } else if (row.file_path) {
         const { data: signed } = await supabase.storage.from("upload-files").createSignedUrl(row.file_path, 3600);
         fileUrl = signed && signed.signedUrl;
       }
@@ -44,6 +49,7 @@ exports.handler = async function (event) {
         fileName: row.file_name,
         fileSize: row.file_size,
         fileUrl,
+        isLink: !!row.external_url,
         imageUrl,
         status: row.status,
         uploaderEmail: row.uploader_email,
