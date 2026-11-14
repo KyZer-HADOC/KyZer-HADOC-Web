@@ -1,10 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <link href="images/KyZer YouBe.png" rel="icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>KyZer YouBe</title>
+
     <style>
         :root {
             --cyan: #ff0000;
@@ -15,7 +18,9 @@
             --btn: #DDDBD0;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -26,7 +31,7 @@
         }
 
         .page {
-            width: min(1200px, calc(1000% - 32px));
+            width: min(1200px, calc(100% - 32px));
             margin: 0 auto;
             padding: 28px 0 48px;
         }
@@ -56,8 +61,15 @@
             border-radius: 14px;
         }
 
-        h1 { margin: 0 0 8px; color: var(--cyan); }
-        .description { color: #c7d4d8; margin: 0 0 24px; }
+        h1 {
+            margin: 0 0 8px;
+            color: var(--cyan);
+        }
+
+        .description {
+            color: #c7d4d8;
+            margin: 0 0 24px;
+        }
 
         .actions {
             display: flex;
@@ -79,11 +91,12 @@
             text-decoration: none;
             cursor: pointer;
         }
+
         .gitbtn {
             flex: 1 1 240px;
             display: block;
             padding: 5px 0.1px;
-            border: 10;
+            border: 0;
             border-radius: 1px;
             color: #000000;
             background: linear-gradient(135deg, var(--git), var(--btn));
@@ -93,49 +106,123 @@
             cursor: pointer;
         }
 
-        .guide-title { margin: 0 0 12px; }
+        .guide-title {
+            margin: 0 0 12px;
+        }
 
-        video {
+        /* YouTube Video Player */
+        .youtube-video {
             display: block;
             width: 100%;
-            max-height: 560px;
+            aspect-ratio: 16 / 9;
+            border: 0;
             border-radius: 12px;
             background: black;
         }
 
         @media (max-width: 600px) {
-            .page { width: min(100% - 20px, 900px); padding-top: 18px; }
-            .panel { padding: 18px; }
-            h1 { font-size: 1.7rem; }
+            .page {
+                width: min(calc(100% - 20px), 900px);
+                padding-top: 18px;
+            }
+
+            .panel {
+                padding: 18px;
+            }
+
+            h1 {
+                font-size: 1.7rem;
+            }
         }
     </style>
 </head>
+
 <body>
+
     <main class="page">
-        <a href="Index_02.html" class="back-link">&larr; Back to Special</a>
+
+        <a href="Index_02.html" class="back-link">
+            &larr; Back to Special
+        </a>
 
         <section class="panel">
-            <img src="images/KyZer YouBe.png" alt="KyZer YouBe" class="product-image">
+
+            <img
+                src="images/KyZer YouBe.png"
+                alt="KyZer YouBe"
+                class="product-image"
+            >
+
             <h1><i><b>KyZer YouBe</b></i></h1>
-            <p class="description" style="text-align:left;"><span style=color:goldenrod>&nbsp;&nbsp;&nbsp;&nbsp;Setup for Windows | Apk for Android (10+)</span></p>
+
+            <p class="description" style="text-align:left;">
+                <span style="color:goldenrod">
+                    &nbsp;&nbsp;&nbsp;&nbsp;Setup for Windows | Apk for Android (10+)
+                </span>
+            </p>
 
             <div class="actions">
-                <a href="Other/KyZer Yoube Setup.exe" download class="button"><b>Download KyZer Yoube Setup [1.0]&nbsp;&nbsp;&nbsp;&nbsp;<sup><span style=color:orange>Windows</span></sup></b></a>
-                <a href="Other/KyZer YouBe.apk" download class="button"><b>Download KyZer Yoube Apk[1.0]&nbsp;&nbsp;&nbsp;&nbsp;<sup><span style=color:orange>Android</span></sup></b></a>
-            </div>
-            <div class="actions">
-                <a href="https://github.com/KyZer-HADOC/youtube-video-downloader/releases" download class="gitbtn"><b>Download All In One [2.0.3]&nbsp;&nbsp;&nbsp;&nbsp;<sup><span style=color:aqua>Windows</span></sup></b></a>
-                <a href="https://github.com/KyZer-HADOC/Apk/releases" download class="gitbtn"><b>Download All In One [2.2.1]&nbsp;&nbsp;&nbsp;&nbsp;<sup><span style=color:aqua>Android</span></sup></b></a>
+
+                <a
+                    href="https://github.com/KyZer-HADOC/youtube-video-downloader/releases"
+                    download
+                    class="button"
+                >
+                    <b>
+                        Download KyZer Yoube Setup [2.0.3]
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <sup><span style="color:orange">Windows</span></sup>
+                    </b>
+                </a>
+
+                <a
+                    href="https://github.com/KyZer-HADOC/Apk/releases"
+                    download
+                    class="button"
+                >
+                    <b>
+                        Download KyZer Yoube Apk [2.2.1]
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <sup><span style="color:orange">Android</span></sup>
+                    </b>
+                </a>
+
             </div>
 
-            <h2 class="guide-title"><span style=color:aqua>Android Install කරද්දි,</span></h2>
-            <span style=color:gold>Android Version 10+ වෙන්න ඕන. <br> Play Project එකෙන් block කොරොත් see more කියන එක Click කරල Install Anyway දෙන්න. </span><br><br>
-            <h2 class="guide-title"><span style=color:aqua>Windows Installation Guide</span></h2>
-            <video controls preload="metadata">
-                <source src="media/KyZer YouBe Guide &amp; Use.mp4" type="video/mp4">
-                Your browser does not support video playback.
-            </video>
+            <h2 class="guide-title">
+                <span style="color:aqua">
+                    Android Install කරද්දි,
+                </span>
+            </h2>
+
+            <span style="color:gold">
+                Android Version 10+ වෙන්න ඕන.
+                <br>
+                Play Project එකෙන් block කොරොත් see more කියන එක
+                Click කරල Install Anyway දෙන්න.
+            </span>
+
+            <br><br>
+
+            <h2 class="guide-title">
+                <span style="color:aqua">
+                    Windows Installation Guide
+                </span>
+            </h2>
+
+            <!-- YouTube Video -->
+            <iframe
+                class="youtube-video"
+                src="https://www.youtube-nocookie.com/embed/f0p6xv_owdk"
+                title="KyZer YouBe Guide & Use"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen>
+            </iframe>
+
         </section>
+
     </main>
+
 </body>
 </html>
