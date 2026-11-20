@@ -8512,31 +8512,25 @@ function setMediaSession() {
 <!-- ===== KX: Apps panel ===== -->
 <style>
 .kxh-btn{cursor:pointer;-webkit-appearance:none;appearance:none}
-#kxAppsBack{position:fixed;inset:0;z-index:99998;background:rgba(5,3,20,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+#kxAppsBack{position:fixed;inset:0;z-index:99998;background:rgba(5,3,20,.62);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
 #kxAppsBack.open{opacity:1;visibility:visible}
-#kxApps{position:fixed;z-index:99999;width:340px;max-width:calc(100vw - 24px);max-height:calc(100vh - 24px);overflow:auto;border-radius:20px;padding:16px;color:#fff;font-family:Poppins,sans-serif;
-  background:linear-gradient(160deg,rgba(30,22,70,.96),rgba(12,8,36,.97));border:1px solid rgba(34,211,238,.45);box-shadow:0 24px 60px -12px rgba(0,0,0,.8),0 0 40px -10px rgba(34,211,238,.5);
-  opacity:0;visibility:hidden;transform:translateY(10px) scale(.97);transition:opacity .25s,transform .25s,visibility .25s}
+#kxApps{position:fixed;z-index:99999;width:390px;max-width:calc(100vw - 24px);max-height:calc(100vh - 24px);overflow:auto;border-radius:22px;padding:17px;color:#fff;font-family:Poppins,sans-serif;background:linear-gradient(155deg,rgba(30,22,70,.98),rgba(12,8,36,.98));border:1px solid rgba(34,211,238,.45);box-shadow:0 24px 60px -12px rgba(0,0,0,.8),0 0 40px -10px rgba(34,211,238,.35);opacity:0;visibility:hidden;transform:translateY(10px) scale(.97);transition:opacity .25s,transform .25s,visibility .25s}
 #kxApps.open{opacity:1;visibility:visible;transform:none}
-#kxApps .kxa-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
-#kxApps .kxa-top h4{margin:0;font:800 1.1rem Poppins,sans-serif;color:#fff}
-#kxApps .kxa-top small{display:block;margin-top:2px;font:500 .72rem Poppins,sans-serif;color:#22d3ee;letter-spacing:.4px}
-#kxApps .kxa-x{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-size:.95rem;line-height:1;flex-shrink:0}
+#kxApps .kxa-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}
+#kxApps .kxa-top h4{margin:0;font:800 1.12rem Poppins,sans-serif;color:#fff}
+#kxApps .kxa-top small{display:block;margin-top:3px;font:500 .72rem Poppins,sans-serif;color:#22d3ee;letter-spacing:.4px}
+#kxApps .kxa-x{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-size:.95rem;line-height:1;flex-shrink:0}
 #kxApps .kxa-x:hover{background:rgba(255,255,255,.18)}
-#kxApps .kxa-list{display:flex;flex-direction:column;gap:8px}
-#kxApps .kxa-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff!important;text-decoration:none!important;transition:transform .2s,background .2s,border-color .2s}
-#kxApps a.kxa-item:hover{transform:translateX(3px);background:rgba(34,211,238,.14);border-color:rgba(34,211,238,.6)}
-#kxApps .kxa-ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex-shrink:0;font-size:1rem;background:linear-gradient(135deg,#8b5cf6,#22d3ee)}
-#kxApps .kxa-tx{display:flex;flex-direction:column;line-height:1.2;min-width:0;flex:1}
-#kxApps .kxa-tx b{font:700 .92rem Poppins,sans-serif}
-#kxApps .kxa-tx span{font:500 .7rem Poppins,sans-serif;opacity:.65}
-#kxApps .kxa-go{opacity:.6;font-size:.8rem}
-#kxApps .kxa-dual{flex-direction:column;align-items:stretch;gap:8px}
-#kxApps .kxa-dual .kxa-row{display:flex;align-items:center;gap:12px}
-#kxApps .kxa-pl{display:flex;gap:8px}
-#kxApps .kxa-pl a{flex:1;text-align:center;padding:7px 8px;border-radius:10px;border:1px solid rgba(34,211,238,.5);background:rgba(34,211,238,.12);color:#fff!important;text-decoration:none!important;font:700 .78rem Poppins,sans-serif;transition:background .2s,transform .2s}
-#kxApps .kxa-pl a:hover{background:rgba(34,211,238,.3);transform:translateY(-2px)}
-#kxApps .kxa-foot{margin-top:12px;text-align:center;font:500 .72rem Poppins,sans-serif;color:#9f95d8}
+#kxApps .kxa-list{display:flex;flex-direction:column;gap:9px}
+#kxApps .kxa-item{display:flex;align-items:center;gap:12px;min-height:66px;padding:10px 12px;border-radius:15px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.1);color:#fff!important;text-decoration:none!important;transition:transform .2s,background .2s,border-color .2s}
+#kxApps a.kxa-item:hover{transform:translateY(-2px);background:rgba(34,211,238,.13);border-color:rgba(34,211,238,.55)}
+#kxApps .kxa-ic{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;flex-shrink:0;font-size:1.15rem;color:#fff;background:linear-gradient(135deg,#8b5cf6,#22d3ee);overflow:hidden}
+#kxApps .kxa-ic img{width:100%;height:100%;display:block;object-fit:cover;border-radius:inherit}
+#kxApps .kxa-tx{display:flex;flex-direction:column;gap:4px;line-height:1.2;min-width:0;flex:1}
+#kxApps .kxa-tx b{font:700 .9rem Poppins,sans-serif}
+#kxApps .kxa-tx span{font:500 .69rem Poppins,sans-serif;color:#bbb6d8}
+#kxApps .kxa-go{opacity:.65;font-size:.8rem;flex-shrink:0}
+#kxApps .kxa-foot{margin-top:14px;text-align:center;font:500 .7rem Poppins,sans-serif;color:#9f95d8}
 @media(max-width:576px){#kxApps{left:12px!important;right:12px;top:auto!important;bottom:12px;width:auto;max-width:none}}
 @media(prefers-reduced-motion:reduce){#kxApps,#kxAppsBack{transition:none}}
 </style>
@@ -8544,54 +8538,86 @@ function setMediaSession() {
 <div id="kxAppsBack"></div>
 <div id="kxApps" role="dialog" aria-modal="true" aria-label="KyZer Apps">
   <div class="kxa-top">
-    <div><h4>Apps</h4><small>Created by KyZer</small></div>
+    <div><h4>Apps</h4><small>Choose an app to view details &amp; downloads</small></div>
     <button type="button" class="kxa-x" id="kxAppsClose" aria-label="Close">&#10005;</button>
   </div>
   <div class="kxa-list">
-    <div class="kxa-item kxa-dual">
-      <a class="kxa-item" target="_blank" rel="noopener noreferrer" href="kyzeryoube.html">
-      <div class="kxa-ic"><i class="fa-solid fa-share-nodes"></i></div>
-      <div class="kxa-tx"><b>KyZer YouBe</b><span>PC / Mobile</span></div><i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
+    <a class="kxa-item" href="kyzeryoube.html">
+      <div class="kxa-ic" data-icon-slot="kyzer-yoube"><i class="fa-solid fa-download"></i></div>
+      <div class="kxa-tx"><b>KyZer YouBe</b><span>Windows / Android</span></div>
+      <i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
     </a>
-    <a class="kxa-item" target="_blank" rel="noopener noreferrer" href="https://github.com/KyZer-HADOC/HADOC-LocalDrop/releases">
-      <div class="kxa-ic"><i class="fa-solid fa-share-nodes"></i></div>
-      <div class="kxa-tx"><b>HADOC LocalDrop</b><span>PC</span></div><i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
+    <a class="kxa-item" href="localdrop.html">
+      <div class="kxa-ic" data-icon-slot="hadoc-localdrop"><i class="fa-solid fa-share-nodes"></i></div>
+      <div class="kxa-tx"><b>HADOC LocalDrop</b><span>Windows</span></div>
+      <i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
     </a>
-    <a class="kxa-item" target="_blank" rel="noopener noreferrer" href="https://github.com/KyZer-HADOC/data-kana-ewa/releases/tag/v1.0.4">
-      <div class="kxa-ic" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"><i class="fa-solid fa-database"></i></div>
-      <div class="kxa-tx"><b>Data Kadayo</b><span>PC</span></div><i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
+    <a class="kxa-item" href="data-kadayo.html">
+      <div class="kxa-ic" data-icon-slot="data-kadayo"><i class="fa-solid fa-database"></i></div>
+      <div class="kxa-tx"><b>Data Kadayo</b><span>Windows</span></div>
+      <i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
     </a>
-    <a class="kxa-item" target="_blank" rel="noopener noreferrer" href="https://github.com/KyZer-HADOC/HADOC-KeyBoard/releases">
-      <div class="kxa-ic" style="background:linear-gradient(135deg,#10b981,#22d3ee)"><i class="fa-solid fa-keyboard"></i></div>
-      <div class="kxa-tx"><b>HADOC KeyBoard</b><span>PC</span></div><i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
+    <a class="kxa-item" href="hadoc-keyboard.html">
+      <div class="kxa-ic" data-icon-slot="hadoc-keyboard"><i class="fa-solid fa-keyboard"></i></div>
+      <div class="kxa-tx"><b>HADOC KeyBoard</b><span>Windows</span></div>
+      <i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
     </a>
-    <a class="kxa-item" href="kadaya.html" download>
-      <div class="kxa-ic" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)"><i class="fa-solid fa-gamepad"></i></div>
-      <div class="kxa-tx"><b>Kadaya</b><span>PC &middot; 2D game (.exe)</span></div><i class="fa-solid fa-download kxa-go"></i>
+    <a class="kxa-item" href="kadaya-app.html">
+      <div class="kxa-ic" data-icon-slot="kadaya"><i class="fa-solid fa-gamepad"></i></div>
+      <div class="kxa-tx"><b>Kadaya</b><span>PC · 2D game</span></div>
+      <i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
     </a>
   </div>
   <div class="kxa-foot">All apps created by KyZer</div>
 </div>
 <script>
 (function () {
-  var btn = document.getElementById('kxAppsBtn'), panel = document.getElementById('kxApps'),
-      back = document.getElementById('kxAppsBack'), close = document.getElementById('kxAppsClose');
-  if (!btn || !panel) { return; }
+  var btn = document.getElementById('kxAppsBtn'),
+      panel = document.getElementById('kxApps'),
+      back = document.getElementById('kxAppsBack'),
+      close = document.getElementById('kxAppsClose');
+  if (!btn || !panel || !back || !close) return;
+
   function place() {
-    if (window.innerWidth <= 576) { panel.style.left = ''; panel.style.top = ''; return; }
-    var r = btn.getBoundingClientRect(), w = panel.offsetWidth, h = panel.offsetHeight;
+    if (window.innerWidth <= 576) {
+      panel.style.left = '';
+      panel.style.top = '';
+      return;
+    }
+    var r = btn.getBoundingClientRect();
+    var w = panel.offsetWidth;
+    var h = panel.offsetHeight;
     var left = Math.min(Math.max(12, r.left), window.innerWidth - w - 12);
     var top = r.bottom + 10;
-    if (top + h > window.innerHeight - 12) { top = Math.max(12, r.top - h - 10); }
-    panel.style.left = left + 'px'; panel.style.top = top + 'px';
+    if (top + h > window.innerHeight - 12) top = Math.max(12, r.top - h - 10);
+    panel.style.left = left + 'px';
+    panel.style.top = top + 'px';
   }
-  function open() { place(); panel.classList.add('open'); back.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
-  function shut() { panel.classList.remove('open'); back.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
-  btn.addEventListener('click', function (e) { e.preventDefault(); panel.classList.contains('open') ? shut() : open(); });
-  close.addEventListener('click', shut);
-  back.addEventListener('click', shut);
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { shut(); } });
-  window.addEventListener('resize', function () { if (panel.classList.contains('open')) { place(); } });
+
+  function openPanel() {
+    place();
+    panel.classList.add('open');
+    back.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+  }
+  function closePanel() {
+    panel.classList.remove('open');
+    back.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  btn.addEventListener('click', function (e) {
+    e.preventDefault();
+    panel.classList.contains('open') ? closePanel() : openPanel();
+  });
+  close.addEventListener('click', closePanel);
+  back.addEventListener('click', closePanel);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePanel();
+  });
+  window.addEventListener('resize', function () {
+    if (panel.classList.contains('open')) place();
+  });
 })();
 </script>
 </body></html>
