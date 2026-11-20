@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+<!-- Google Indexing bam-->
+ <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-NQPC4TJV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+</script>
     <!-- Google Indexing & Search Engine Optimization (SEO) -->
 <meta name="robots" content="index, follow">
 <meta name="description" content="Welcome to KyZer_HADOC official portfolio. Explore custom AI tools, messaging bots, and advanced digital services developed by Nesara Thathsindu.">
@@ -6676,6 +6684,364 @@ html.kx-loading,html.kx-loading body{overflow:hidden}
     })();
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;800&display=swap" rel="stylesheet">
+<style id="kz-auth-music-css">
+:root{--highlight:#fbff00}
+.kz-header-auth {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: 46px;
+}
+
+.kz-header-login-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(120deg, rgba(255,0,0,.25), rgba(255,0,0,.08));
+    border: 1px solid rgba(255,60,60,.55);
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 800;
+    letter-spacing: .3px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: .25s ease;
+}
+
+.kz-header-login-btn:hover {
+    border-color: #ff2222;
+    box-shadow: 0 0 14px rgba(255,0,0,.4);
+    transform: translateY(-1px);
+}
+
+.kz-header-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0,255,34,.07);
+    border: 1px solid rgba(0,255,34,.35);
+    color: #eaffea;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 6px 10px 6px 6px;
+    border-radius: 20px;
+}
+
+.kz-header-user img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(0,255,34,.5);
+    flex-shrink: 0;
+}
+
+.kz-header-user-text { display: flex; flex-direction: column; line-height: 1.2; }
+.kz-header-user b { color: #00ff66; font-size: 12.5px; }
+.kz-header-user-rank { color: #999; font-size: 9.5px; font-weight: 600; }
+
+.kz-header-user button {
+    background: none;
+    border: 1px solid rgba(255,255,255,.25);
+    color: #ddd;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 7px;
+    cursor: pointer;
+}
+
+.kz-header-user button:hover { border-color: #ff2222; color: #ff5555; }
+
+@media (max-width: 600px) {
+    .kz-header-auth { margin-right: 44px; }
+    .kz-header-login-btn span.kz-login-text { display: none; }
+    .kz-header-login-btn { padding: 8px 10px; }
+}
+
+/* ===== Auth modal ===== */
+.kz-auth-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.78);
+    backdrop-filter: blur(6px);
+    padding: 16px;
+}
+
+.kz-auth-overlay.kz-show { display: flex; }
+
+.kz-auth-card {
+    width: 100%;
+    max-width: 380px;
+    box-sizing: border-box;
+    padding: 22px 20px 18px;
+    border-radius: 22px;
+    border: 1.5px solid rgba(255,30,30,.65);
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(120,0,0,.35), transparent 60%),
+        linear-gradient(160deg, rgba(14,3,3,.98), rgba(30,2,2,.96));
+    box-shadow: 0 0 40px rgba(255,0,0,.35), inset 0 0 30px rgba(255,0,0,.07);
+    position: relative;
+    max-height: 92vh;
+    overflow-y: auto;
+}
+
+.kz-auth-card h3 {
+    margin: 0 0 4px;
+    color: #fff;
+    font-size: 19px;
+    font-weight: 900;
+    letter-spacing: .5px;
+}
+
+.kz-auth-card h3 span { color: #ff2222; text-shadow: 0 0 10px rgba(255,0,0,.5); }
+
+.kz-auth-card p.kz-auth-sub {
+    margin: 0 0 16px;
+    color: #9a9a9a;
+    font-size: 12px;
+}
+
+.kz-auth-close {
+    position: absolute;
+    right: 14px;
+    top: 14px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.25);
+    background: rgba(255,255,255,.06);
+    color: #ddd;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.kz-auth-close:hover { border-color: #ff2222; color: #ff4444; }
+
+.kz-auth-tabs {
+    display: flex;
+    gap: 6px;
+    background: rgba(0,0,0,.45);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 14px;
+}
+
+.kz-auth-tab {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    color: #999;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.kz-auth-tab.active {
+    background: linear-gradient(120deg, rgba(255,0,0,.35), rgba(255,0,0,.12));
+    color: #fff;
+    box-shadow: 0 0 12px rgba(255,0,0,.35);
+}
+
+.kz-auth-field {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    margin-bottom: 9px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,0,0,.4);
+    background: rgba(0,0,0,.5);
+    color: #fff;
+    font-size: 13px;
+    outline: none;
+    transition: .2s ease;
+}
+
+.kz-auth-field::placeholder { color: #777; }
+.kz-auth-field:focus { border-color: #ff2222; box-shadow: 0 0 12px rgba(255,0,0,.35); }
+
+.kz-auth-submit {
+    width: 100%;
+    padding: 11px;
+    margin-top: 4px;
+    border-radius: 11px;
+    border: 1px solid #ff2222;
+    background: linear-gradient(120deg, #ff1a1a, #8a0000);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: .6px;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.kz-auth-submit:hover { box-shadow: 0 0 20px rgba(255,0,0,.6); transform: translateY(-1px); }
+.kz-auth-submit:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+
+.kz-auth-or {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 15px 0 12px;
+    color: #777;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.kz-auth-or::before, .kz-auth-or::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,0,0,.45), transparent);
+}
+
+.kz-oauth-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+
+.kz-oauth-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 6px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(255,255,255,.05);
+    color: #eee;
+    font-size: 11.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.kz-oauth-btn svg { width: 15px; height: 15px; }
+.kz-oauth-btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.4); }
+.kz-oauth-btn.kz-o-google:hover { box-shadow: 0 0 14px rgba(255,255,255,.25); }
+.kz-oauth-btn.kz-o-dc:hover { box-shadow: 0 0 14px rgba(88,101,242,.6); border-color: #5865F2; }
+.kz-oauth-btn.kz-o-gh:hover { box-shadow: 0 0 14px rgba(255,255,255,.35); }
+
+.kz-auth-msg {
+    margin-top: 11px;
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 1.45;
+    min-height: 14px;
+}
+
+.kz-auth-msg.err { color: #ff6666; }
+.kz-auth-msg.ok { color: #55ff88; }
+.kz-music-panel {
+    position: fixed; top: 54px; right: 12px; z-index: 3001;
+    width: 270px; max-width: calc(100vw - 24px); box-sizing: border-box;
+    padding: 14px 14px 16px; border-radius: 18px;
+    border: 1.5px solid rgba(255,30,30,.65);
+    background: radial-gradient(ellipse at 50% 0%, rgba(120,0,0,.35), transparent 60%), linear-gradient(160deg, rgba(14,3,3,.97), rgba(30,2,2,.95));
+    box-shadow: 0 0 28px rgba(255,0,0,.3), 0 10px 30px rgba(0,0,0,.6);
+    backdrop-filter: blur(14px);
+    opacity: 0; visibility: hidden; transform: translateY(-8px) scale(.97); transform-origin: top right;
+    transition: opacity .2s ease, transform .2s ease, visibility .2s;
+}
+.kz-music-panel.open { opacity: 1; visibility: visible; transform: none; }
+.kzm-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; color: #fff; font-size: 14px; }
+.kzm-x { width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.06); color: #ddd; cursor: pointer; font-size: 12px; }
+.kzm-x:hover { border-color: #ff2222; color: #ff4444; }
+.kzm-label { display: flex; justify-content: space-between; margin: 10px 0 4px; color: #ffcc00; font-size: 11.5px; font-weight: 800; letter-spacing: .3px; }
+.kz-music-panel select {
+    width: 100%; padding: 9px 10px; border-radius: 10px; border: 1px solid rgba(255,204,0,.4);
+    background: #000; color: #fff; font-size: 12.5px; margin: 0;
+}
+.kz-music-panel input[type=range] { width: 100%; padding: 0; margin: 6px 0 0; border: none; background: transparent; accent-color: #00ff22; cursor: pointer; }
+.kzm-row { display: flex; gap: 8px; margin-top: 12px; }
+.kzm-btn {
+    flex: 1; padding: 10px; border-radius: 10px; border: 1px solid #ff2222;
+    background: linear-gradient(120deg, #ff1a1a, #8a0000); color: #fff; font-weight: 800; font-size: 12.5px; cursor: pointer;
+}
+.kzm-btn:hover { box-shadow: 0 0 14px rgba(255,0,0,.5); }
+.kzm-ghost { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.25); }
+
+/* 2) CSS: .kzm-ghost { ... } eka passe danna */
+.kzm-check {
+    display: flex; align-items: center; gap: 8px;
+    margin-top: 12px; color: #ffcc00;
+    font-size: 12.5px; font-weight: 800; cursor: pointer;
+}
+.kz-music-panel .kzm-check input {
+    width: 18px; height: 18px; padding: 0; margin: 0;
+    border: none; accent-color: #00ff22; cursor: pointer;
+}
+
+/* ---- index.html top-right cluster: sound btn, then [login] [UI] under it ---- */
+.kz-topbar{display:contents}
+.kz-topbar .kz-header-auth{position:fixed;top:11px;right:56px;z-index:3000;margin:0}
+.kz-topbar .kx-sw{position:fixed;top:54px;right:12px;height:34px;padding:0 12px;font-size:.8rem}
+body .kz-music-stack{top:96px}
+.kz-scrollbtn{position:fixed;right:12px;bottom:16px;z-index:3000;width:40px;height:40px;border-radius:50%;border:1px solid rgba(167,139,250,.7);background:rgba(11,7,36,.82);backdrop-filter:blur(8px);color:#fff;font-size:18px;line-height:1;cursor:pointer;transition:.25s}
+.kz-scrollbtn:hover{background:linear-gradient(100deg,#8b5cf6,#22d3ee);transform:translateY(-2px)}
+.kz-header-login-btn,.kz-header-user{backdrop-filter:blur(8px);background-color:rgba(0,0,0,.6)}
+.kz-header-user .kz-set{padding:3px 6px}
+@media (max-width:600px){.kz-header-user-text{display:none}.kz-topbar .kx-sw{padding:0 10px}}
+</style>
+
+<style id="kz-extra-css">
+/* music stack: main panel + "Your Music" box connected underneath */
+.kz-music-stack{position:fixed;top:54px;right:12px;z-index:3001;max-width:calc(100vw - 24px);display:flex;flex-direction:row-reverse;align-items:flex-start;gap:18px;pointer-events:none}
+.kz-music-stack .kz-music-panel{position:relative;top:auto;right:auto;width:270px;flex:0 0 270px}
+.kz-music-stack .kz-mymusic{width:290px;flex:0 0 290px}
+.kz-music-stack .kz-music-panel.open{pointer-events:auto}
+.kz-mymusic{margin:0}
+.kz-mymusic::before{content:"";position:absolute;right:-19px;top:34px;width:18px;height:2px;background:linear-gradient(90deg,rgba(255,34,34,.15),#ff2222);box-shadow:0 0 8px rgba(255,0,0,.7)}
+.kz-mymusic::after{content:"";position:absolute;right:-22px;top:30px;width:8px;height:8px;border-radius:50%;background:#ff2222;box-shadow:0 0 10px #f00}
+@media (max-width:660px){
+ .kz-music-stack{flex-direction:column;align-items:flex-end;gap:18px}
+ .kz-music-stack .kz-mymusic,.kz-music-stack .kz-music-panel{width:min(290px,calc(100vw - 24px));flex:0 0 auto}
+ .kz-mymusic::before{right:auto;left:50%;top:-19px;width:2px;height:18px;transform:translateX(-50%);background:linear-gradient(rgba(255,34,34,.15),#ff2222)}
+ .kz-mymusic::after{right:auto;left:50%;top:-23px;margin-left:-4px}
+}
+.kzmm-yt{margin-top:8px;border-radius:10px;overflow:hidden;aspect-ratio:16/9;background:#000;border:1px solid rgba(255,34,34,.4)}
+.kzmm-yt iframe,.kzmm-yt>div{width:100%;height:100%;display:block}
+.kz-rank-ico{font-size:14px;line-height:1}
+.kzmm-tabs{display:flex;gap:6px;margin-bottom:10px}
+.kzmm-tab{flex:1;padding:7px 4px;border-radius:9px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:#ddd;font-size:11.5px;font-weight:800;cursor:pointer}
+.kzmm-tab.active{border-color:#ff2222;background:linear-gradient(120deg,rgba(255,26,26,.5),rgba(138,0,0,.5));color:#fff}
+.kzmm-form{display:flex;gap:6px;margin:0 0 6px;align-items:center}
+.kzmm-form input{flex:1;min-width:0;height:36px;box-sizing:border-box;margin:0;padding:0 10px;border-radius:9px;border:1px solid rgba(255,204,0,.4);background:#000;color:#fff;font-size:12.5px;outline:none}
+.kzmm-form input:focus{border-color:#ffcc00}
+.kzmm-form button{height:36px;margin:0;padding:0 12px;border-radius:9px;border:1px solid #ff2222;background:linear-gradient(120deg,#ff1a1a,#8a0000);color:#fff;font-weight:800;font-size:12px;cursor:pointer}
+.kzmm-src{display:flex;gap:5px;margin-bottom:8px}
+.kzmm-chip{flex:1;padding:4px 2px;border-radius:8px;border:1px solid rgba(255,255,255,.18);background:transparent;color:#aaa;font-size:10.5px;font-weight:700;cursor:pointer}
+.kzmm-chip.active{border-color:#00ff22;color:#00ff22}
+.kzmm-upbtn{display:block;text-align:center;padding:9px;border-radius:10px;border:1px dashed #ffcc00;color:#ffcc00;font-weight:800;font-size:12px;cursor:pointer;margin-bottom:8px;background:rgba(255,204,0,.06)}
+.kzmm-upbtn:hover{background:rgba(255,204,0,.14)}
+.kzmm-tab{font-size:11px}
+.kzmm-list{max-height:min(230px,30vh);overflow-y:auto;overscroll-behavior:contain;margin:0 -4px;padding:0 4px}
+.kzmm-list::-webkit-scrollbar{width:5px}.kzmm-list::-webkit-scrollbar-thumb{background:rgba(255,34,34,.5);border-radius:4px}
+.kzmm-row{display:flex;align-items:center;gap:6px;padding:6px;border-radius:9px;cursor:pointer;color:#fff}
+.kzmm-row:hover{background:rgba(255,255,255,.07)}
+.kzmm-row.playing{background:rgba(0,255,34,.1);outline:1px solid rgba(0,255,34,.35)}
+.kzmm-row img,.kzmm-row .kzmm-ph{width:34px;height:34px;border-radius:7px;object-fit:cover;flex-shrink:0;background:#1a0505;display:flex;align-items:center;justify-content:center;font-size:15px}
+.kzmm-meta{flex:1;min-width:0;line-height:1.25}
+.kzmm-meta b{display:block;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kzmm-meta small{display:block;color:#999;font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kzmm-fav{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:none;background:transparent;font-size:15px;cursor:pointer;color:#fff}
+.kzmm-fav:hover{background:rgba(255,255,255,.1)}
+.kzmm-empty{padding:14px 6px;text-align:center;color:#999;font-size:11.5px}
+.kzmm-note{margin-top:8px;color:#888;font-size:10px;line-height:1.35;text-align:center}
+.kzmm-now{margin-top:8px;color:#00ff66;font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* settings modal: name + rank + logout */
+.kz-set-info{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:0 0 14px}
+.kz-set-info b{color:#00ff66;font-size:15px}
+.kz-set-info span{font-size:11.5px;font-weight:800;padding:3px 10px;border-radius:12px;border:1px solid rgba(255,204,0,.5);color:#ffcc00;background:rgba(255,204,0,.08)}
+.kz-set-logout{margin-top:10px;background:rgba(255,255,255,.05)!important;border:1px solid rgba(255,80,80,.55)!important;color:#ff7777!important}
+.kz-header-user .kz-set{font-size:14px;padding:3px 8px}
+</style>
 </head>
 
 <body>
@@ -6758,11 +7124,57 @@ html.kx-loading,html.kx-loading body{overflow:hidden}
       });
     })();
     </script>
-    <audio id="bg-music" loop>
-      <source src="music/Warriyo, LXNGVX - Mortals Funk Remix [NCS Release].mp3" type="audio/mpeg">
-    </audio>
-        <button id="music-toggle" class="music-toggle" type="button" aria-label="Pause background music" title="Pause background music" onclick="toggleBackgroundMusic(event)">🔊</button>
-        <a class="kx-sw" href="kyzerui.html" title="Switch to the old UI"><i class="fa-solid fa-repeat"></i> Switch UI</a>
+    <audio id="bg-music" preload="auto"></audio>
+<button id="music-toggle" class="music-toggle" type="button" aria-label="Music settings" aria-expanded="false" onclick="kzToggleMusicPanel(event)">🔊</button>
+<div class="kz-music-stack" id="kzMusicStack">
+<div id="kzMusicPanel" class="kz-music-panel" role="dialog" aria-label="Music settings">
+    <div class="kzm-head">
+        <b>🎵 Music</b>
+        <button type="button" class="kzm-x" aria-label="Close" onclick="kzToggleMusicPanel(event)">✕</button>
+    </div>
+    <label class="kzm-label" for="kzmTrack">Song</label>
+    <select id="kzmTrack"></select>
+    <div class="kzm-row">
+        <button type="button" id="kzmPlay" class="kzm-btn">⏸ Stop</button>
+        <button type="button" id="kzmNext" class="kzm-btn kzm-ghost">⏭ Next</button>
+    </div>
+    <label class="kzm-label" for="kzmVol"><span>Volume</span><span id="kzmVolText">60%</span></label>
+    <input type="range" id="kzmVol" min="0" max="100" value="60">
+    <label class="kzm-check" for="kzmBg">
+      <input type="checkbox" id="kzmBg">
+      <span>🎧 Background play</span>
+    </label>
+</div>
+<div id="kzMyMusic" class="kz-music-panel kz-mymusic" role="dialog" aria-label="Your Music" style="display:none">
+    <div class="kzm-head"><b>🎧 Your Music</b></div>
+    <div class="kzmm-tabs">
+        <button type="button" class="kzmm-tab active" data-tab="search">🔍 Search</button>
+        <button type="button" class="kzmm-tab" data-tab="fav">❤️ Favs</button>
+        <button type="button" class="kzmm-tab" data-tab="mine">📁 Your</button>
+    </div>
+    <form id="kzmmForm" class="kzmm-form" autocomplete="off">
+        <input id="kzmmQ" type="search" placeholder="Search songs online…" enterkeyhint="search">
+        <button type="submit">Go</button>
+    </form>
+    <div class="kzmm-src" id="kzmmSrc">
+        <button type="button" class="kzmm-chip active" data-src="yt">▶ YouTube</button>
+        <button type="button" class="kzmm-chip" data-src="audius">Indie</button>
+        <button type="button" class="kzmm-chip" data-src="itunes">30s</button>
+    </div>
+    <div id="kzmmUp" style="display:none"><label class="kzmm-upbtn" for="kzmmFile">⬆ Upload song</label><input type="file" id="kzmmFile" accept="audio/*" style="display:none"></div>
+    <div class="kzmm-list" id="kzmmList"></div>
+    <div class="kzmm-yt" id="kzmmYT" style="display:none"><div id="kzmmYTp"></div></div>
+    <div class="kzmm-now" id="kzmmNow"></div>
+</div>
+</div>
+
+<div class="kz-topbar">
+    <div class="kz-header-auth" id="kzHeaderAuth">
+    <button class="kz-header-login-btn" type="button" onclick="kzOpenAuth('login')">🔐 <span class="kz-login-text">Login</span></button>
+</div>
+    <a class="kx-sw" href="kyzerui.html" title="Switch to the old UI"><i class="fa-solid fa-repeat"></i> UI</a>
+</div>
+<button id="kzScrollBtn" class="kz-scrollbtn" type="button" aria-label="Scroll down" title="Scroll down">↓</button>
 
     <div class="container-fluid bg-black p-0">
         <!-- Navbar & Hero Start -->
@@ -6791,7 +7203,7 @@ html.kx-loading,html.kx-loading body{overflow:hidden}
                             <p class="kxh-by">Crafted by KyZer_HADOC</p>
                             <div class="kxh-cta">
                                 <a target="_blank" href="Index_02.html" class="kxh-b main"><i class="fa-solid fa-download"></i> Go to download page</a>
-                                <a target="_blank" href="https://hadoc-ai.netlify.app" class="kxh-b ai"><i class="fa-solid fa-fire"></i> HADOC AI</a>
+                                <button type="button" id="kxAppsBtn" class="kxh-b ai kxh-btn" aria-haspopup="dialog" aria-expanded="false" aria-controls="kxApps"><i class="fa-solid fa-grip"></i> Apps</button>
                                 <a href="services.html" class="kxh-b out"><i class="fa-solid fa-screwdriver-wrench"></i> Services</a>
                             </div>
                         </div>
@@ -7075,48 +7487,6 @@ html.kx-loading,html.kx-loading body{overflow:hidden}
             });
         })();
 
-    var audio = document.getElementById('bg-music');
-    var musicToggle = document.getElementById('music-toggle');
-    var musicMuted = localStorage.getItem('background-music-muted') === 'true';
-    audio.volume = 0.6; // Volume එක අඩු කිරීම
-
-    function updateMusicToggle() {
-        musicToggle.textContent = musicMuted ? '🔇' : '🔊';
-        musicToggle.setAttribute('aria-label', musicMuted ? 'Play background music' : 'Pause background music');
-        musicToggle.title = musicMuted ? 'Play background music' : 'Pause background music';
-    }
-
-    function toggleBackgroundMusic(event) {
-        event.stopPropagation();
-        musicMuted = !musicMuted;
-        localStorage.setItem('background-music-muted', musicMuted);
-        if (musicMuted) audio.pause();
-        else audio.play().catch(function() {});
-        updateMusicToggle();
-    }
-
-    updateMusicToggle();
-
-  // User ප්‍රථම වරට click කල විට play වීම
-  document.addEventListener('click', function() {
-        if (!musicMuted && audio.paused) {
-      audio.play().catch(function(error) {
-        console.log("Autoplay blocked:", error);
-      });
-    }
-  }, { once: true });
-
-  // 💥 ප්‍රධාන විසඳුම: User වෙනත් Tab එකකට හෝ වෙනත් Window එකකට ගිය සැනින් සින්දුව Pause කිරීම
-  document.addEventListener('visibilitychange', function() {
-    if (document.hidden) {
-      audio.pause(); // Tab එක hidden වූ විට සින්දුව නවතී
-    } else {
-      // User නැවත මුල් පිටුවේ Tab එකට ආවොත් සින්දුව නැවත Play වේ
-    if (!musicMuted && (!audio.paused || audio.currentTime > 0)) {
-        audio.play().catch(function(e) {});
-      }
-    }
-  });
         
     </script>
 
@@ -7316,6 +7686,912 @@ document.querySelectorAll(
     l = l.replace(/\s+/g, ' ').trim().slice(0, 40);
     if (l) { send('click', l); }
   });
+})();
+</script>
+
+<!-- ===== KyZer HADOC: shared login (Supabase) + music panel — same as index_02.html ===== -->
+<!-- ===== KyZer HADOC AUTH MODAL ===== -->
+<div class="kz-auth-overlay" id="kzAuthOverlay" onclick="if(event.target===this)kzCloseAuth()">
+  <div class="kz-auth-card">
+    <button class="kz-auth-close" type="button" onclick="kzCloseAuth()">✕</button>
+    <h3>KyZer <span>HADOC</span></h3>
+    <p class="kz-auth-sub" id="kzAuthSub">Sign in to unlock the download portal</p>
+
+    <div class="kz-auth-tabs">
+      <button class="kz-auth-tab active" id="kzTabLogin" type="button" onclick="kzSetAuthMode('login')">Login</button>
+      <button class="kz-auth-tab" id="kzTabSignup" type="button" onclick="kzSetAuthMode('signup')">Sign Up</button>
+    </div>
+
+    <form id="kzAuthForm" onsubmit="return kzAuthSubmit(event)">
+      <input class="kz-auth-field" type="text" id="kzAuthFirstName" placeholder="First name" style="display:none" autocomplete="given-name">
+      <input class="kz-auth-field" type="text" id="kzAuthLastName" placeholder="Last name (optional)" style="display:none" autocomplete="family-name">
+      <input class="kz-auth-field" type="email" id="kzAuthEmail" placeholder="Email address" autocomplete="email" required>
+      <div style="position:relative;">
+        <input class="kz-auth-field" type="password" id="kzAuthPass" placeholder="Password" autocomplete="current-password" required minlength="6" style="padding-right:38px;">
+        <span onclick="kzTogglePass(this)" style="position:absolute; right:12px; top:12px; cursor:pointer; font-size:14px; user-select:none;">👁️</span>
+      </div>
+      <div id="kzForgotLink" style="text-align:right; margin:-2px 0 6px;">
+        <a href="#" onclick="kzSetAuthMode('forgot'); return false;" style="color:#ff8080; font-size:11.5px; text-decoration:none;">Forgot password?</a>
+      </div>
+      <button class="kz-auth-submit" type="submit" id="kzAuthSubmitBtn">LOGIN</button>
+    </form>
+
+    <div id="kzOauthBlock">
+      <div class="kz-auth-or">OR CONTINUE WITH</div>
+
+      <div class="kz-oauth-grid">
+        <button class="kz-oauth-btn kz-o-google" type="button" onclick="kzOAuth('google')">
+          <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M23 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.2a5.3 5.3 0 0 1-2.3 3.5v2.9h3.7c2.2-2 3.4-5 3.4-8.6z"/><path fill="#34A853" d="M12 24c3.1 0 5.7-1 7.6-2.8l-3.7-2.9c-1 .7-2.3 1.1-3.9 1.1-3 0-5.5-2-6.4-4.7H1.8v3A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.6 14.7a7.2 7.2 0 0 1 0-4.6v-3H1.8a12 12 0 0 0 0 10.6l3.8-3z"/><path fill="#EA4335" d="M12 4.8c1.7 0 3.2.6 4.4 1.7l3.2-3.2A12 12 0 0 0 1.8 7.1l3.8 3C6.5 7.4 9 4.8 12 4.8z"/></svg>
+          Google
+        </button>
+        <button class="kz-oauth-btn kz-o-dc" type="button" onclick="kzOAuth('discord')">
+          <svg viewBox="0 0 24 24" fill="#5865F2"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3c-.2.4-.5.9-.6 1.3a18.3 18.3 0 0 0-5.5 0C9 3.9 8.8 3.4 8.6 3a19.8 19.8 0 0 0-4.9 1.5A20.4 20.4 0 0 0 .1 18.1a19.9 19.9 0 0 0 6 3c.5-.7.9-1.4 1.3-2.1-.7-.3-1.4-.6-2-1l.5-.4a14.2 14.2 0 0 0 12.2 0l.5.4c-.6.4-1.3.7-2 1 .4.7.8 1.4 1.3 2.1a19.9 19.9 0 0 0 6-3A20.4 20.4 0 0 0 20.3 4.4zM8 15.3c-1.2 0-2.1-1.1-2.1-2.4S6.8 10.5 8 10.5s2.2 1.1 2.1 2.4c0 1.3-.9 2.4-2.1 2.4zm8 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4 2.2 1.1 2.1 2.4c0 1.3-.9 2.4-2.1 2.4z"/></svg>
+          Discord
+        </button>
+        <button class="kz-oauth-btn kz-o-gh" type="button" onclick="kzOAuth('github')">
+          <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7 0-.7 0-.7 1.2.1 1.9 1.3 1.9 1.3 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.2 4.3 18.2 4.6 18.2 4.6c.6 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3z"/></svg>
+          GitHub
+        </button>
+      </div>
+    </div>
+
+    <div class="kz-auth-msg" id="kzAuthMsg"></div>
+  </div>
+</div>
+
+<!-- ===== SETTINGS MODAL ===== -->
+<div class="kz-auth-overlay" id="kzSettingsOverlay" onclick="if(event.target===this)kzCloseSettings()">
+  <div class="kz-auth-card">
+    <button class="kz-auth-close" type="button" onclick="kzCloseSettings()">✕</button>
+    <h3>Profile <span>Settings</span></h3>
+    <p class="kz-auth-sub">Change your name or profile picture</p>
+
+    <div class="kz-set-info"><b id="kzSettingsNameTxt"></b><span id="kzSettingsRank"></span></div>
+
+    <div style="text-align:center; margin-bottom:16px;">
+      <img id="kzSettingsAvatarPreview" src="" alt="Avatar" style="width:78px; height:78px; border-radius:50%; object-fit:cover; border:2px solid #ff2222; box-shadow:0 0 14px rgba(255,0,0,.5); background:#1a0505;">
+      <div style="margin-top:10px;">
+        <label for="kzSettingsAvatarFile" style="display:inline-block; padding:8px 16px; border-radius:10px; border:1px solid rgba(255,204,0,.5); background:rgba(255,204,0,.08); color:#ffcc00; font-size:12px; font-weight:800; cursor:pointer;">🖼️ Change Picture</label>
+        <input type="file" id="kzSettingsAvatarFile" accept="image/*" style="display:none;">
+      </div>
+    </div>
+
+    <input class="kz-auth-field" type="text" id="kzSettingsFirstName" placeholder="First name">
+    <input class="kz-auth-field" type="text" id="kzSettingsLastName" placeholder="Last name (optional)">
+
+    <button class="kz-auth-submit" type="button" id="kzSettingsSaveBtn" onclick="kzSaveSettings()">SAVE CHANGES</button>
+
+    <div class="kz-auth-msg" id="kzSettingsMsg"></div>
+    <button class="kz-auth-submit kz-set-logout" type="button" onclick="kzCloseSettings(); kzLogout();">🚪 LOGOUT</button>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+(function () {
+  var KZ_URL = "https://rkbqofhxoaurufvfxunf.supabase.co";
+  var KZ_KEY = "sb_publishable_rQXfCR3ZxDxoNM_Sm2awig_J7dWyzWv";
+  var sb = window.supabase.createClient(KZ_URL, KZ_KEY);
+  window.kzSupabase = sb; // exposed so the upload form can read the session
+  var mode = 'login'; // 'login' | 'signup' | 'forgot'
+
+  function kzAllById(id) {
+    return document.querySelectorAll('[id="' + id + '"]');
+  }
+  function kzSetHTML(id, html) { kzAllById(id).forEach(function (el) { el.innerHTML = html; }); }
+  function kzSetText(id, text) { kzAllById(id).forEach(function (el) { el.textContent = text; }); }
+  function kzSetSrc(id, src) { kzAllById(id).forEach(function (el) { el.src = src; }); }
+  function kzSetDisplay(id, display) { kzAllById(id).forEach(function (el) { el.style.display = display; }); }
+
+  function msg(text, kind) {
+    var el = document.getElementById('kzAuthMsg');
+    el.textContent = text || '';
+    el.className = 'kz-auth-msg' + (kind ? ' ' + kind : '');
+  }
+
+  window.kzOpenAuth = function (m) {
+    document.getElementById('kzAuthOverlay').classList.add('kz-show');
+    kzSetAuthMode(m || 'login');
+  };
+
+  window.kzCloseAuth = function () {
+    document.getElementById('kzAuthOverlay').classList.remove('kz-show');
+    msg('');
+  };
+
+  window.kzSetAuthMode = function (m) {
+    mode = m;
+    var isSignup = m === 'signup';
+    var isForgot = m === 'forgot';
+    document.getElementById('kzTabLogin').classList.toggle('active', m === 'login');
+    document.getElementById('kzTabSignup').classList.toggle('active', isSignup);
+    document.getElementById('kzAuthFirstName').style.display = isSignup ? '' : 'none';
+    document.getElementById('kzAuthFirstName').required = isSignup;
+    document.getElementById('kzAuthLastName').style.display = isSignup ? '' : 'none';
+    document.getElementById('kzAuthPass').closest('div').style.display = isForgot ? 'none' : '';
+    document.getElementById('kzAuthPass').required = !isForgot;
+    document.getElementById('kzAuthPass').setAttribute('autocomplete', isSignup ? 'new-password' : 'current-password');
+    document.getElementById('kzAuthSubmitBtn').textContent = isSignup ? 'CREATE ACCOUNT' : (isForgot ? 'SEND RESET LINK' : 'LOGIN');
+    document.getElementById('kzAuthSub').textContent = isSignup
+      ? 'Create your free account to unlock downloads'
+      : (isForgot ? 'Enter your email to get a reset link' : 'Sign in to unlock the download portal');
+    document.getElementById('kzForgotLink').style.display = (m === 'login') ? '' : 'none';
+    document.getElementById('kzOauthBlock').style.display = isForgot ? 'none' : '';
+    msg('');
+  };
+
+  window.kzTogglePass = function (el) {
+    var input = document.getElementById('kzAuthPass');
+    var show = input.type === 'password';
+    input.type = show ? 'text' : 'password';
+    el.textContent = show ? '🙈' : '👁️';
+  };
+
+  window.kzAuthSubmit = function (e) {
+    e.preventDefault();
+    var btn = document.getElementById('kzAuthSubmitBtn');
+    var email = document.getElementById('kzAuthEmail').value.trim();
+    var pass = document.getElementById('kzAuthPass').value;
+    var firstName = document.getElementById('kzAuthFirstName').value.trim();
+    var lastName = document.getElementById('kzAuthLastName').value.trim();
+    var displayName = (firstName + ' ' + lastName).trim();
+    var redirectUrl = window.location.href.split('#')[0].split('?')[0];
+    btn.disabled = true;
+    msg('Please wait...');
+
+    var p;
+    if (mode === 'signup') {
+      p = sb.auth.signUp({
+        email: email, password: pass,
+        options: { emailRedirectTo: redirectUrl, data: { first_name: firstName, last_name: lastName, display_name: displayName } }
+      });
+    } else if (mode === 'forgot') {
+      p = sb.auth.resetPasswordForEmail(email, { redirectTo: redirectUrl });
+    } else {
+      p = sb.auth.signInWithPassword({ email: email, password: pass });
+    }
+
+    p.then(function (res) {
+      btn.disabled = false;
+      if (res.error) { msg(res.error.message, 'err'); return; }
+      if (mode === 'signup' && !res.data.session) {
+        msg('Account created! Check your email and click the confirmation link.', 'ok');
+        return;
+      }
+      if (mode === 'forgot') {
+        msg('Reset link sent! Check your email.', 'ok');
+        return;
+      }
+      msg('Welcome back!', 'ok');
+      setTimeout(kzCloseAuth, 700);
+    }).catch(function (err) {
+      btn.disabled = false;
+      msg(String(err && err.message ? err.message : err), 'err');
+    });
+    return false;
+  };
+
+  window.kzOAuth = function (provider) {
+    msg('Redirecting to ' + provider + '...');
+    var redirectUrl = window.location.href.split('#')[0].split('?')[0];
+    sb.auth.signInWithOAuth({
+      provider: provider,
+      options: { redirectTo: redirectUrl }
+    }).then(function (res) {
+      if (res.error) {
+        msg(provider.charAt(0).toUpperCase() + provider.slice(1) + " login isn't enabled yet — enable it in Supabase → Authentication → Providers.", 'err');
+      }
+    }).catch(function () {
+      msg('Could not start ' + provider + ' login.', 'err');
+    });
+  };
+
+  function kzRoleLabel(role) {
+    var map = { owner: '👑 Owner', admin: '🛡️ Admin', vip: '💎 VIP', client: '🙂 Client' };
+    return map[(role || 'client').toLowerCase()] || '🙂 Client';
+  }
+
+  function renderUser() { renderUser0.apply(null, arguments); try { window.dispatchEvent(new Event('kzauth')); } catch (e) {} }
+  function renderUser0(user, profileName, role, profileAvatarUrl) {
+    var headerArea = document.getElementById('kzHeaderAuth');
+    if (!user) {
+      window.kzUserRole = null;
+      window.kzCurrentUser = null;
+      if (headerArea) headerArea.innerHTML = '<button class="kz-header-login-btn" type="button" onclick="kzOpenAuth(\'login\')">\uD83D\uDD10 <span class="kz-login-text">Login</span></button>';
+      return;
+    }
+    var meta = user.user_metadata || {};
+    var name = profileName || meta.display_name || meta.full_name || meta.name || (user.email || '').split('@')[0];
+    var first = String(name).split(' ')[0].replace(/[<>&]/g, '');
+    var avatarUrl = profileAvatarUrl || meta.avatar_url || meta.picture || '';
+    window.kzUserRole = (role || 'client').toLowerCase();
+    window.kzCurrentUser = user;
+
+    if (headerArea) {
+      headerArea.innerHTML = '<div class="kz-header-user">' +
+        '<img alt="" id="kzHeadAvatar" style="' + (avatarUrl ? '' : 'display:none') + '">' +
+        '<span class="kz-rank-ico" title=""></span><div class="kz-header-user-text"><b></b></div>' +
+        '<button type="button" class="kz-set" aria-label="Settings" title="Settings" onclick="kzOpenSettings()">\u2699\uFE0F</button></div>';
+      if (avatarUrl) headerArea.querySelector('img').src = avatarUrl;
+      headerArea.querySelector('b').textContent = first;
+      var _ri = headerArea.querySelector('.kz-rank-ico'); _ri.textContent = kzRoleLabel(role).split(' ')[0]; _ri.title = kzRoleLabel(role);
+    }
+
+    var meta2 = meta;
+    var _n = document.getElementById('kzSettingsNameTxt'), _r = document.getElementById('kzSettingsRank');
+    if (_n) _n.textContent = name; if (_r) _r.textContent = kzRoleLabel(role);
+    var fnField = document.getElementById('kzSettingsFirstName');
+    var lnField = document.getElementById('kzSettingsLastName');
+    if (fnField && !fnField.dataset.dirty) fnField.value = meta2.first_name || first || '';
+    if (lnField && !lnField.dataset.dirty) lnField.value = meta2.last_name || (String(name).split(' ').slice(1).join(' ')) || '';
+    var previewImg = document.getElementById('kzSettingsAvatarPreview');
+    if (previewImg) previewImg.src = avatarUrl || '';
+  }
+
+  // ===== SETTINGS MODAL =====
+  window.kzOpenSettings = function () {
+    document.getElementById('kzSettingsOverlay').classList.add('kz-show');
+    document.getElementById('kzSettingsMsg').textContent = '';
+  };
+  window.kzCloseSettings = function () {
+    document.getElementById('kzSettingsOverlay').classList.remove('kz-show');
+  };
+
+  function fileToBase64Settings(file) {
+    return new Promise(function (resolve, reject) {
+      var reader = new FileReader();
+      reader.onload = function () { resolve(reader.result.split(',')[1]); };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var avatarInput = document.getElementById('kzSettingsAvatarFile');
+    if (avatarInput) {
+      avatarInput.addEventListener('change', function () {
+        var file = avatarInput.files[0];
+        if (!file) return;
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById('kzSettingsAvatarPreview').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+    ['kzSettingsFirstName', 'kzSettingsLastName'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('input', function () { el.dataset.dirty = '1'; });
+    });
+  });
+
+  window.kzSaveSettings = async function () {
+    var btn = document.getElementById('kzSettingsSaveBtn');
+    var msgEl = document.getElementById('kzSettingsMsg');
+    var firstName = document.getElementById('kzSettingsFirstName').value.trim();
+    var lastName = document.getElementById('kzSettingsLastName').value.trim();
+    var avatarFile = document.getElementById('kzSettingsAvatarFile').files[0];
+
+    var sessionRes = await sb.auth.getSession();
+    var session = sessionRes.data && sessionRes.data.session;
+    if (!session) { msgEl.textContent = 'Please log in again.'; msgEl.className = 'kz-auth-msg err'; return; }
+
+    btn.disabled = true;
+    msgEl.textContent = 'Saving...';
+    msgEl.className = 'kz-auth-msg';
+
+    try {
+      var payload = { token: session.access_token, first_name: firstName, last_name: lastName };
+      if (avatarFile) {
+        payload.avatarBase64 = await fileToBase64Settings(avatarFile);
+        payload.avatarType = avatarFile.type;
+      }
+
+      var res = await fetch('/api/update-profile', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      var data = await res.json();
+      btn.disabled = false;
+
+      if (!data.success) {
+        msgEl.textContent = '❌ ' + (data.message || 'Failed to save');
+        msgEl.className = 'kz-auth-msg err';
+        return;
+      }
+
+      // Keep auth metadata in sync too (name shown from user_metadata as a fallback elsewhere)
+      await sb.auth.updateUser({ data: { first_name: firstName, last_name: lastName, display_name: (firstName + ' ' + lastName).trim() } });
+
+      msgEl.textContent = '✅ Saved!';
+      msgEl.className = 'kz-auth-msg ok';
+      document.getElementById('kzSettingsFirstName').dataset.dirty = '';
+      document.getElementById('kzSettingsLastName').dataset.dirty = '';
+      kzRefreshAuthUI();
+      setTimeout(kzCloseSettings, 800);
+    } catch (err) {
+      btn.disabled = false;
+      msgEl.textContent = '⚠️ ' + (err && err.message ? err.message : 'Error saving');
+      msgEl.className = 'kz-auth-msg err';
+    }
+  };
+
+  window.kzLogout = function () {
+    sb.auth.signOut().then(function () { renderUser(null); });
+  };
+
+  window.kzRefreshAuthUI = function () {
+    sb.auth.getSession().then(function (r) {
+      loadProfile(r.data.session ? r.data.session.user : null);
+    });
+  };
+
+  function loadProfile(user) {
+    if (!user) { renderUser(null); return; }
+    sb.from('profiles').select('display_name,avatar_url,role').eq('id', user.id).maybeSingle()
+      .then(function (r) {
+        var d = r && r.data;
+        renderUser(user, d && d.display_name, d && d.role, d && d.avatar_url);
+        if (d && d.avatar_url) kzSetSrc('kzHeadAvatar', d.avatar_url);
+      })
+      .catch(function () { renderUser(user); });
+  }
+
+  sb.auth.getSession().then(function (r) {
+    loadProfile(r.data.session ? r.data.session.user : null);
+  });
+
+  sb.auth.onAuthStateChange(function (_e, session) {
+    loadProfile(session ? session.user : null);
+    if (session) kzCloseAuth();
+  });
+
+})();
+</script>
+<script>
+(function () {
+    // ---- add more songs here ----
+    var TRACKS = [
+    { name: 'Manasha (Over-Slowed)', src: 'music/MANASHA (OVER-SLOWED) - ASHREVEAL  ASHISH SWARGIARY_1762602800795.mp3' },
+    { name: 'Warriyo', src: 'music/Warriyo, LXNGVX - Mortals Funk Remix [NCS Release].mp3' },
+    { name: 'X-Cool', src: 'music/X-COOL! (Ultra Slowed).mp3' },
+    { name: 'Armor Na Praia (slowed)', src: 'music/Amor Na Praia (Slowed)_1753782958144.mp3' },
+    { name: 'Airtel Phonk', src: 'music/MASHUQ HAQUE - AIRTEL PHONK  A. R. RAHMAN (PHONK)_1770387853094.mp3' },
+    { name: 'Next!', src: 'music/NEXT!_1996.mp3' },
+    { name: 'Paren (slowed + Reverb)', src: 'music/paaren-slowed-reverb-sanuka-wickramasinghe.mp3' },
+    { name: 'Tiki Tiki (slowed)', src: 'music/TIKI TIKI NI FUNK (SLOWED) - EDITSAN _1770388103761.mp3' },
+    { name: 'Funk Sereno (Super SLowed)', src: 'music/FUNK_SERENO__SUPER_SLOWED_.mp3' },
+    { name: 'Raya (SLowed)', src: 'music/Zericxxn_-_Raya_-_Slowed_(mp3.pm).mp3' }
+];
+
+    var audio   = document.getElementById('bg-music');
+    var iconBtn = document.getElementById('music-toggle');
+    var panel   = document.getElementById('kzMusicPanel');
+    var sel     = document.getElementById('kzmTrack');
+    var playBtn = document.getElementById('kzmPlay');
+    var nextBtn = document.getElementById('kzmNext');
+    var vol     = document.getElementById('kzmVol');
+    var volText = document.getElementById('kzmVolText');
+
+    function load(k, d) { try { var v = localStorage.getItem(k); return v === null ? d : v; } catch (e) { return d; } }
+    function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+    var stopped = load('background-music-muted', 'false') === 'true';
+    var track   = parseInt(load('kz-music-track', '0'), 10);
+    if (!(track >= 0 && track < TRACKS.length)) track = 0;
+    var volume  = parseInt(load('kz-music-volume', '60'), 10);
+    if (!(volume >= 0 && volume <= 100)) volume = 60;
+    var resumeAfterHidden = false;
+
+    var bgBox  = document.getElementById('kzmBg');
+var bgPlay = load('kz-music-bg', 'false') === 'true';
+bgBox.checked = bgPlay;
+
+bgBox.addEventListener('change', function () {
+    bgPlay = bgBox.checked;
+    save('kz-music-bg', bgPlay);
+    if (bgPlay && !stopped && audio.paused) play();   // on karama ekapara play wenna
+});
+
+function setMediaSession() {
+    if (!('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return;
+    navigator.mediaSession.metadata = new MediaMetadata({ title: TRACKS[track].name, artist: 'KyZer_HADOC' });
+    navigator.mediaSession.setActionHandler('play',  function () { stopped = false; save('background-music-muted', false); play(); ui(); });
+    navigator.mediaSession.setActionHandler('pause', function () { stopped = true;  save('background-music-muted', true);  audio.pause(); ui(); });
+    navigator.mediaSession.setActionHandler('nexttrack', function () { setTrack(track + 1); });
+}
+
+    TRACKS.forEach(function (t, i) {
+        var o = document.createElement('option');
+        o.value = i; o.textContent = t.name;
+        sel.appendChild(o);
+    });
+
+    function play() { if (window.__kzYT) return; audio.play().catch(function () {}); }
+
+    function ui() {
+        iconBtn.textContent = (stopped || volume === 0) ? '🔇' : '🔊';
+        playBtn.textContent = stopped ? '▶ Play' : '⏸ Stop';
+        if (window.__kzExt) { sel.selectedIndex = -1; } else { sel.value = track; }
+        vol.value = volume;
+        volText.textContent = volume + '%';
+        audio.volume = volume / 100;
+        audio.loop = !window.__kzExt && TRACKS.length === 1;
+        if (window.kzMusicCtl && window.kzMusicCtl.onUi) window.kzMusicCtl.onUi({ stopped: stopped, volume: volume });
+        nextBtn.style.display = TRACKS.length > 1 ? '' : 'none';
+    }
+
+    function setTrack(i) {
+        window.__kzExt = null;
+        if (window.kzMusicCtl && window.kzMusicCtl.stopYT) window.kzMusicCtl.stopYT();
+        track = ((i % TRACKS.length) + TRACKS.length) % TRACKS.length;
+        save('kz-music-track', track);
+        audio.src = TRACKS[track].src;
+        audio.load();
+        if (!stopped) play();
+        ui();
+    }
+
+    // initial state
+    audio.src = TRACKS[track].src;
+    ui();
+
+    // controls
+    playBtn.addEventListener('click', function () {
+        stopped = !stopped;
+        save('background-music-muted', stopped);
+        if (stopped) audio.pause(); else play();
+        ui();
+    });
+    nextBtn.addEventListener('click', function () { setTrack(track + 1); });
+    sel.addEventListener('change', function () { setTrack(parseInt(sel.value, 10)); });
+    vol.addEventListener('input', function () {
+        volume = parseInt(vol.value, 10);
+        save('kz-music-volume', volume);
+        ui();
+    });
+    audio.addEventListener('ended', function () {
+        if (window.__kzExt) { window.dispatchEvent(new Event('kzextended')); return; }
+        if (TRACKS.length > 1) setTrack(track + 1);
+    });
+    window.kzMusicCtl = {
+        beginYT: function () {
+            stopped = false; save('background-music-muted', false);
+            audio.pause(); window.__kzYT = true; window.__kzExt = { yt: 1 }; ui();
+        },
+        stopYT: function () {
+            if (window.__kzYT) { window.__kzYT = false; window.dispatchEvent(new Event('kzytstop')); }
+        },
+        playExternal: function (src, name) {
+            if (window.__kzYT) { window.__kzYT = false; window.dispatchEvent(new Event('kzytstop')); }
+            window.__kzExt = { src: src, name: name };
+            stopped = false; save('background-music-muted', false);
+            audio.src = src; audio.load(); play(); ui();
+        },
+        resumeLocal: function () { setTrack(track); }
+    };
+
+    // panel open / close
+    window.kzToggleMusicPanel = function (e) {
+        if (e) e.stopPropagation();
+        var open = panel.classList.toggle('open');
+        var mm = document.getElementById('kzMyMusic'); if (mm) mm.classList.toggle('open', open);
+        iconBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    };
+    function closePanel() { panel.classList.remove('open'); var mm = document.getElementById('kzMyMusic'); if (mm) mm.classList.remove('open'); iconBtn.setAttribute('aria-expanded', 'false'); }
+    document.addEventListener('click', function (e) {
+        if (panel.classList.contains('open') && !panel.contains(e.target) && !(document.getElementById('kzMyMusic') && document.getElementById('kzMyMusic').contains(e.target)) && e.target !== iconBtn) closePanel();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePanel(); });
+
+    // autoplay: try right away on page load; if the browser blocks it,
+    // start on the first click / tap / key press anywhere on the page (unless the user stopped the music)
+    (function autoplay() {
+        if (stopped) return;
+        var evs = ['pointerdown', 'keydown', 'touchstart'];
+        function remove() { evs.forEach(function (e) { document.removeEventListener(e, unlock, true); }); }
+        function unlock() {
+            if (stopped) return;
+            var p = audio.play();
+            if (p && p.then) p.then(remove).catch(function () {}); else remove();
+        }
+        var first = audio.play();
+        if (first && first.catch) {
+            first.catch(function () { evs.forEach(function (e) { document.addEventListener(e, unlock, true); }); });
+        }
+    })();
+
+    // pause when the tab is hidden, resume when it is back
+    document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+        if (bgPlay) return;                 // tick karala nam pause karanna epa
+        if (!audio.paused) { resumeAfterHidden = true; audio.pause(); }
+    } else if (resumeAfterHidden && !stopped) {
+        play();
+        resumeAfterHidden = false;
+    }
+});
+})();
+
+</script>
+<script>
+(function () {
+  var box = document.getElementById('kzMyMusic');
+  if (!box) return;
+  var APP = 'KyZerHADOC';
+  var listEl = document.getElementById('kzmmList');
+  var nowEl = document.getElementById('kzmmNow');
+  var form = document.getElementById('kzmmForm');
+  var qEl = document.getElementById('kzmmQ');
+  var srcBar = document.getElementById('kzmmSrc');
+  var audio = document.getElementById('bg-music');
+  var BUCKET = 'user-music', MAX_UP = 15 * 1024 * 1024, MAX_FILES = 30, mine = [], mineLoading = false;
+  var tab = 'search', source = 'yt', results = [], favs = [], playingKey = '', busy = false, saving = false, searched = false;
+  var host = null;
+  var ytPlayer = null, ytReady = false, ytQueue = null, ytApiLoading = false;
+  var ytBox = document.getElementById('kzmmYT');
+
+  function key(t) { return t.k + ':' + (t.id || t.u || t.path); }
+  function isFav(t) { return favs.some(function (f) { return key(f) === key(t); }); }
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+
+  // ---- audius host discovery ----
+  function getHost() {
+    if (host) return Promise.resolve(host);
+    return fetch('https://api.audius.co').then(function (r) { return r.json(); }).then(function (j) {
+      var h = j.data || [];
+      if (!h.length) throw new Error('no host');
+      host = h[Math.floor(Math.random() * h.length)];
+      return host;
+    });
+  }
+
+  function searchAudius(q) {
+    return getHost().then(function (h) {
+      return fetch(h + '/v1/tracks/search?query=' + encodeURIComponent(q) + '&limit=20&app_name=' + APP)
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          return (j.data || []).filter(function (t) { return t.is_streamable !== false; }).map(function (t) {
+            return { k: 'a', id: t.id, t: t.title, ar: (t.user && t.user.name) || '', img: t.artwork && (t.artwork['150x150'] || t.artwork['480x480']) || '' };
+          });
+        });
+    }).catch(function (e) { host = null; throw e; });
+  }
+
+  function searchItunes(q) {
+    return fetch('https://itunes.apple.com/search?media=music&entity=song&limit=25&country=LK&term=' + encodeURIComponent(q))
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        return (j.results || []).filter(function (t) { return t.previewUrl; }).map(function (t) {
+          return { k: 'i', u: t.previewUrl, t: t.trackName, ar: t.artistName, img: t.artworkUrl60 || '' };
+        });
+      });
+  }
+
+  function searchYT(q) {
+    var sb = window.kzSupabase;
+    return sb.auth.getSession().then(function (r) {
+      var s = r.data && r.data.session;
+      if (!s) throw new Error('Please log in again.');
+      return fetch('/api/yt-search?q=' + encodeURIComponent(q), { headers: { Authorization: 'Bearer ' + s.access_token } });
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      if (!j.success) { var er = new Error(j.message || 'Search failed.'); er.custom = true; throw er; }
+      return (j.items || []).map(function (t) { return { k: 'y', id: t.id, t: t.title, ar: t.channel, img: t.thumb }; });
+    });
+  }
+
+  // ---- YouTube player (visible mini player inside the box, as YouTube requires) ----
+  function loadYTApi(cb) {
+    if (window.YT && window.YT.Player) return cb();
+    ytQueue = cb;
+    if (ytApiLoading) return;
+    ytApiLoading = true;
+    var prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () { if (prev) try { prev(); } catch (e) {} if (ytQueue) ytQueue(); };
+    var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; document.head.appendChild(s);
+  }
+  function curVol() { var v = document.getElementById('kzmVol'); return v ? parseInt(v.value, 10) : 60; }
+  function playYT(t) {
+    if (window.kzMusicCtl) window.kzMusicCtl.beginYT();
+    ytBox.style.display = '';
+    loadYTApi(function () {
+      if (ytPlayer && ytReady) { ytPlayer.loadVideoById(t.id); ytPlayer.setVolume(curVol()); return; }
+      if (ytPlayer) return;
+      var holder = document.createElement('div'); document.getElementById('kzmmYTp').appendChild(holder);
+      ytPlayer = new YT.Player(holder, {
+        width: '100%', height: '100%', videoId: t.id,
+        playerVars: { autoplay: 1, playsinline: 1, rel: 0, modestbranding: 1 },
+        events: {
+          onReady: function (e) { ytReady = true; e.target.setVolume(curVol()); e.target.playVideo(); },
+          onStateChange: function (e) { if (e.data === 0 && window.__kzYT) window.dispatchEvent(new Event('kzextended')); },
+          onError: function () { nowEl.textContent = '⚠️ This video can not be played here.'; }
+        }
+      });
+    });
+  }
+  window.addEventListener('kzytstop', function () {
+    try { if (ytPlayer && ytReady) ytPlayer.stopVideo(); } catch (e) {}
+    ytBox.style.display = 'none';
+  });
+  if (window.kzMusicCtl) window.kzMusicCtl.onUi = function (st) {
+    if (!window.__kzYT || !ytPlayer || !ytReady) return;
+    try { ytPlayer.setVolume(st.volume); if (st.stopped) ytPlayer.pauseVideo(); else ytPlayer.playVideo(); } catch (e) {}
+  };
+
+  // ---- uploaded songs (Supabase Storage, one folder per user) ----
+  function uid() { return window.kzCurrentUser && window.kzCurrentUser.id; }
+  function niceName(n) { return n.replace(/^\d+_/, '').replace(/\.[^.]+$/, '').replace(/_/g, ' '); }
+  function loadMine() {
+    var sb = window.kzSupabase, id = uid();
+    if (!sb || !id) { mine = []; return Promise.resolve(); }
+    mineLoading = true; if (tab === 'mine') render();
+    return sb.storage.from(BUCKET).list(id, { limit: 100, sortBy: { column: 'created_at', order: 'desc' } }).then(function (r) {
+      mineLoading = false;
+      mine = ((r && r.data) || []).filter(function (f) { return f.name && f.name.charAt(0) !== '.'; }).map(function (f) {
+        return { k: 'u', path: id + '/' + f.name, t: niceName(f.name), ar: 'Uploaded by you' };
+      });
+      render();
+    }).catch(function () { mineLoading = false; render(); });
+  }
+  function uploadSong(file) {
+    var sb = window.kzSupabase, id = uid();
+    if (!file || !sb || !id) return;
+    var up = document.getElementById('kzmmFile'); 
+    if (!/^audio\//.test(file.type) && !/\.(mp3|m4a|aac|wav|ogg|flac|webm)$/i.test(file.name)) { nowEl.textContent = '⚠️ Audio files only (mp3, m4a, wav, ogg, flac).'; up.value = ''; return; }
+    if (file.size > MAX_UP) { nowEl.textContent = '⚠️ Max size is 15 MB.'; up.value = ''; return; }
+    if (mine.length >= MAX_FILES) { nowEl.textContent = '⚠️ You can keep up to ' + MAX_FILES + ' songs. Delete one first.'; up.value = ''; return; }
+    var safe = file.name.replace(/[^\w.\- ]+/g, '_').replace(/\s+/g, '_').slice(-80);
+    var path = id + '/' + Date.now() + '_' + safe;
+    nowEl.textContent = '⏳ Uploading ' + niceName(safe) + '…';
+    sb.storage.from(BUCKET).upload(path, file, { contentType: file.type || 'audio/mpeg', upsert: false }).then(function (r) {
+      up.value = '';
+      if (r && r.error) { nowEl.textContent = '⚠️ Upload failed: ' + r.error.message; return; }
+      nowEl.textContent = '✅ Uploaded!';
+      loadMine();
+    }).catch(function () { up.value = ''; nowEl.textContent = '⚠️ Upload failed.'; });
+  }
+  function deleteSong(t) {
+    if (!confirm('Delete "' + t.t + '"?')) return;
+    window.kzSupabase.storage.from(BUCKET).remove([t.path]).then(function (r) {
+      if (r && r.error) { nowEl.textContent = '⚠️ Could not delete.'; return; }
+      if (playingKey === key(t)) { playingKey = ''; nowEl.textContent = ''; if (window.kzMusicCtl) window.kzMusicCtl.resumeLocal(); }
+      mine = mine.filter(function (m) { return m.path !== t.path; }); render();
+    });
+  }
+
+  function streamUrl(t) {
+    if (t.k === 'u') return Promise.resolve(window.kzSupabase.storage.from(BUCKET).getPublicUrl(t.path).data.publicUrl);
+    if (t.k === 'i') return Promise.resolve(t.u);
+    return getHost().then(function (h) { return h + '/v1/tracks/' + t.id + '/stream?app_name=' + APP; });
+  }
+
+  function play(t) {
+    nowEl.textContent = '⏳ Loading…';
+    if (t.k === 'y') {
+      playingKey = key(t); playYT(t);
+      nowEl.textContent = '▶ ' + t.t; render(); return;
+    }
+    if (window.kzMusicCtl) window.kzMusicCtl.stopYT();
+    streamUrl(t).then(function (u) {
+      if (window.kzMusicCtl) window.kzMusicCtl.playExternal(u, t.t);
+      playingKey = key(t);
+      nowEl.textContent = '▶ ' + t.t + (t.ar ? ' — ' + t.ar : '');
+      render();
+    }).catch(function () { nowEl.textContent = '⚠️ Could not play this song.'; });
+  }
+
+  function toggleFav(t) {
+    var had = isFav(t), prev = favs.slice();
+    if (had) favs = favs.filter(function (f) { return key(f) !== key(t); });
+    else {
+      if (favs.length >= 100) { nowEl.textContent = '⚠️ Favourites full (100).'; return; }
+      favs.unshift({ k: t.k, id: t.id, u: t.u, t: t.t, ar: t.ar, img: t.img });
+    }
+    render();
+    var sb = window.kzSupabase;
+    if (!sb) return;
+    saving = true;
+    sb.auth.updateUser({ data: { favorites: favs } }).then(function (r) {
+      saving = false;
+      if (r && r.error) { favs = prev; render(); nowEl.textContent = '⚠️ Could not save favourite.'; }
+    }).catch(function () { saving = false; favs = prev; render(); nowEl.textContent = '⚠️ Could not save favourite.'; });
+  }
+
+  function row(t) {
+    var r = el('div', 'kzmm-row' + (playingKey === key(t) ? ' playing' : ''));
+    if (t.img) { var im = el('img'); im.src = t.img; im.alt = ''; im.loading = 'lazy'; im.onerror = function () { im.style.visibility = 'hidden'; }; r.appendChild(im); }
+    else r.appendChild(el('div', 'kzmm-ph', '🎵'));
+    var m = el('div', 'kzmm-meta'); m.appendChild(el('b', '', t.t)); m.appendChild(el('small', '', t.ar + (t.k === 'i' ? ' · 30s' : '') ));
+    r.appendChild(m);
+    if (t.k === 'u') {
+      var d = el('button', 'kzmm-fav', '🗑️'); d.type = 'button'; d.title = 'Delete';
+      d.addEventListener('click', function (e) { e.stopPropagation(); deleteSong(t); });
+      r.appendChild(d);
+      r.addEventListener('click', function () { play(t); });
+      return r;
+    }
+    var f = el('button', 'kzmm-fav', isFav(t) ? '❤️' : '🤍'); f.type = 'button'; f.title = isFav(t) ? 'Remove from favourites' : 'Add to favourites';
+    f.addEventListener('click', function (e) { e.stopPropagation(); toggleFav(t); });
+    r.appendChild(f);
+    r.addEventListener('click', function () { play(t); });
+    return r;
+  }
+
+  function render() {
+    listEl.innerHTML = '';
+    var items = tab === 'fav' ? favs : tab === 'mine' ? mine : results;
+    if (tab === 'mine' && !items.length) { listEl.appendChild(el('div', 'kzmm-empty', mineLoading ? '⏳ Loading…' : 'No uploads yet. Tap “Upload song” to add your own.')); }
+    else if (tab === 'fav' && !items.length) { listEl.appendChild(el('div', 'kzmm-empty', 'No favourites yet. Search a song and tap 🤍')); }
+    else if (tab === 'search' && !items.length) {
+      listEl.appendChild(el('div', 'kzmm-empty', busy ? '🔍 Searching…' : (searched ? 'No results. Try another name or source.' : 'Type a song or artist name and press Go.')));
+    } else items.forEach(function (t) { listEl.appendChild(row(t)); });
+    if (tab === 'mine' && items.length) listEl.appendChild(el('div', 'kzmm-note', 'Only you can see this list. Max 15 MB per song, 30 songs.'));
+    if (tab === 'search' && !busy) {
+      var n = listEl.querySelector('.kzmm-note');
+      if (!n) listEl.appendChild(el('div', 'kzmm-note', source === 'yt' ? 'Full songs from YouTube — Sinhala songs work here.' : source === 'audius' ? 'Audius: full songs, mostly indie artists (few Sinhala).' : 'iTunes: 30-second previews only.'));
+    }
+  }
+
+  function setTab(t) {
+    tab = t;
+    [].forEach.call(box.querySelectorAll('.kzmm-tab'), function (b) { b.classList.toggle('active', b.getAttribute('data-tab') === t); });
+    form.style.display = srcBar.style.display = (t === 'search') ? '' : 'none';
+    document.getElementById('kzmmUp').style.display = (t === 'mine') ? '' : 'none';
+    if (t === 'mine') loadMine();
+    render();
+  }
+
+  box.addEventListener('click', function (e) { e.stopPropagation(); });   // re-rendering detaches e.target; keep the panel open
+  document.getElementById('kzmmFile').addEventListener('change', function () { uploadSong(this.files[0]); });
+  box.addEventListener('click', function (e) {
+    var tb = e.target.closest('.kzmm-tab'); if (tb) setTab(tb.getAttribute('data-tab'));
+    var ch = e.target.closest('.kzmm-chip');
+    if (ch) {
+      source = ch.getAttribute('data-src');
+      [].forEach.call(srcBar.querySelectorAll('.kzmm-chip'), function (c) { c.classList.toggle('active', c === ch); });
+      if (qEl.value.trim()) doSearch(); else render();
+    }
+  });
+
+  function doSearch() {
+    var q = qEl.value.trim();
+    if (!q) return;
+    busy = true; searched = true; results = []; render();
+    var mySrc = source;
+    (mySrc === 'yt' ? searchYT(q) : mySrc === 'audius' ? searchAudius(q) : searchItunes(q)).then(function (r) {
+      if (mySrc !== source) return;
+      busy = false; results = r; render();
+    }).catch(function (err) {
+      busy = false; results = []; render();
+      listEl.innerHTML = ''; listEl.appendChild(el('div', 'kzmm-empty', '⚠️ ' + (err && err.custom ? err.message : 'Search failed. Check your connection and try again.')));
+    });
+  }
+  form.addEventListener('submit', function (e) { e.preventDefault(); doSearch(); });
+
+  // after an online song ends: next song in the current list, else back to the normal playlist
+  window.addEventListener('kzextended', function () {
+    var items = tab === 'fav' ? favs : tab === 'mine' ? mine : results, i = -1;
+    items.forEach(function (t, n) { if (key(t) === playingKey) i = n; });
+    if (i >= 0 && i + 1 < items.length) play(items[i + 1]);
+    else { playingKey = ''; nowEl.textContent = ''; render(); if (window.kzMusicCtl) { window.kzMusicCtl.stopYT(); window.kzMusicCtl.resumeLocal(); } }
+  });
+  audio.addEventListener('error', function () {
+    if (window.__kzExt) { nowEl.textContent = '⚠️ This song could not be loaded.'; playingKey = ''; render(); }
+  });
+  // clicking Next / choosing a local song leaves online mode
+  audio.addEventListener('emptied', function () { if (!window.__kzExt && !window.__kzYT) { playingKey = ''; nowEl.textContent = ''; render(); } });
+
+  // only for logged-in users
+  function sync() {
+    var u = window.kzCurrentUser;
+    box.style.display = u ? '' : 'none';
+    if (!u) { favs = []; results = []; mine = []; searched = false; playingKey = ''; nowEl.textContent = ''; return; }
+    if (!saving) favs = ((u.user_metadata || {}).favorites || []).filter(function (f) { return f && f.t && (f.id || f.u); });
+    render();
+    if (!window.__kzMineFor || window.__kzMineFor !== u.id) { window.__kzMineFor = u.id; if (tab === 'mine') loadMine(); }
+  }
+  window.addEventListener('kzauth', sync);
+  setTab('search');
+  sync();
+})();
+
+</script>
+<script>
+(function () {
+  var b = document.getElementById('kzScrollBtn'); if (!b) return;
+  function atBottom() { var d = document.documentElement; return d.scrollHeight - (window.scrollY + window.innerHeight) < 120; }
+  function ui() { var up = atBottom(); b.textContent = up ? '\u2191' : '\u2193'; b.title = b.ariaLabel = up ? 'Scroll to top' : 'Scroll to bottom'; }
+  b.addEventListener('click', function () {
+    var d = document.documentElement;
+    window.scrollTo({ top: atBottom() ? 0 : d.scrollHeight, behavior: 'smooth' });
+  });
+  window.addEventListener('scroll', ui, { passive: true }); window.addEventListener('resize', ui); ui();
+})();
+</script>
+
+<!-- ===== KX: Apps panel ===== -->
+<style>
+.kxh-btn{cursor:pointer;-webkit-appearance:none;appearance:none}
+#kxAppsBack{position:fixed;inset:0;z-index:99998;background:rgba(5,3,20,.55);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
+#kxAppsBack.open{opacity:1;visibility:visible}
+#kxApps{position:fixed;z-index:99999;width:340px;max-width:calc(100vw - 24px);max-height:calc(100vh - 24px);overflow:auto;border-radius:20px;padding:16px;color:#fff;font-family:Poppins,sans-serif;
+  background:linear-gradient(160deg,rgba(30,22,70,.96),rgba(12,8,36,.97));border:1px solid rgba(34,211,238,.45);box-shadow:0 24px 60px -12px rgba(0,0,0,.8),0 0 40px -10px rgba(34,211,238,.5);
+  opacity:0;visibility:hidden;transform:translateY(10px) scale(.97);transition:opacity .25s,transform .25s,visibility .25s}
+#kxApps.open{opacity:1;visibility:visible;transform:none}
+#kxApps .kxa-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+#kxApps .kxa-top h4{margin:0;font:800 1.1rem Poppins,sans-serif;color:#fff}
+#kxApps .kxa-top small{display:block;margin-top:2px;font:500 .72rem Poppins,sans-serif;color:#22d3ee;letter-spacing:.4px}
+#kxApps .kxa-x{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-size:.95rem;line-height:1;flex-shrink:0}
+#kxApps .kxa-x:hover{background:rgba(255,255,255,.18)}
+#kxApps .kxa-list{display:flex;flex-direction:column;gap:8px}
+#kxApps .kxa-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff!important;text-decoration:none!important;transition:transform .2s,background .2s,border-color .2s}
+#kxApps a.kxa-item:hover{transform:translateX(3px);background:rgba(34,211,238,.14);border-color:rgba(34,211,238,.6)}
+#kxApps .kxa-ic{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex-shrink:0;font-size:1rem;background:linear-gradient(135deg,#8b5cf6,#22d3ee)}
+#kxApps .kxa-tx{display:flex;flex-direction:column;line-height:1.2;min-width:0;flex:1}
+#kxApps .kxa-tx b{font:700 .92rem Poppins,sans-serif}
+#kxApps .kxa-tx span{font:500 .7rem Poppins,sans-serif;opacity:.65}
+#kxApps .kxa-go{opacity:.6;font-size:.8rem}
+#kxApps .kxa-dual{flex-direction:column;align-items:stretch;gap:8px}
+#kxApps .kxa-dual .kxa-row{display:flex;align-items:center;gap:12px}
+#kxApps .kxa-pl{display:flex;gap:8px}
+#kxApps .kxa-pl a{flex:1;text-align:center;padding:7px 8px;border-radius:10px;border:1px solid rgba(34,211,238,.5);background:rgba(34,211,238,.12);color:#fff!important;text-decoration:none!important;font:700 .78rem Poppins,sans-serif;transition:background .2s,transform .2s}
+#kxApps .kxa-pl a:hover{background:rgba(34,211,238,.3);transform:translateY(-2px)}
+#kxApps .kxa-foot{margin-top:12px;text-align:center;font:500 .72rem Poppins,sans-serif;color:#9f95d8}
+@media(max-width:576px){#kxApps{left:12px!important;right:12px;top:auto!important;bottom:12px;width:auto;max-width:none}}
+@media(prefers-reduced-motion:reduce){#kxApps,#kxAppsBack{transition:none}}
+</style>
+
+<div id="kxAppsBack"></div>
+<div id="kxApps" role="dialog" aria-modal="true" aria-label="KyZer Apps">
+  <div class="kxa-top">
+    <div><h4>Apps</h4><small>Created by KyZer</small></div>
+    <button type="button" class="kxa-x" id="kxAppsClose" aria-label="Close">&#10005;</button>
+  </div>
+  <div class="kxa-list">
+    <div class="kxa-item kxa-dual">
+      <a class="kxa-item" target="_blank" rel="noopener noreferrer" href="kyzeryoube.html">
+      <div class="kxa-ic"><i class="fa-solid fa-share-nodes"></i></div>
+      <div class="kxa-tx"><b>KyZer YouBe</b><span>PC / Mobile</span></div><i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
+    </a>
+    <a class="kxa-item" target="_blank" rel="noopener noreferrer" href="https://github.com/KyZer-HADOC/HADOC-LocalDrop/releases">
+      <div class="kxa-ic"><i class="fa-solid fa-share-nodes"></i></div>
+      <div class="kxa-tx"><b>HADOC LocalDrop</b><span>PC</span></div><i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
+    </a>
+    <a class="kxa-item" target="_blank" rel="noopener noreferrer" href="https://github.com/KyZer-HADOC/data-kana-ewa/releases/tag/v1.0.4">
+      <div class="kxa-ic" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"><i class="fa-solid fa-database"></i></div>
+      <div class="kxa-tx"><b>Data Kadayo</b><span>PC</span></div><i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
+    </a>
+    <a class="kxa-item" target="_blank" rel="noopener noreferrer" href="https://github.com/KyZer-HADOC/HADOC-KeyBoard/releases">
+      <div class="kxa-ic" style="background:linear-gradient(135deg,#10b981,#22d3ee)"><i class="fa-solid fa-keyboard"></i></div>
+      <div class="kxa-tx"><b>HADOC KeyBoard</b><span>PC</span></div><i class="fa-solid fa-arrow-up-right-from-square kxa-go"></i>
+    </a>
+    <a class="kxa-item" href="kadaya.html" download>
+      <div class="kxa-ic" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)"><i class="fa-solid fa-gamepad"></i></div>
+      <div class="kxa-tx"><b>Kadaya</b><span>PC &middot; 2D game (.exe)</span></div><i class="fa-solid fa-download kxa-go"></i>
+    </a>
+  </div>
+  <div class="kxa-foot">All apps created by KyZer</div>
+</div>
+<script>
+(function () {
+  var btn = document.getElementById('kxAppsBtn'), panel = document.getElementById('kxApps'),
+      back = document.getElementById('kxAppsBack'), close = document.getElementById('kxAppsClose');
+  if (!btn || !panel) { return; }
+  function place() {
+    if (window.innerWidth <= 576) { panel.style.left = ''; panel.style.top = ''; return; }
+    var r = btn.getBoundingClientRect(), w = panel.offsetWidth, h = panel.offsetHeight;
+    var left = Math.min(Math.max(12, r.left), window.innerWidth - w - 12);
+    var top = r.bottom + 10;
+    if (top + h > window.innerHeight - 12) { top = Math.max(12, r.top - h - 10); }
+    panel.style.left = left + 'px'; panel.style.top = top + 'px';
+  }
+  function open() { place(); panel.classList.add('open'); back.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); }
+  function shut() { panel.classList.remove('open'); back.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); }
+  btn.addEventListener('click', function (e) { e.preventDefault(); panel.classList.contains('open') ? shut() : open(); });
+  close.addEventListener('click', shut);
+  back.addEventListener('click', shut);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { shut(); } });
+  window.addEventListener('resize', function () { if (panel.classList.contains('open')) { place(); } });
 })();
 </script>
 </body></html>
