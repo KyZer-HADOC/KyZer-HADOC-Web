@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b14">
+<meta name="description" content="HADOC LocalDrop by KyZer_HADOC. View app information, downloads and live download statistics.">
+<title>HADOC LocalDrop | KyZer_HADOC</title>
+<link rel="icon" href="images/logo32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--accent:#38e2cb;--accent2:#4d8cff;--bg:#070a12;--panel:rgba(17,22,36,.84);--muted:#a6afc3}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 0%,rgba(56,226,203,.18),transparent 38%),radial-gradient(ellipse at 90% 100%,rgba(53,40,120,.16),transparent 38%),var(--bg);color:#f7f8fc;font-family:Inter,Segoe UI,Arial,sans-serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.2;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(to bottom,black,transparent 90%)}
+.page{position:relative;width:min(980px,calc(100% - 30px));margin:0 auto;padding:30px 0 54px}
+.back{display:inline-flex;align-items:center;gap:9px;margin-bottom:22px;color:#dbe3f7;text-decoration:none;font-size:.9rem;font-weight:700;opacity:.85;transition:.2s}
+.back:hover{color:var(--accent);transform:translateX(-3px)}
+.panel{position:relative;overflow:hidden;padding:clamp(22px,5vw,48px);border-radius:26px;background:var(--panel);border:1px solid rgba(255,255,255,.11);box-shadow:0 28px 80px rgba(0,0,0,.42);backdrop-filter:blur(18px)}
+.panel:before{content:"";position:absolute;width:330px;height:330px;right:-180px;top:-190px;border-radius:50%;background:rgba(56,226,203,.18);filter:blur(12px);pointer-events:none}
+.hero{position:relative;display:flex;align-items:center;gap:22px;margin-bottom:24px}
+.app-logo{width:104px;height:104px;flex:0 0 104px;display:grid;place-items:center;border-radius:27px;background:linear-gradient(145deg,var(--accent),var(--accent2));color:white;font-size:2.5rem;box-shadow:0 14px 38px rgba(56,226,203,.18);overflow:hidden}
+.app-logo img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
+.eyebrow{margin:0 0 8px;color:var(--accent);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:900}
+h1{margin:0;color:#fff;font-size:clamp(1.8rem,5vw,3.1rem);letter-spacing:-.055em;line-height:1.08}
+.subtitle{margin:11px 0 0;color:#b9c2d4;line-height:1.7;font-size:.98rem;max-width:650px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
+.tag{padding:7px 11px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.045);color:#dce4f5;font-size:.75rem;font-weight:700}
+.actions{display:flex;flex-wrap:wrap;gap:12px;margin:27px 0 28px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 20px;border-radius:13px;text-decoration:none;font-size:.88rem;font-weight:900;transition:transform .2s,box-shadow .2s,background .2s}
+.btn:hover{transform:translateY(-2px)}
+.primary{color:#071019;background:linear-gradient(115deg,var(--accent),var(--accent2));box-shadow:0 10px 28px rgba(56,226,203,.18)}
+.secondary{color:#e9edfa;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
+.stats{display:grid;grid-template-columns:1fr;gap:12px;margin-top:18px}
+.stat{padding:22px;border-radius:18px;background:rgba(4,8,16,.6);border:1px solid rgba(255,255,255,.095)}
+.stat-label{color:#aeb9cf;font-size:.8rem;font-weight:700}
+.stat-number{display:block;margin:8px 0 4px;color:var(--accent);font-size:clamp(2rem,6vw,3rem);font-weight:900;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.stat-caption{color:#8d99af;font-size:.76rem;line-height:1.5}
+.status{margin:13px 2px 0;color:#8d99af;font-size:.75rem;line-height:1.5}
+.footer{margin-top:28px;color:#78849b;font-size:.75rem;text-align:center}
+@media(max-width:580px){.page{padding-top:18px}.hero{align-items:flex-start;gap:15px}.app-logo{width:76px;height:76px;flex-basis:76px;border-radius:20px;font-size:1.9rem}.actions{flex-direction:column}.btn{width:100%}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="page">
+<a class="back" href="index.html"><span aria-hidden="true">←</span> Back to Apps</a>
+<section class="panel">
+  <div class="hero">
+    <div class="app-logo" data-icon-slot="hadoc-localdrop" aria-label="HADOC LocalDrop icon"><span aria-hidden="true">⇄</span></div>
+    <div>
+      <p class="eyebrow">KYZER_HADOC APP</p>
+      <h1>HADOC LocalDrop</h1>
+      <p class="subtitle">The Windows release page for HADOC LocalDrop. Open the official GitHub Releases page to download the published setup.</p>
+      <div class="tags"><span class="tag">Windows</span><span class="tag">Setup installer</span><span class="tag">v1.0.3</span></div>
+    </div>
+  </div>
+  <div class="actions">
+    <a class="btn primary" href="https://github.com/KyZer-HADOC/HADOC-LocalDrop/releases" target="_blank" rel="noopener noreferrer"><span>↓</span> Download / View Releases</a>
+    <a class="btn secondary" href="https://github.com/KyZer-HADOC/HADOC-LocalDrop" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
+  </div>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-label">TOTAL DOWNLOADS</div>
+      <strong class="stat-number" id="download-count" aria-live="polite">Loading...</strong>
+      <div class="stat-caption">Total downloads of published files across this app's GitHub Releases</div>
+    </div>
+  </div>
+  <p class="status" id="download-status" aria-live="polite">Fetching live download statistics from GitHub...</p>
+</section>
+<p class="footer">© 2026 KyZer_HADOC · Built with care.</p>
+</main>
+<script>
+(function(){
+  var repository="KyZer-HADOC/HADOC-LocalDrop";
+  var countEl=document.getElementById("download-count");
+  var statusEl=document.getElementById("download-status");
+  var cacheKey="kx-app-downloads:"+repository;
+  var cacheMs=10*60*1000;
+
+  async function fetchTotal(){
+    try{
+      var cached=JSON.parse(localStorage.getItem(cacheKey)||"null");
+      if(cached&&Number.isFinite(cached.total)&&Date.now()-cached.savedAt<cacheMs){
+        return {total:cached.total,cached:true};
+      }
+    }catch(e){}
+
+    var total=0,page=1;
+    while(page<=20){
+      var url="https://api.github.com/repos/"+repository+"/releases?per_page=100&page="+page;
+      var response=await fetch(url,{headers:{
+        "Accept":"application/vnd.github+json",
+        "X-GitHub-Api-Version":"2022-11-28"
+      }});
+      if(!response.ok) throw new Error("GitHub API returned "+response.status);
+      var releases=await response.json();
+      if(!Array.isArray(releases)) throw new Error("Unexpected GitHub response");
+      releases.forEach(function(release){
+        (release.assets||[]).forEach(function(asset){
+          total+=Number(asset.download_count)||0;
+        });
+      });
+      if(releases.length<100) break;
+      page++;
+    }
+    try{localStorage.setItem(cacheKey,JSON.stringify({total:total,savedAt:Date.now()}));}catch(e){}
+    return {total:total,cached:false};
+  }
+
+  fetchTotal().then(function(result){
+    countEl.textContent=result.total.toLocaleString();
+    if(result.total===0){
+      statusEl.textContent="No GitHub release downloads have been recorded yet. This number updates when release assets are published and downloaded.";
+    }else{
+      statusEl.textContent="Live GitHub Releases total · "+(result.cached?"Recently cached":"Just updated")+" · Refreshes automatically every 10 minutes.";
+    }
+  }).catch(function(error){
+    countEl.textContent="Unavailable";
+    statusEl.textContent="Could not load the live count right now. Please refresh later.";
+    console.error("Download statistics error:",error);
+  });
+})();
+</script>
+</body>
+</html>
