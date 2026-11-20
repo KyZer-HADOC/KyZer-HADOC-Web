@@ -61,6 +61,14 @@
             border-radius: 14px;
         }
 
+        .guide-image {
+            width: 550px;
+            height: auto;
+            margin: 0 auto 24px;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
         h1 {
             margin: 0 0 8px;
             color: var(--cyan);
@@ -110,7 +118,66 @@
             margin: 0 0 12px;
         }
 
-        /* YouTube Video Player */
+
+
+        /* Separate PC and Mobile download counters */
+        .download-stats {
+            margin: 4px 0 30px;
+        }
+
+        .download-stats-title {
+            margin: 0 0 14px;
+            color: #ffffff;
+            font-size: 1.25rem;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .stat-card {
+            padding: 20px 16px;
+            text-align: center;
+            background: rgba(5, 7, 10, 0.72);
+            border: 1px solid rgba(255, 0, 0, 0.42);
+            border-radius: 14px;
+        }
+
+        .stat-device {
+            display: block;
+            margin-bottom: 8px;
+            color: #ffb84d;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .stat-number {
+            display: block;
+            color: #ff3030;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            font-weight: 900;
+            line-height: 1.2;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-caption {
+            display: block;
+            margin-top: 6px;
+            color: #bdc8cc;
+            font-size: 0.82rem;
+        }
+
+        .stats-note {
+            margin: 10px 0 0;
+            color: #89979c;
+            font-size: 0.78rem;
+            text-align: center;
+        }
+
+                /* YouTube Video Player */
         .youtube-video {
             display: block;
             width: 100%;
@@ -132,6 +199,11 @@
 
             h1 {
                 font-size: 1.7rem;
+            }
+
+
+            .stats-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -189,6 +261,26 @@
 
             </div>
 
+
+
+            <!-- Live download totals from GitHub Releases -->
+            <section class="download-stats" aria-label="Download statistics">
+                <h2 class="download-stats-title">Total Downloads</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-device">🖥️ PC / Windows</span>
+                        <strong class="stat-number" id="pc-download-count" aria-live="polite">Loading...</strong>
+                        <span class="stat-caption">Windows Setup downloads</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-device">📱 Mobile / Android</span>
+                        <strong class="stat-number" id="mobile-download-count" aria-live="polite">Loading...</strong>
+                        <span class="stat-caption">Android APK downloads</span>
+                    </div>
+                </div>
+                <p class="stats-note" id="download-stats-status">Fetching download statistics...</p>
+            </section>
+
             <h2 class="guide-title">
                 <span style="color:aqua">
                     Android Install කරද්දි,
@@ -203,6 +295,17 @@
             </span>
 
             <br><br>
+
+            <img
+                src="images/guid apk.jpg"
+                alt="KyZer YouBe"
+                class="guide-image"
+            >
+            <img
+                src="images/guid exe.jpg"
+                alt="KyZer YouBe"
+                class="guide-image"
+            >
 
             <h2 class="guide-title">
                 <span style="color:aqua">
@@ -223,6 +326,107 @@
         </section>
 
     </main>
+
+
+
+    <script>
+        // Add together the download_count values of all uploaded assets
+        // across every published GitHub release in the repository.
+        async function getGitHubDownloadTotal(repository) {
+            const cacheKey = `kyzer-yoube-download-total:${repository}`;
+            const cacheDuration = 10 * 60 * 1000; // 10 minutes
+
+            try {
+                const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+                if (
+                    cached &&
+                    Number.isFinite(cached.total) &&
+                    Date.now() - cached.savedAt < cacheDuration
+                ) {
+                    return cached.total;
+                }
+            } catch (_) {
+                // Ignore unavailable or invalid local storage and fetch fresh data.
+            }
+
+            let total = 0;
+            let page = 1;
+
+            while (page <= 20) {
+                const apiUrl = `https://api.github.com/repos/${repository}/releases?per_page=100&page=${page}`;
+                const response = await fetch(apiUrl, {
+                    headers: {
+                        'Accept': 'application/vnd.github+json',
+                        'X-GitHub-Api-Version': '2022-11-28'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`GitHub API returned ${response.status}`);
+                }
+
+                const releases = await response.json();
+                if (!Array.isArray(releases)) {
+                    throw new Error('Unexpected GitHub API response');
+                }
+
+                for (const release of releases) {
+                    for (const asset of (release.assets || [])) {
+                        total += Number(asset.download_count) || 0;
+                    }
+                }
+
+                if (releases.length < 100) break;
+                page++;
+            }
+
+            try {
+                localStorage.setItem(cacheKey, JSON.stringify({
+                    total,
+                    savedAt: Date.now()
+                }));
+            } catch (_) {
+                // The live total still works when local storage is unavailable.
+            }
+
+            return total;
+        }
+
+        async function loadDownloadStats() {
+            const pcElement = document.getElementById('pc-download-count');
+            const mobileElement = document.getElementById('mobile-download-count');
+            const statusElement = document.getElementById('download-stats-status');
+
+            const results = await Promise.allSettled([
+                getGitHubDownloadTotal('KyZer-HADOC/youtube-video-downloader'),
+                getGitHubDownloadTotal('KyZer-HADOC/Apk')
+            ]);
+
+            let hasError = false;
+
+            if (results[0].status === 'fulfilled') {
+                pcElement.textContent = results[0].value.toLocaleString();
+            } else {
+                pcElement.textContent = 'Unavailable';
+                hasError = true;
+                console.error('Could not load PC download count:', results[0].reason);
+            }
+
+            if (results[1].status === 'fulfilled') {
+                mobileElement.textContent = results[1].value.toLocaleString();
+            } else {
+                mobileElement.textContent = 'Unavailable';
+                hasError = true;
+                console.error('Could not load Android download count:', results[1].reason);
+            }
+
+            statusElement.textContent = hasError
+                ? 'Some statistics could not be loaded. Please refresh the page later.'
+                : 'Live totals from GitHub Releases · Updates automatically (cached for 10 minutes)';
+        }
+
+        loadDownloadStats();
+    </script>
 
 </body>
 </html>
