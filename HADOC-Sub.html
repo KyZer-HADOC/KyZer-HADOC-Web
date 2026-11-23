@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#061018">
+  <meta name="description" content="HADOC Sub — create Sinhala subtitles from English SRT files or directly from videos. Choose Lite or Pro for Windows.">
+  <meta name="keywords" content="HADOC Sub, Sinhala subtitles, SRT translator, video subtitle generator, KyZer HADOC">
+  <title>HADOC Sub | Subtitle Studio</title>
+  <link rel="icon" type="image/svg+xml" href="images/HADOC-Sub.svg">
+  <style>
+    :root {
+      --bg: #050b12;
+      --panel: rgba(10, 22, 33, .88);
+      --panel2: rgba(13, 31, 45, .82);
+      --line: rgba(99, 222, 244, .18);
+      --cyan: #75efff;
+      --blue: #2296c1;
+      --muted: #9eb4c4;
+      --white: #f4fbff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--white);
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background:
+        radial-gradient(ellipse at 16% 8%, rgba(14, 126, 163, .23), transparent 38%),
+        radial-gradient(ellipse at 86% 26%, rgba(32, 82, 148, .18), transparent 36%),
+        linear-gradient(145deg, #07131e 0%, #050a10 54%, #06121c 100%);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .2;
+      background-image: linear-gradient(rgba(133,220,240,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(133,220,240,.045) 1px, transparent 1px);
+      background-size: 46px 46px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+    a { color: inherit; }
+    .page { width: min(1040px, calc(100% - 34px)); margin: auto; padding: 26px 0 54px; }
+    .back {
+      display: inline-flex; align-items: center; gap: 9px;
+      color: var(--cyan); text-decoration: none; font-size: 13px; font-weight: 700;
+      padding: 9px 13px; border: 1px solid var(--line); border-radius: 999px;
+      background: rgba(8, 25, 37, .65); transition: .2s ease;
+    }
+    .back:hover { border-color: rgba(117,239,255,.6); transform: translateX(-3px); }
+    .hero {
+      text-align: center; padding: 42px 10px 28px;
+      animation: rise .7s ease both;
+    }
+    .brand-icon {
+      width: 84px; height: 84px; display: block; margin: 0 auto 18px;
+      filter: drop-shadow(0 12px 28px rgba(35,190,224,.25));
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: var(--cyan); font-size: 10px; letter-spacing: .2em; font-weight: 800;
+      border: 1px solid rgba(117,239,255,.22); background: rgba(13,50,66,.5);
+      padding: 8px 13px; border-radius: 999px;
+    }
+    .pulse { width: 6px; height: 6px; border-radius: 50%; background: #70f3ff; box-shadow: 0 0 12px #70f3ff; }
+    h1 {
+      margin: 17px 0 8px; font-size: clamp(36px, 6vw, 58px);
+      letter-spacing: -.045em; line-height: 1.05;
+      background: linear-gradient(110deg, #fff 18%, #8bf4ff 55%, #4ba9df 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .subtitle { margin: 0 auto; max-width: 600px; color: #a9bdca; font-size: 15px; line-height: 1.7; }
+    .hero-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 9px; margin-top: 20px; }
+    .meta {
+      color: #bed0db; font-size: 11px; padding: 7px 11px; border-radius: 7px;
+      background: rgba(255,255,255,.035); border: 1px solid rgba(255,255,255,.075);
+    }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin: 28px 2px 15px; }
+    .section-head h2 { margin: 0; font-size: 17px; letter-spacing: .02em; }
+    .section-head p { color: var(--muted); font-size: 11px; margin: 4px 0 0; }
+    .versions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .card {
+      position: relative; overflow: hidden; padding: 25px;
+      background: linear-gradient(150deg, rgba(15,34,48,.95), rgba(7,17,26,.94));
+      border: 1px solid var(--line); border-radius: 19px;
+      box-shadow: 0 20px 54px rgba(0,0,0,.26);
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+      animation: rise .7s ease both;
+    }
+    .card:nth-child(2) { animation-delay: .12s; }
+    .card:hover { transform: translateY(-5px); border-color: rgba(117,239,255,.48); box-shadow: 0 24px 60px rgba(0,0,0,.34), 0 0 30px rgba(32,172,208,.08); }
+    .card::after {
+      content: ""; position: absolute; width: 210px; height: 210px; right: -100px; top: -110px;
+      border-radius: 50%; background: rgba(53,190,218,.09); filter: blur(2px); pointer-events: none;
+    }
+    .card.pro { border-color: rgba(89,173,255,.34); background: linear-gradient(150deg, rgba(16,34,58,.96), rgba(7,16,28,.96)); }
+    .card-top { display: flex; align-items: center; gap: 13px; position: relative; z-index: 1; }
+    .mini-icon {
+      width: 49px; height: 49px; flex: 0 0 49px; border-radius: 13px;
+      display: grid; place-items: center; background: rgba(80,220,236,.1);
+      border: 1px solid rgba(117,239,255,.26);
+    }
+    .mini-icon img { width: 38px; height: 38px; }
+    .card-title { margin: 0; font-size: 21px; letter-spacing: -.02em; }
+    .card-sub { margin: 4px 0 0; color: var(--muted); font-size: 11px; }
+    .version {
+      display: inline-block; margin-top: 20px; color: #b7d3df; font-size: 10px; font-weight: 800;
+      letter-spacing: .12em; border: 1px solid rgba(255,255,255,.1); border-radius: 6px; padding: 6px 9px;
+    }
+    .card h3 { margin: 18px 0 7px; font-size: 19px; }
+    .description { color: #a9bdca; font-size: 12px; line-height: 1.65; min-height: 40px; margin: 0 0 16px; }
+    .features { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    .features li { display: flex; gap: 9px; align-items: flex-start; color: #d1e0e8; font-size: 12px; line-height: 1.45; }
+    .tick { color: var(--cyan); font-weight: 900; }
+    .pro .tick { color: #83bcff; }
+    .actions { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 23px; position: relative; z-index: 1; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      flex: 1 1 170px; min-height: 46px; padding: 12px 16px; border-radius: 10px;
+      color: #03131c; font-size: 12px; font-weight: 900; text-align: center; text-decoration: none;
+      background: linear-gradient(115deg, #94f7ff, #39a9d1); box-shadow: 0 8px 24px rgba(48,183,217,.16);
+      transition: transform .2s ease, filter .2s ease;
+    }
+    .pro .btn { background: linear-gradient(115deg, #b5d8ff, #548cdb); box-shadow: 0 8px 24px rgba(82,142,223,.16); }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.08); }
+    .btn.secondary {
+      flex: 0 1 auto; color: #c7dce6; background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.13); box-shadow: none; font-weight: 700;
+    }
+    .pro .btn.secondary { color: #d6e5fa; }
+    .note {
+      display: flex; gap: 12px; align-items: flex-start; margin-top: 20px; padding: 15px 17px;
+      border: 1px solid rgba(117,239,255,.13); background: rgba(8,28,40,.58);
+      border-radius: 12px; color: #abc0cc; font-size: 11px; line-height: 1.65;
+    }
+    .note strong { color: #e2f9ff; }
+    footer { text-align: center; color: #738b9b; font-size: 10px; padding-top: 27px; }
+    footer a { color: #8cefff; text-decoration: none; }
+    @keyframes rise { from { opacity: 0; transform: translateY(13px); } to { opacity: 1; transform: translateY(0); } }
+    @media (max-width: 720px) {
+      .page { width: min(100% - 22px, 620px); padding-top: 17px; }
+      .hero { padding: 34px 4px 20px; }
+      .versions { grid-template-columns: 1fr; }
+      .card { padding: 21px; }
+      .section-head { align-items: flex-start; flex-direction: column; }
+      .description { min-height: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <a class="back" href="index_02.html">← <span>Back to Downloads</span></a>
+
+    <header class="hero">
+      <img class="brand-icon" src="images/HADOC-Sub.svg" alt="HADOC Sub icon">
+      <div class="eyebrow"><span class="pulse"></span> KYZER_HADOC SOFTWARE</div>
+      <h1>HADOC Sub</h1>
+      <p class="subtitle">Your subtitle workspace. Translate English SRT files into Sinhala — or generate subtitles straight from your videos with Pro.</p>
+      <div class="hero-meta">
+        <span class="meta">Windows Desktop</span>
+        <span class="meta">English → Sinhala</span>
+        <span class="meta">Dark Subtitle Studio</span>
+      </div>
+    </header>
+
+    <div class="section-head">
+      <div>
+        <h2>Choose your edition</h2>
+        <p>Two editions. Pick the workflow that fits your needs.</p>
+      </div>
+      <span class="meta">HADOC SUB / WINDOWS</span>
+    </div>
+
+    <section class="versions" aria-label="HADOC Sub editions">
+      <article class="card lite">
+        <div class="card-top">
+          <div class="mini-icon"><img src="images/HADOC-Sub.svg" alt=""></div>
+          <div>
+            <h2 class="card-title">HADOC Sub Lite</h2>
+            <p class="card-sub">Simple SRT translator</p>
+          </div>
+        </div>
+        <span class="version">SRT ONLY · v1.6.0</span>
+        <h3>Translate subtitles</h3>
+        <p class="description">For existing English subtitle files. Open an SRT, translate it into Sinhala, review and export.</p>
+        <ul class="features">
+          <li><span class="tick">✓</span><span>English SRT → Sinhala SRT</span></li>
+          <li><span class="tick">✓</span><span>Google Translate fast mode and MyMemory fallback</span></li>
+          <li><span class="tick">✓</span><span>Subtitle editing, progress save and resume</span></li>
+          <li><span class="tick">✓</span><span>No video transcription feature</span></li>
+        </ul>
+        <div class="actions">
+          <a class="btn" href="https://github.com/KyZer-HADOC/HADOC-Sub/releases/download/v1.6.0/HADOC-Sub.exe" download>
+            <span>↓</span> Download Lite EXE
+          </a>
+          <a class="btn secondary" href="https://github.com/KyZer-HADOC/HADOC-Sub/blob/v1.6.0/app.py" target="_blank" rel="noopener">
+            Lite source
+          </a>
+        </div>
+      </article>
+
+      <article class="card pro">
+        <div class="card-top">
+          <div class="mini-icon"><img src="images/HADOC-Sub.svg" alt=""></div>
+          <div>
+            <h2 class="card-title">HADOC Sub Pro</h2>
+            <p class="card-sub">Full video + subtitle studio</p>
+          </div>
+        </div>
+        <span class="version">VIDEO + SRT · v1.7.1</span>
+        <h3>Generate & translate</h3>
+        <p class="description">Create timestamped English subtitles from video audio, then automatically translate them into Sinhala.</p>
+        <ul class="features">
+          <li><span class="tick">✓</span><span>Everything in Lite</span></li>
+          <li><span class="tick">✓</span><span>MP4, MKV, AVI, MOV and more</span></li>
+          <li><span class="tick">✓</span><span>Groq Whisper transcription with timestamps</span></li>
+          <li><span class="tick">✓</span><span>FLAC audio compression and automatic upload retries</span></li>
+        </ul>
+        <div class="actions">
+          <a class="btn" href="https://github.com/KyZer-HADOC/HADOC-Sub/releases/tag/v1.7.1" target="_blank" rel="noopener">
+            <span>↗</span> Open Pro Release
+          </a>
+          <a class="btn secondary" href="https://github.com/KyZer-HADOC/HADOC-Sub/releases/download/v1.7.1/HADOC-Sub.exe" download>
+            Direct EXE
+          </a>
+        </div>
+      </article>
+    </section>
+
+    <aside class="note">
+      <span aria-hidden="true">ⓘ</span>
+      <div><strong>Pro setup:</strong> Video transcription requires a Groq API key and an internet connection. Audio is sent to Groq Whisper for transcription. Lite does not include video-to-subtitle generation.</div>
+    </aside>
+
+    <footer>
+      <div>Created by <a href="https://kyzerhadoc.netlify.app/">KyZer_HADOC</a></div>
+      <div style="margin-top:7px">HADOC SUB · Subtitle Studio</div>
+    </footer>
+  </main>
+</body>
+</html>
