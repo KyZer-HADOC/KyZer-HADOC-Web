@@ -7,7 +7,7 @@
   <meta name="description" content="HADOC Sub — create Sinhala subtitles from English SRT files or directly from videos. Choose Lite or Pro for Windows.">
   <meta name="keywords" content="HADOC Sub, Sinhala subtitles, SRT translator, video subtitle generator, KyZer HADOC">
   <title>HADOC Sub | Subtitle Studio</title>
-  <link rel="icon" type="image/svg+xml" href="images/HADOC-Sub.svg">
+  <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/KyZer-HADOC/HADOC-Sub/main/icon.jpg">
   <style>
     :root {
       --bg: #050b12;
@@ -107,6 +107,22 @@
     .mini-icon img { width: 38px; height: 38px; }
     .card-title { margin: 0; font-size: 21px; letter-spacing: -.02em; }
     .card-sub { margin: 4px 0 0; color: var(--muted); font-size: 11px; }
+    .download-stats {
+      display: flex; align-items: center; gap: 8px; width: fit-content;
+      margin-top: 13px; padding: 8px 11px; border-radius: 9px;
+      background: rgba(117,239,255,.055); border: 1px solid rgba(117,239,255,.14);
+      color: #b9d3de; font-size: 11px;
+    }
+    .download-stats strong {
+      color: var(--cyan); font-size: 15px; font-variant-numeric: tabular-nums;
+      letter-spacing: .01em;
+    }
+    .pro .download-stats strong { color: #9bc8ff; }
+    .download-stats .download-label { opacity: .82; }
+    .download-stats .live-dot {
+      width: 6px; height: 6px; flex: 0 0 6px; border-radius: 50%;
+      background: #69e6a6; box-shadow: 0 0 9px rgba(105,230,166,.65);
+    }
     .version {
       display: inline-block; margin-top: 20px; color: #b7d3df; font-size: 10px; font-weight: 800;
       letter-spacing: .12em; border: 1px solid rgba(255,255,255,.1); border-radius: 6px; padding: 6px 9px;
@@ -159,7 +175,7 @@
     <a class="back" href="index_02.html">← <span>Back to Downloads</span></a>
 
     <header class="hero">
-      <img class="brand-icon" src="images/HADOC-Sub.svg" alt="HADOC Sub icon">
+      <img class="brand-icon" src="https://raw.githubusercontent.com/KyZer-HADOC/HADOC-Sub/main/icon.jpg" alt="HADOC Sub icon">
       <div class="eyebrow"><span class="pulse"></span> KYZER_HADOC SOFTWARE</div>
       <h1>HADOC Sub</h1>
       <p class="subtitle">Your subtitle workspace. Translate English SRT files into Sinhala — or generate subtitles straight from your videos with Pro.</p>
@@ -181,13 +197,18 @@
     <section class="versions" aria-label="HADOC Sub editions">
       <article class="card lite">
         <div class="card-top">
-          <div class="mini-icon"><img src="images/HADOC-Sub.svg" alt=""></div>
+          <div class="mini-icon"><img src="https://raw.githubusercontent.com/KyZer-HADOC/HADOC-Sub/main/icon.jpg" alt=""></div>
           <div>
             <h2 class="card-title">HADOC Sub Lite</h2>
             <p class="card-sub">Simple SRT translator</p>
           </div>
         </div>
         <span class="version">SRT ONLY · v1.6.0</span>
+        <div class="download-stats" aria-live="polite" aria-label="GitHub download count">
+          <span class="live-dot" aria-hidden="true"></span>
+          <strong id="lite-downloads">1</strong>
+          <span class="download-label">downloads on GitHub</span>
+        </div>
         <h3>Translate subtitles</h3>
         <p class="description">For existing English subtitle files. Open an SRT, translate it into Sinhala, review and export.</p>
         <ul class="features">
@@ -208,13 +229,18 @@
 
       <article class="card pro">
         <div class="card-top">
-          <div class="mini-icon"><img src="images/HADOC-Sub.svg" alt=""></div>
+          <div class="mini-icon"><img src="https://raw.githubusercontent.com/KyZer-HADOC/HADOC-Sub/main/icon.jpg" alt=""></div>
           <div>
             <h2 class="card-title">HADOC Sub Pro</h2>
             <p class="card-sub">Full video + subtitle studio</p>
           </div>
         </div>
         <span class="version">VIDEO + SRT · v1.7.2</span>
+        <div class="download-stats" aria-live="polite" aria-label="GitHub download count">
+          <span class="live-dot" aria-hidden="true"></span>
+          <strong id="pro-downloads">0</strong>
+          <span class="download-label">downloads on GitHub</span>
+        </div>
         <h3>Generate & translate</h3>
         <p class="description">Create timestamped English subtitles from video audio, then automatically translate them into Sinhala.</p>
         <ul class="features">
@@ -248,5 +274,37 @@
       <div style="margin-top:7px">HADOC SUB · Subtitle Studio</div>
     </footer>
   </main>
+
+  <script>
+    // Live counts are read from the HADOC-Sub GitHub Release assets.
+    const HADOC_RELEASES_API = "https://api.github.com/repos/KyZer-HADOC/HADOC-Sub/releases/tags/";
+    async function updateReleaseDownloadCount(tag, elementId) {
+      const element = document.getElementById(elementId);
+      if (!element) return;
+
+      try {
+        const response = await fetch(HADOC_RELEASES_API + encodeURIComponent(tag), {
+          headers: { "Accept": "application/vnd.github+json" },
+          cache: "no-store"
+        });
+        if (!response.ok) throw new Error("GitHub API returned " + response.status);
+
+        const release = await response.json();
+        const exe = (release.assets || []).find(asset => asset.name === "HADOC-Sub.exe");
+        if (!exe) throw new Error("HADOC-Sub.exe asset was not found");
+
+        element.textContent = Number(exe.download_count || 0).toLocaleString();
+        element.title = "GitHub Release " + tag;
+      } catch (error) {
+        // Keep the last known number visible when the GitHub API is unavailable.
+        element.title = "Live count unavailable. Showing the last known count.";
+        console.warn("Could not refresh " + tag + " download count:", error);
+      }
+    }
+
+    updateReleaseDownloadCount("v1.6.0", "lite-downloads");
+    updateReleaseDownloadCount("v1.7.2", "pro-downloads");
+  </script>
+
 </body>
 </html>
