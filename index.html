@@ -7042,6 +7042,12 @@ body .kz-music-stack{top:96px}
 .kz-set-logout{margin-top:10px;background:rgba(255,255,255,.05)!important;border:1px solid rgba(255,80,80,.55)!important;color:#ff7777!important}
 .kz-header-user .kz-set{font-size:14px;padding:3px 8px}
 </style>
+<style id="kz-discovery-launch-css">
+.kz-discovery-launch{border:1px solid rgba(98,230,209,.42);border-radius:15px;padding:6px 10px;background:linear-gradient(110deg,rgba(155,140,255,.16),rgba(98,230,209,.12));color:#bdf9ed;font-size:10px;font-weight:900;cursor:pointer;white-space:nowrap;transition:.2s}
+.kz-discovery-launch:hover{border-color:#62e6d1;background:rgba(98,230,209,.22);transform:translateY(-1px)}
+.kz-discovery-launch:disabled{opacity:.55;cursor:wait}
+@media(max-width:600px){.kz-discovery-launch{padding:5px 7px;font-size:9px}}
+</style>
 </head>
 
 <body>
@@ -7910,6 +7916,7 @@ document.querySelectorAll(
       headerArea.innerHTML = '<div class="kz-header-user">' +
         '<img alt="" id="kzHeadAvatar" style="' + (avatarUrl ? '' : 'display:none') + '">' +
         '<span class="kz-rank-ico" title=""></span><div class="kz-header-user-text"><b></b></div>' +
+        '<button type="button" class="kz-discovery-launch" onclick="kzOpenDiscovery()" title="Open KyZer Web Discovery">🌐 Web</button>' +
         '<button type="button" class="kz-set" aria-label="Settings" title="Settings" onclick="kzOpenSettings()">\u2699\uFE0F</button></div>';
       if (avatarUrl) headerArea.querySelector('img').src = avatarUrl;
       headerArea.querySelector('b').textContent = first;
@@ -8619,5 +8626,30 @@ function setMediaSession() {
     if (panel.classList.contains('open')) place();
   });
 })();
+</script>
+<script>
+window.kzOpenDiscovery=async function(){
+ var btn=document.querySelector('.kz-discovery-launch');
+ if(btn){btn.disabled=true;btn.textContent='Opening…';}
+ try{
+  var r=await window.kzSupabase.auth.getSession();
+  var session=r&&r.data&&r.data.session;
+  if(!session){
+   if(btn){btn.disabled=false;btn.textContent='🌐 Web';}
+   if(window.kzOpenAuth)window.kzOpenAuth('login');
+   return;
+  }
+  var response=await fetch('/api/discovery-sso',{
+   method:'POST',headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({token:session.access_token})
+  });
+  var data=await response.json();
+  if(!response.ok||!data.success||!data.tokenHash)throw new Error(data.message||'Could not create a sign-in handoff.');
+  location.href='https://kyzer-web-discovery.pages.dev/#sso='+encodeURIComponent(data.tokenHash);
+ }catch(err){
+  alert('Web Discovery login failed: '+(err&&err.message?err.message:'Please try again.'));
+  if(btn){btn.disabled=false;btn.textContent='🌐 Web';}
+ }
+};
 </script>
 </body></html>
