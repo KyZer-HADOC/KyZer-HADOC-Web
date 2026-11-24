@@ -214,6 +214,19 @@
         <div id="historyLoadingMsg">Loading…</div>
         <div id="historyList"></div>
     </div>
+
+
+    <div class="card" id="webReviewCard">
+        <div class="top-bar"><h2>🌐 Web Review</h2><button class="refresh-btn" onclick="kzLoadWebSubmissions()">🔄 Refresh</button></div>
+        <p class="sub">Community website submissions. Approve them to publish in KyZer Web Discovery.</p>
+        <div class="u-tabs">
+            <button class="u-tab active" id="wTabPending" onclick="kzSwitchWebReviewTab('pending')">⏳ Pending</button>
+            <button class="u-tab" id="wTabApproved" onclick="kzSwitchWebReviewTab('approved')">✅ Approved</button>
+            <button class="u-tab" id="wTabRejected" onclick="kzSwitchWebReviewTab('rejected')">❌ Rejected</button>
+        </div>
+        <div id="webReviewLoadingMsg">Loading website submissions…</div><div id="webReviewList"></div>
+    </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
@@ -255,6 +268,7 @@
         document.getElementById('historyCard').style.display = 'block';
         kzLoadHistory();
         kzLoadUploads();
+        kzLoadWebSubmissions();
     }
 
     function showGateError(text) {
@@ -442,6 +456,32 @@
         } catch (e) {
             loadingEl.textContent = '⚠️ Error loading history.';
         }
+    };
+
+
+    // ===== KYZER WEB DISCOVERY REVIEW =====
+    var kzWebReviewTab='pending';
+    window.kzSwitchWebReviewTab=function(tab){kzWebReviewTab=tab;document.getElementById('wTabPending').classList.toggle('active',tab==='pending');document.getElementById('wTabApproved').classList.toggle('active',tab==='approved');document.getElementById('wTabRejected').classList.toggle('active',tab==='rejected');kzLoadWebSubmissions();};
+    window.kzLoadWebSubmissions=async function(){
+      var listEl=document.getElementById('webReviewList'),loadingEl=document.getElementById('webReviewLoadingMsg');if(!listEl||!loadingEl)return;
+      loadingEl.style.display='block';loadingEl.textContent='Loading website submissions…';listEl.innerHTML='';
+      try{
+        var res=await fetch('/api/admin-list-web-submissions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(authBody({status:kzWebReviewTab}))});
+        var data=await res.json();loadingEl.style.display='none';
+        if(!data.success){listEl.innerHTML='<p class="empty">⚠️ '+esc(data.message||'Failed to load website submissions')+'</p>';return;}
+        if(!data.items||!data.items.length){listEl.innerHTML='<p class="empty">'+(kzWebReviewTab==='pending'?'No websites waiting for review 🎉':kzWebReviewTab==='approved'?'No approved community websites yet.':'No rejected websites.')+'</p>';return;}
+        listEl.innerHTML=data.items.map(function(item){
+          var badge='<span class="status-tag status-'+esc(item.status)+'">'+esc(item.status)+'</span>';
+          var actions='<a class="btn btn-view" href="'+safeUrl(item.url)+'" target="_blank" rel="noopener noreferrer">🔗 Visit</a>';
+          if(kzWebReviewTab==='pending'){actions+='<button class="btn btn-approve" onclick="kzReviewWebSubmission(\''+item.id+'\',\'approve\')">✅ Approve</button>';actions+='<button class="btn btn-reject" onclick="kzReviewWebSubmission(\''+item.id+'\',\'reject\')">❌ Reject</button>';}
+          return '<div class="u-row" data-id="'+esc(item.id)+'"><div class="u-thumb">🌐</div><div class="u-info"><b>'+esc(item.name)+'</b><div class="u-meta"><span class="u-tag">'+esc(item.category)+'</span><span class="u-tag">'+esc(item.uploaderName||item.uploaderEmail||'KyZer user')+'</span>'+badge+'</div><div style="color:#aaa;font-size:12px;line-height:1.6;margin-top:7px;">'+esc(item.description)+'</div><div style="color:#7f8aa4;font-size:10px;margin-top:5px;overflow-wrap:anywhere;">'+esc(item.url)+(item.reason?' · Review note: '+esc(item.reason):'')+'</div></div><div class="u-actions">'+actions+'</div></div>';
+        }).join('');
+      }catch(e){loadingEl.textContent='⚠️ Error loading web submissions.';}
+    };
+    window.kzReviewWebSubmission=async function(id,action){
+      var reason='';if(action==='reject')reason=prompt('Reason for rejecting this website (optional):')||'';
+      try{var res=await fetch('/api/admin-review-web-submission',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(authBody({id:id,action:action,reason:reason}))});var data=await res.json();if(data.success)kzLoadWebSubmissions();else alert('❌ '+(data.message||'Review failed'));}
+      catch(e){alert('⚠️ Could not review this website. Try again.');}
     };
 
     var kzUsersCache = [];
