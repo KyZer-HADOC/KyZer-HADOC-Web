@@ -226,6 +226,29 @@
       .category-btn { padding: 9px 12px; }
     }
 
+
+  .login-open-btn,.logout-btn{border:1px solid rgba(164,177,220,.2);border-radius:12px;padding:10px 14px;background:rgba(255,255,255,.045);color:#f2f5ff;font-size:11px;font-weight:900;transition:.2s}
+  .login-open-btn:hover,.logout-btn:hover{border-color:rgba(98,230,209,.5);background:rgba(98,230,209,.08)}
+  .logout-btn[hidden]{display:none!important}
+  .login-modal{width:min(460px,100%)}
+  .login-form{display:grid;gap:12px;margin-top:18px}
+  .login-form label{display:flex;flex-direction:column;gap:7px;color:#b6bfd9;font-size:11px;font-weight:800}
+  .login-form input{width:100%;min-height:47px;padding:11px 13px;border:1px solid rgba(164,177,220,.18);border-radius:11px;outline:none;background:rgba(255,255,255,.045);color:#f2f5ff;font:13px 'Manrope',sans-serif}
+  .login-form input:focus{border-color:rgba(155,140,255,.7);box-shadow:0 0 0 3px rgba(155,140,255,.1)}
+  .login-submit{min-height:47px;border:0;border-radius:12px;background:linear-gradient(100deg,#9b8cff,#62e6d1);color:#080b14;font-size:12px;font-weight:900}
+  .login-submit:disabled{opacity:.6;cursor:wait}
+  .login-forgot{display:block;margin:0 auto;border:0;background:transparent;color:#a9a0e7;font-size:11px;font-weight:800;cursor:pointer}
+  .login-or{display:flex;align-items:center;gap:10px;color:#727d9b;font:9px 'DM Mono',monospace;letter-spacing:1.5px;margin:18px 0 12px}
+  .login-or:before,.login-or:after{content:'';height:1px;flex:1;background:rgba(164,177,220,.13)}
+  .login-socials{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .login-socials button{min-height:42px;border:1px solid rgba(164,177,220,.17);border-radius:10px;background:rgba(255,255,255,.035);color:#eef1ff;font-size:10px;font-weight:800;transition:.2s}
+  .login-socials button:hover{border-color:rgba(155,140,255,.55);background:rgba(155,140,255,.08)}
+  .login-msg{min-height:18px;color:#9ba6c3;font-size:11px;line-height:1.5;text-align:center}
+  .login-msg.error{color:#ff8996}.login-msg.success{color:#80e8b5}
+  .login-note{margin-top:16px;padding:11px 12px;border:1px solid rgba(98,230,209,.13);border-radius:10px;background:rgba(98,230,209,.045);color:#9ba9bd;font-size:10px;line-height:1.6}
+  .contributor-badge{display:inline-flex;align-items:center;gap:4px;max-width:100%;padding:4px 7px;border:1px solid rgba(98,230,209,.23);border-radius:6px;background:rgba(98,230,209,.075);color:#8de9d7;font:9px 'DM Mono',monospace;overflow-wrap:anywhere}
+  @media(max-width:620px){.login-open-btn,.logout-btn{padding:9px 10px;font-size:10px}.login-modal{padding:24px 18px}.login-socials{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -239,9 +262,10 @@
         <a class="nav-link" href="#directory">Explore websites</a>
         <a class="nav-link" href="#about">About</a>
         <button class="saved-pill" id="savedOnlyBtn" type="button">♥ Saved <span id="savedCount">0</span></button>
-      <button class="add-web-btn" id="addWebBtn" type="button" disabled>＋ Add a web</button>
-      <span class="auth-status" id="authStatus">Checking account…</span>
-      <a class="nav-link main-login-link" id="mainLoginLink" href="https://kyzerhadoc.netlify.app/">Main Site Login</a>
+      <button class="login-open-btn" id="loginOpenBtn" type="button">Login</button>
+      <span class="auth-status" id="authStatus">NOT SIGNED IN</span>
+      <button class="logout-btn" id="logoutBtn" type="button" hidden>Logout</button>
+      <button class="add-web-btn" id="addWebBtn" type="button">＋ Add a web</button>
       </div>
     </div>
   </header>
@@ -317,6 +341,30 @@
   </div>
 
 
+
+
+<div class="web-modal-overlay" id="accountLoginOverlay" hidden>
+  <section class="web-modal login-modal" role="dialog" aria-modal="true" aria-labelledby="accountLoginTitle">
+    <button class="web-modal-close" id="closeAccountLogin" type="button" aria-label="Close">×</button>
+    <div class="web-modal-kicker">KYZER_HADOC ACCOUNT</div>
+    <h2 id="accountLoginTitle">Welcome back.</h2>
+    <p class="web-modal-copy">Sign in with the same account you already use on the KyZer Main Website. You do not need to register again.</p>
+    <form class="login-form" id="accountLoginForm">
+      <label>Email address<input id="accountLoginEmail" type="email" autocomplete="username" placeholder="you@example.com" required></label>
+      <label>Password<input id="accountLoginPassword" type="password" autocomplete="current-password" placeholder="Your existing password" required></label>
+      <button class="login-submit" id="accountLoginSubmit" type="submit">LOGIN</button>
+      <button class="login-forgot" id="accountForgotPassword" type="button">Forgot password?</button>
+      <div class="login-msg" id="accountLoginMsg" aria-live="polite"></div>
+    </form>
+    <div class="login-or">OR CONTINUE WITH</div>
+    <div class="login-socials">
+      <button type="button" data-provider="google">Google</button>
+      <button type="button" data-provider="discord">Discord</button>
+      <button type="button" data-provider="github">GitHub</button>
+    </div>
+    <div class="login-note">Existing KyZer account only · No new account registration on this page</div>
+  </section>
+</div>
 
 <div class="web-modal-overlay" id="addWebOverlay" hidden>
  <section class="web-modal" role="dialog" aria-modal="true" aria-labelledby="addWebTitle">
@@ -1100,6 +1148,7 @@
           <div class="card-title-row">
             <h3 class="card-title">${escapeHTML(site.name)}</h3>
             ${site.verified ? `<span class="verified">${checkIcon} KYZER PICK</span>` : ''}
+            ${site.userSubmitted ? `<span class="contributor-badge">BY ${escapeHTML(site.submitterName || "Community member")}</span>` : ''}
           </div>
           <div class="domain">${escapeHTML(site.domain)}</div>
           <p class="description">${escapeHTML(site.description)}</p>
@@ -1181,21 +1230,226 @@
 <script>
 (function(){
 "use strict";
-var sb=window.supabase.createClient("https://rkbqofhxoaurufvfxunf.supabase.co","sb_publishable_rQXfCR3ZxDxoNM_Sm2awig_J7dWyzWv",{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:false}});
-var user=null,overlay=document.getElementById("addWebOverlay"),form=document.getElementById("addWebForm"),addBtn=document.getElementById("addWebBtn"),authLabel=document.getElementById("authStatus"),loginLink=document.getElementById("mainLoginLink"),msg=document.getElementById("webFormMsg"),submitBtn=document.getElementById("webSubmitBtn");
-function safeText(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];});}
-function setMsg(t,k){msg.textContent=t||"";msg.className="web-form-msg"+(k?" "+k:"");}
-function setUser(u){user=u||null;addBtn.disabled=!user;addBtn.title=user?"Submit a website for review":"Sign in on the main KyZer website first";authLabel.textContent=user?"SIGNED IN · "+(user.email||"KyZer user"):"NOT SIGNED IN";loginLink.style.display=user?"none":"inline-flex";}
-async function exchangeMainLogin(){var p=new URLSearchParams((location.hash||"").replace(/^#/,"")),hash=p.get("sso");if(!hash)return;try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}authLabel.textContent="VERIFYING MAIN SITE LOGIN…";var r=await sb.auth.verifyOtp({token_hash:hash,type:"magiclink"});if(r.error){authLabel.textContent="LOGIN LINK EXPIRED";alert("Main-site login link expired. Open the main website and select Web Discovery again.");return;}setUser(r.data.user||(r.data.session&&r.data.session.user));}
-async function loadApproved(){var r=await sb.from("web_submissions").select("id,name,url,category,description,tags,submitted_at").eq("status","approved").order("submitted_at",{ascending:false}).limit(200);if(r.error){console.warn("Could not load approved websites:",r.error.message);return;}communityWebsites=(r.data||[]).map(function(row,i){var domain="";try{domain=new URL(row.url).hostname;}catch(e){domain=row.url;}return{id:"community-"+row.id,name:row.name,domain:domain,url:row.url,category:row.category,description:row.description,tags:Array.isArray(row.tags)?row.tags:[],logo:String(row.name||"W").trim().split(/\s+/).slice(0,2).map(function(x){return x.charAt(0);}).join("").toUpperCase(),featured:1000+i,userSubmitted:true};});renderCategories();renderTags();renderWebsites();}
-async function loadMine(){var box=document.getElementById("myWebSubmissions");if(!user)return;box.textContent="Loading…";var r=await sb.from("web_submissions").select("id,name,url,status,reason,submitted_at").eq("submitted_by",user.id).order("submitted_at",{ascending:false}).limit(30);if(r.error){box.textContent="Could not load your submissions.";return;}if(!(r.data||[]).length){box.textContent="You have not submitted a website yet.";return;}box.innerHTML=r.data.map(function(row){return'<div class="my-web-item"><div><b>'+safeText(row.name)+'</b><small>'+safeText(row.url)+(row.reason?" · "+safeText(row.reason):"")+'</small></div><span class="web-status '+safeText(row.status)+'">'+safeText(row.status)+'</span></div>';}).join("");}
-function openModal(){if(!user){alert("First sign in on the main KyZer website, then open Web Discovery from your account menu.");location.href="https://kyzerhadoc.netlify.app/";return;}setMsg("");overlay.hidden=false;loadMine();document.getElementById("webName").focus();}
-function closeModal(){overlay.hidden=true;}
-addBtn.addEventListener("click",openModal);document.getElementById("closeAddWeb").addEventListener("click",closeModal);overlay.addEventListener("click",function(e){if(e.target===overlay)closeModal();});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!overlay.hidden)closeModal();});
-form.addEventListener("submit",async function(e){e.preventDefault();if(!user){setMsg("Sign in through the main website first.","error");return;}var name=document.getElementById("webName").value.trim(),entered=document.getElementById("webUrl").value.trim(),category=document.getElementById("webCategory").value,description=document.getElementById("webDescription").value.trim(),tags=document.getElementById("webTags").value.split(",").map(function(x){return x.trim().replace(/^#+/,"");}).filter(Boolean).slice(0,5).map(function(x){return x.slice(0,24);});var parsed;try{parsed=new URL(entered);}catch(e){setMsg("Enter a valid website URL.","error");return;}if(parsed.protocol!=="https:"){setMsg("Use a secure https:// website address.","error");return;}if(name.length<2||description.length<10){setMsg("Add a website name and a description of at least 10 characters.","error");return;}submitBtn.disabled=true;submitBtn.textContent="Submitting…";setMsg("Sending your website for review…");var meta=user.user_metadata||{},displayName=meta.display_name||[meta.first_name,meta.last_name].filter(Boolean).join(" ")||user.email||"KyZer user";var r=await sb.from("web_submissions").insert({name:name,url:parsed.href,category:category,description:description,tags:tags,submitted_by:user.id,uploader_email:user.email||null,uploader_name:displayName});submitBtn.disabled=false;submitBtn.textContent="Submit for admin review";if(r.error){setMsg(r.error.code==="23505"?"This website has already been submitted.":(r.error.message||"Submission failed."),"error");return;}form.reset();setMsg("Submitted! It will appear publicly after admin approval.","success");loadMine();});
-(async function(){await exchangeMainLogin();var r=await sb.auth.getSession();setUser(r.data&&r.data.session?r.data.session.user:user);await loadApproved();sb.auth.onAuthStateChange(function(_event,session){setUser(session?session.user:null);if(session)loadMine();});})();
+var MAIN_SITE="https://kyzerhadoc.netlify.app/";
+var DISCOVERY_URL=window.location.origin+window.location.pathname;
+var sb=window.supabase.createClient(
+  "https://rkbqofhxoaurufvfxunf.supabase.co",
+  "sb_publishable_rQXfCR3ZxDxoNM_Sm2awig_J7dWyzWv",
+  {auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}
+);
+var user=null,profileName="",loginOverlay=document.getElementById("accountLoginOverlay"),
+  loginForm=document.getElementById("accountLoginForm"),loginMessage=document.getElementById("accountLoginMsg"),
+  loginSubmit=document.getElementById("accountLoginSubmit"),loginOpen=document.getElementById("loginOpenBtn"),
+  logoutButton=document.getElementById("logoutBtn"),addButton=document.getElementById("addWebBtn"),
+  authStatus=document.getElementById("authStatus"),webOverlay=document.getElementById("addWebOverlay"),
+  webForm=document.getElementById("addWebForm"),webMessage=document.getElementById("webFormMsg"),
+  webSubmit=document.getElementById("webSubmitBtn");
+
+function safeText(value){
+  return String(value==null?"":value).replace(/[&<>"']/g,function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];
+  });
+}
+function setLoginMessage(text,kind){
+  loginMessage.textContent=text||"";
+  loginMessage.className="login-msg"+(kind?" "+kind:"");
+}
+function setWebMessage(text,kind){
+  webMessage.textContent=text||"";
+  webMessage.className="web-form-msg"+(kind?" "+kind:"");
+}
+function fallbackProfileName(u){
+  var meta=(u&&u.user_metadata)||{};
+  return meta.display_name||meta.full_name||meta.name||
+    [meta.first_name,meta.last_name].filter(Boolean).join(" ")||
+    (u&&u.email?u.email.split("@")[0]:"KyZer member");
+}
+async function loadProfileName(){
+  if(!user){profileName="";return;}
+  profileName=fallbackProfileName(user);
+  try{
+    var r=await sb.from("profiles").select("display_name,first_name,last_name").eq("id",user.id).maybeSingle();
+    if(!r.error&&r.data){
+      var full=[r.data.first_name,r.data.last_name].filter(Boolean).join(" ").trim();
+      profileName=r.data.display_name||full||profileName;
+    }
+  }catch(e){}
+}
+function updateAuthUI(){
+  var loggedIn=!!user;
+  loginOpen.hidden=loggedIn;
+  logoutButton.hidden=!loggedIn;
+  addButton.disabled=false;
+  addButton.title=loggedIn?"Submit a website for admin review":"Sign in with your existing KyZer account to submit a website";
+  authStatus.textContent=loggedIn?"SIGNED IN · "+(profileName||user.email||"KyZer member"):"LOGIN REQUIRED";
+}
+function openLogin(){
+  setLoginMessage("");
+  loginOverlay.hidden=false;
+  document.getElementById("accountLoginEmail").focus();
+}
+function closeLogin(){loginOverlay.hidden=true;}
+function openWebForm(){
+  if(!user){openLogin();return;}
+  setWebMessage("");
+  webOverlay.hidden=false;
+  loadMySubmissions();
+  document.getElementById("webName").focus();
+}
+function closeWebForm(){webOverlay.hidden=true;}
+
+loginOpen.addEventListener("click",openLogin);
+document.getElementById("closeAccountLogin").addEventListener("click",closeLogin);
+loginOverlay.addEventListener("click",function(e){if(e.target===loginOverlay)closeLogin();});
+addButton.addEventListener("click",openWebForm);
+document.getElementById("closeAddWeb").addEventListener("click",closeWebForm);
+webOverlay.addEventListener("click",function(e){if(e.target===webOverlay)closeWebForm();});
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape"){if(!loginOverlay.hidden)closeLogin();if(!webOverlay.hidden)closeWebForm();}
+});
+
+loginForm.addEventListener("submit",async function(e){
+  e.preventDefault();
+  var email=document.getElementById("accountLoginEmail").value.trim();
+  var password=document.getElementById("accountLoginPassword").value;
+  if(!email||!password){setLoginMessage("Enter your existing account email and password.","error");return;}
+  loginSubmit.disabled=true;loginSubmit.textContent="SIGNING IN…";setLoginMessage("Checking your KyZer account…");
+  try{
+    var result=await sb.auth.signInWithPassword({email:email,password:password});
+    if(result.error)throw result.error;
+    user=result.data.user;
+    await loadProfileName();
+    updateAuthUI();
+    document.getElementById("accountLoginPassword").value="";
+    setLoginMessage("Welcome back, "+(profileName||"KyZer member")+"!","success");
+    setTimeout(closeLogin,650);
+  }catch(error){
+    setLoginMessage(error.message||"Login failed. Check your email and password.","error");
+  }finally{
+    loginSubmit.disabled=false;loginSubmit.textContent="LOGIN";
+  }
+});
+
+document.querySelectorAll("[data-provider]").forEach(function(button){
+  button.addEventListener("click",async function(){
+    var provider=button.getAttribute("data-provider");
+    setLoginMessage("Opening "+provider+" sign in…");
+    document.querySelectorAll("[data-provider]").forEach(function(b){b.disabled=true;});
+    try{
+      var result=await sb.auth.signInWithOAuth({
+        provider:provider,
+        options:{redirectTo:DISCOVERY_URL}
+      });
+      if(result.error)throw result.error;
+    }catch(error){
+      setLoginMessage(error.message||"Social login could not start. Try email and password.","error");
+      document.querySelectorAll("[data-provider]").forEach(function(b){b.disabled=false;});
+    }
+  });
+});
+
+document.getElementById("accountForgotPassword").addEventListener("click",async function(){
+  var email=document.getElementById("accountLoginEmail").value.trim();
+  if(!email){setLoginMessage("Enter your email address first.","error");return;}
+  setLoginMessage("Sending password reset email…");
+  try{
+    var result=await sb.auth.resetPasswordForEmail(email,{redirectTo:MAIN_SITE});
+    if(result.error)throw result.error;
+    setLoginMessage("Password reset link sent. Check your email.","success");
+  }catch(error){
+    setLoginMessage(error.message||"Could not send the reset email.","error");
+  }
+});
+
+logoutButton.addEventListener("click",async function(){
+  var result=await sb.auth.signOut();
+  if(result.error){setLoginMessage(result.error.message,"error");return;}
+  user=null;profileName="";updateAuthUI();
+});
+
+async function loadApproved(){
+  var r=await sb.from("web_submissions")
+    .select("id,name,url,category,description,tags,uploader_name,submitted_at")
+    .eq("status","approved").order("submitted_at",{ascending:false}).limit(200);
+  if(r.error){console.warn("Could not load approved websites:",r.error.message);return;}
+  communityWebsites=(r.data||[]).map(function(row,i){
+    var domain="";try{domain=new URL(row.url).hostname;}catch(e){domain=row.url;}
+    return {
+      id:"community-"+row.id,name:row.name,domain:domain,url:row.url,
+      category:row.category,description:row.description,
+      tags:Array.isArray(row.tags)?row.tags:[],
+      submitterName:row.uploader_name||"Community member",
+      logo:String(row.name||"W").trim().split(/\s+/).slice(0,2).map(function(x){return x.charAt(0);}).join("").toUpperCase(),
+      featured:1000+i,userSubmitted:true
+    };
+  });
+  renderCategories();renderTags();renderWebsites();
+}
+async function loadMySubmissions(){
+  var box=document.getElementById("myWebSubmissions");
+  if(!user)return;
+  box.textContent="Loading…";
+  var r=await sb.from("web_submissions")
+    .select("id,name,url,status,reason,submitted_at")
+    .eq("submitted_by",user.id).order("submitted_at",{ascending:false}).limit(30);
+  if(r.error){box.textContent="Could not load your submissions.";return;}
+  if(!(r.data||[]).length){box.textContent="You have not submitted a website yet.";return;}
+  box.innerHTML=r.data.map(function(row){
+    return '<div class="my-web-item"><div><b>'+safeText(row.name)+'</b><small>'+
+      safeText(row.url)+(row.reason?" · "+safeText(row.reason):"")+
+      '</small></div><span class="web-status '+safeText(row.status)+'">'+safeText(row.status)+'</span></div>';
+  }).join("");
+}
+
+webForm.addEventListener("submit",async function(e){
+  e.preventDefault();
+  if(!user){setWebMessage("Sign in with your existing KyZer account first.","error");openLogin();return;}
+  var name=document.getElementById("webName").value.trim();
+  var entered=document.getElementById("webUrl").value.trim();
+  var category=document.getElementById("webCategory").value;
+  var description=document.getElementById("webDescription").value.trim();
+  var tags=document.getElementById("webTags").value.split(",")
+    .map(function(x){return x.trim().replace(/^#+/,"");})
+    .filter(Boolean).slice(0,5).map(function(x){return x.slice(0,24);});
+  var parsed;
+  try{parsed=new URL(entered);}catch(e){setWebMessage("Enter a valid website URL.","error");return;}
+  if(parsed.protocol!=="https:"){setWebMessage("Use a secure https:// website address.","error");return;}
+  if(name.length<2||description.length<10){setWebMessage("Add a name and a description of at least 10 characters.","error");return;}
+  webSubmit.disabled=true;webSubmit.textContent="Submitting…";setWebMessage("Sending your website for review…");
+  await loadProfileName();
+  var result=await sb.from("web_submissions").insert({
+    name:name,url:parsed.href,category:category,description:description,tags:tags,
+    submitted_by:user.id,uploader_email:user.email||null,uploader_name:profileName||fallbackProfileName(user)
+  });
+  webSubmit.disabled=false;webSubmit.textContent="Submit for admin review";
+  if(result.error){
+    setWebMessage(result.error.code==="23505"?"This website has already been submitted.":(result.error.message||"Submission failed."),"error");
+    return;
+  }
+  webForm.reset();
+  setWebMessage("Submitted! It will appear publicly after admin approval.","success");
+  loadMySubmissions();
+});
+
+(async function init(){
+  try{
+    var sessionResult=await sb.auth.getSession();
+    user=sessionResult.data&&sessionResult.data.session?sessionResult.data.session.user:null;
+    if(user)await loadProfileName();
+    updateAuthUI();
+    await loadApproved();
+    sb.auth.onAuthStateChange(function(_event,session){
+      user=session?session.user:null;
+      if(!user)profileName="";
+      updateAuthUI();
+      if(user){loadProfileName().then(updateAuthUI);loadMySubmissions();}
+    });
+  }catch(error){
+    authStatus.textContent="LOGIN UNAVAILABLE";
+    console.warn("KyZer account session error:",error);
+  }
 })();
-</script>
+})();</script>
 
 
 <script>
