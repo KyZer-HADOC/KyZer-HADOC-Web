@@ -232,7 +232,7 @@
   <header class="topbar">
     <div class="shell nav">
       <a class="brand" href="#top" aria-label="KyZer Web Discovery home">
-        <img class="brand-logo" src="images/logo32.png" alt="KyZer Web Discovery logo" />
+        <img class="brand-logo" src="https://kyzerhadoc.netlify.app/images/logo32.png" alt="KyZer Web Discovery logo" />
         <span class="brand-name">KyZer Web Discovery<small>CURATED SITE DIRECTORY</small></span>
       </a>
       <div class="nav-right">
@@ -1194,6 +1194,48 @@ function closeModal(){overlay.hidden=true;}
 addBtn.addEventListener("click",openModal);document.getElementById("closeAddWeb").addEventListener("click",closeModal);overlay.addEventListener("click",function(e){if(e.target===overlay)closeModal();});document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!overlay.hidden)closeModal();});
 form.addEventListener("submit",async function(e){e.preventDefault();if(!user){setMsg("Sign in through the main website first.","error");return;}var name=document.getElementById("webName").value.trim(),entered=document.getElementById("webUrl").value.trim(),category=document.getElementById("webCategory").value,description=document.getElementById("webDescription").value.trim(),tags=document.getElementById("webTags").value.split(",").map(function(x){return x.trim().replace(/^#+/,"");}).filter(Boolean).slice(0,5).map(function(x){return x.slice(0,24);});var parsed;try{parsed=new URL(entered);}catch(e){setMsg("Enter a valid website URL.","error");return;}if(parsed.protocol!=="https:"){setMsg("Use a secure https:// website address.","error");return;}if(name.length<2||description.length<10){setMsg("Add a website name and a description of at least 10 characters.","error");return;}submitBtn.disabled=true;submitBtn.textContent="Submitting…";setMsg("Sending your website for review…");var meta=user.user_metadata||{},displayName=meta.display_name||[meta.first_name,meta.last_name].filter(Boolean).join(" ")||user.email||"KyZer user";var r=await sb.from("web_submissions").insert({name:name,url:parsed.href,category:category,description:description,tags:tags,submitted_by:user.id,uploader_email:user.email||null,uploader_name:displayName});submitBtn.disabled=false;submitBtn.textContent="Submit for admin review";if(r.error){setMsg(r.error.code==="23505"?"This website has already been submitted.":(r.error.message||"Submission failed."),"error");return;}form.reset();setMsg("Submitted! It will appear publicly after admin approval.","success");loadMine();});
 (async function(){await exchangeMainLogin();var r=await sb.auth.getSession();setUser(r.data&&r.data.session?r.data.session.user:user);await loadApproved();sb.auth.onAuthStateChange(function(_event,session){setUser(session?session.user:null);if(session)loadMine();});})();
+})();
+</script>
+
+
+<script>
+(function () {
+  var API = 'https://script.google.com/macros/s/AKfycbyWG86T--o9TOikXbdv3IbmCID-KEzTJZ23Z0zRLFY6AiQSB96M_IlZ7WmcpMuqdj2Bug/exec';
+  var me = false;
+  try { me = !!localStorage.getItem('kx_me'); } catch (e) {}
+  if (me || navigator.webdriver) return;
+  var vid;
+  try {
+    vid = localStorage.getItem('kx_vid');
+    if (!vid) {
+      vid = Math.random().toString(36).slice(2) + Date.now().toString(36);
+      localStorage.setItem('kx_vid', vid);
+    }
+  } catch (e) { vid = 'anon'; }
+  function send(type, label) {
+    var ref = document.referrer;
+    try { if (new URL(ref).hostname === location.hostname) ref = ''; } catch (e) { ref = ''; }
+    var data = JSON.stringify({
+      type: type, label: label || '', ref: ref, vid: vid,
+      site: location.hostname, page: location.pathname,
+      tz: Intl.DateTimeFormat().resolvedOptions().timeZone || '',
+      ua: navigator.userAgent.slice(0, 180)
+    });
+    try {
+      if (navigator.sendBeacon) navigator.sendBeacon(API, new Blob([data], { type: 'text/plain' }));
+      else fetch(API, { method: 'POST', mode: 'no-cors', keepalive: true, body: data });
+    } catch (e) {}
+  }
+  send('view');
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a, button');
+    if (!a) return;
+    var h = a.querySelector('h3');
+    var label = a.getAttribute('data-track') || a.getAttribute('aria-label') ||
+      (h ? h.textContent : a.textContent) || a.getAttribute('title') || a.getAttribute('href') || '';
+    label = label.replace(/\s+/g, ' ').trim().slice(0, 40);
+    if (label) send('click', label);
+  });
 })();
 </script>
 
