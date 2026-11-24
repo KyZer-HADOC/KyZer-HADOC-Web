@@ -1442,7 +1442,7 @@ webForm.addEventListener("submit",async function(e){
       user=session?session.user:null;
       if(!user)profileName="";
       updateAuthUI();
-      if(user){loadProfileName().then(updateAuthUI);loadMySubmissions();}
+      if(user){setTimeout(function(){loadProfileName().then(updateAuthUI);loadMySubmissions();},0);}
     });
   }catch(error){
     authStatus.textContent="LOGIN UNAVAILABLE";
