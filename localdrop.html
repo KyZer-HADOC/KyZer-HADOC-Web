@@ -3,124 +3,170 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#080b14">
-<meta name="description" content="HADOC LocalDrop by KyZer_HADOC. View app information, downloads and live download statistics.">
+<meta name="theme-color" content="#090b11">
+<meta name="description" content="HADOC LocalDrop — fast, private local Wi-Fi file sharing and chat between Windows PC and Android. Download the official PC and Android apps.">
+<meta property="og:title" content="HADOC LocalDrop — Local sharing, no cloud">
+<meta property="og:description" content="Connect your Android phone to your Windows PC with one QR scan. Transfer files and chat over your local network.">
+<meta property="og:image" content="images/app/localdrop.png">
 <title>HADOC LocalDrop | KyZer_HADOC</title>
-<link rel="icon" href="images/logo32.png">
+<link rel="icon" type="image/png" href="images/app/localdrop.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--accent:#38e2cb;--accent2:#4d8cff;--bg:#070a12;--panel:rgba(17,22,36,.84);--muted:#a6afc3}
+:root{--red:#ff405d;--red2:#b51e3b;--blue:#8295ff;--bg:#080a10;--panel:#11151f;--line:rgba(255,255,255,.1);--muted:#9ca7ba;--white:#f6f7fb}
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 15% 0%,rgba(56,226,203,.18),transparent 38%),radial-gradient(ellipse at 90% 100%,rgba(53,40,120,.16),transparent 38%),var(--bg);color:#f7f8fc;font-family:Inter,Segoe UI,Arial,sans-serif}
-body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.2;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(to bottom,black,transparent 90%)}
-.page{position:relative;width:min(980px,calc(100% - 30px));margin:0 auto;padding:30px 0 54px}
-.back{display:inline-flex;align-items:center;gap:9px;margin-bottom:22px;color:#dbe3f7;text-decoration:none;font-size:.9rem;font-weight:700;opacity:.85;transition:.2s}
-.back:hover{color:var(--accent);transform:translateX(-3px)}
-.panel{position:relative;overflow:hidden;padding:clamp(22px,5vw,48px);border-radius:26px;background:var(--panel);border:1px solid rgba(255,255,255,.11);box-shadow:0 28px 80px rgba(0,0,0,.42);backdrop-filter:blur(18px)}
-.panel:before{content:"";position:absolute;width:330px;height:330px;right:-180px;top:-190px;border-radius:50%;background:rgba(56,226,203,.18);filter:blur(12px);pointer-events:none}
-.hero{position:relative;display:flex;align-items:center;gap:22px;margin-bottom:24px}
-.app-logo{width:104px;height:104px;flex:0 0 104px;display:grid;place-items:center;border-radius:27px;background:linear-gradient(145deg,var(--accent),var(--accent2));color:white;font-size:2.5rem;box-shadow:0 14px 38px rgba(56,226,203,.18);overflow:hidden}
-.app-logo img{width:100%;height:100%;object-fit:cover;border-radius:inherit}
-.eyebrow{margin:0 0 8px;color:var(--accent);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;font-weight:900}
-h1{margin:0;color:#fff;font-size:clamp(1.8rem,5vw,3.1rem);letter-spacing:-.055em;line-height:1.08}
-.subtitle{margin:11px 0 0;color:#b9c2d4;line-height:1.7;font-size:.98rem;max-width:650px}
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:15px}
-.tag{padding:7px 11px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.045);color:#dce4f5;font-size:.75rem;font-weight:700}
-.actions{display:flex;flex-wrap:wrap;gap:12px;margin:27px 0 28px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 20px;border-radius:13px;text-decoration:none;font-size:.88rem;font-weight:900;transition:transform .2s,box-shadow .2s,background .2s}
-.btn:hover{transform:translateY(-2px)}
-.primary{color:#071019;background:linear-gradient(115deg,var(--accent),var(--accent2));box-shadow:0 10px 28px rgba(56,226,203,.18)}
-.secondary{color:#e9edfa;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14)}
-.stats{display:grid;grid-template-columns:1fr;gap:12px;margin-top:18px}
-.stat{padding:22px;border-radius:18px;background:rgba(4,8,16,.6);border:1px solid rgba(255,255,255,.095)}
-.stat-label{color:#aeb9cf;font-size:.8rem;font-weight:700}
-.stat-number{display:block;margin:8px 0 4px;color:var(--accent);font-size:clamp(2rem,6vw,3rem);font-weight:900;letter-spacing:-.05em;font-variant-numeric:tabular-nums}
-.stat-caption{color:#8d99af;font-size:.76rem;line-height:1.5}
-.status{margin:13px 2px 0;color:#8d99af;font-size:.75rem;line-height:1.5}
-.footer{margin-top:28px;color:#78849b;font-size:.75rem;text-align:center}
-@media(max-width:580px){.page{padding-top:18px}.hero{align-items:flex-start;gap:15px}.app-logo{width:76px;height:76px;flex-basis:76px;border-radius:20px;font-size:1.9rem}.actions{flex-direction:column}.btn{width:100%}}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:var(--white);font-family:Inter,"Segoe UI",Arial,sans-serif;background:radial-gradient(ellipse at 12% 0%,rgba(255,64,93,.16),transparent 34%),radial-gradient(ellipse at 90% 18%,rgba(91,105,190,.13),transparent 35%),linear-gradient(150deg,#080a10,#0a0d15 52%,#080a10);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 85%)}
+a{color:inherit}.page{position:relative;width:min(1100px,calc(100% - 32px));margin:auto;padding:26px 0 60px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:28px}
+.back{display:inline-flex;align-items:center;gap:9px;color:#cbd2df;text-decoration:none;font-size:.86rem;font-weight:750;opacity:.86}.back:hover{color:var(--red)}
+.brand{display:flex;align-items:center;gap:9px;color:#aab4c6;font-size:.73rem;font-weight:850;letter-spacing:.14em;text-transform:uppercase}
+.brand-mark{width:9px;height:9px;border-radius:50%;background:var(--red);box-shadow:0 0 18px var(--red)}
+.panel{position:relative;overflow:hidden;padding:clamp(24px,5vw,56px);border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,rgba(20,24,35,.96),rgba(12,15,23,.94));box-shadow:0 30px 100px rgba(0,0,0,.42);backdrop-filter:blur(18px)}
+.panel:before{content:"";position:absolute;width:380px;height:380px;right:-200px;top:-240px;border-radius:50%;background:rgba(255,64,93,.13);filter:blur(18px);pointer-events:none}
+.hero{position:relative;display:flex;align-items:center;gap:24px}
+.app-logo{width:112px;height:112px;flex:0 0 112px;display:grid;place-items:center;border-radius:28px;background:linear-gradient(145deg,#2b1019,#10131d);border:1px solid rgba(255,64,93,.48);box-shadow:0 15px 44px rgba(255,64,93,.14);overflow:hidden}
+.app-logo img{width:100%;height:100%;object-fit:cover}
+.eyebrow{margin:0 0 9px;color:var(--red);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:900}
+h1{margin:0;font-size:clamp(2rem,5.5vw,3.7rem);letter-spacing:-.065em;line-height:1.02}
+.subtitle{max-width:690px;margin:13px 0 0;color:#b4bdce;line-height:1.75;font-size:.97rem}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:17px}.tag{padding:7px 11px;border:1px solid rgba(255,255,255,.12);border-radius:999px;background:rgba(255,255,255,.045);color:#d9dfeb;font-size:.72rem;font-weight:800}
+.actions{display:flex;flex-wrap:wrap;gap:11px;margin:29px 0 34px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 19px;border-radius:13px;text-decoration:none;font-size:.84rem;font-weight:900;transition:transform .2s,border-color .2s,filter .2s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.primary{color:#fff;background:linear-gradient(115deg,#f83e5c,#bd2441);box-shadow:0 10px 28px rgba(255,64,93,.2)}
+.secondary{color:#e9edf7;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.14)}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:36px 0 15px}
+.section-head h2{margin:0;font-size:1.22rem;letter-spacing:-.035em}.section-head p{margin:5px 0 0;color:var(--muted);font-size:.79rem;line-height:1.5}
+.download-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.download-card{position:relative;min-width:0;padding:22px;border:1px solid var(--line);border-radius:19px;background:linear-gradient(145deg,rgba(24,29,42,.92),rgba(14,18,27,.92));transition:transform .2s,border-color .2s}
+.download-card:hover{transform:translateY(-3px);border-color:rgba(255,64,93,.4)}
+.platform{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.platform-icon{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:rgba(255,64,93,.1);border:1px solid rgba(255,64,93,.25);color:#ff6b81;font-size:1.15rem;font-weight:900}
+.platform h3{margin:0;font-size:1rem}.platform small{display:block;margin-top:4px;color:var(--muted);font-size:.72rem}
+.version{display:inline-flex;margin:0 0 13px;padding:6px 9px;border-radius:8px;background:rgba(255,255,255,.06);color:#e5e9f3;font-size:.7rem;font-weight:850}
+.card-desc{min-height:48px;margin:0 0 16px;color:#aeb8c9;font-size:.8rem;line-height:1.6}
+.card-actions{display:flex;flex-wrap:wrap;gap:8px}.card-actions .btn{min-height:41px;padding:0 13px;font-size:.76rem}
+.count{display:flex;align-items:baseline;gap:7px;margin-top:17px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)}
+.count strong{color:#ff7186;font-size:1.45rem;font-weight:900;font-variant-numeric:tabular-nums}.count span{color:#929db0;font-size:.72rem;font-weight:700}
+.stats-note{margin:12px 2px 0;color:#8490a5;font-size:.72rem;line-height:1.55}
+.features{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.feature{padding:17px;border:1px solid rgba(255,255,255,.085);border-radius:16px;background:rgba(4,7,13,.35)}
+.feature b{display:block;margin-bottom:7px;font-size:.82rem}.feature p{margin:0;color:#9ea9bc;font-size:.75rem;line-height:1.6}
+.how{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.step{padding:16px;border-radius:15px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08)}
+.step-num{color:var(--red);font-size:.7rem;font-weight:900;letter-spacing:.12em}.step p{margin:7px 0 0;color:#b2bdce;font-size:.78rem;line-height:1.6}
+.footer{margin-top:28px;color:#758096;font-size:.72rem;text-align:center;line-height:1.8}
+@media(max-width:700px){.download-grid{grid-template-columns:1fr}.features,.how{grid-template-columns:1fr}.hero{align-items:flex-start;gap:16px}.app-logo{width:78px;height:78px;flex-basis:78px;border-radius:20px}.section-head{align-items:flex-start;flex-direction:column}}
+@media(max-width:480px){.page{width:min(100% - 22px,1100px);padding-top:16px}.brand{font-size:.62rem}.hero{gap:13px}.app-logo{width:66px;height:66px;flex-basis:66px}.actions{flex-direction:column}.actions .btn{width:100%}.panel{border-radius:21px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
 <main class="page">
-<a class="back" href="index.html"><span aria-hidden="true">←</span> Back to Apps</a>
-<section class="panel">
-  <div class="hero">
-    <div class="app-logo" data-icon-slot="hadoc-localdrop" aria-label="HADOC LocalDrop icon"><span aria-hidden="true">⇄</span></div>
-    <div>
-      <p class="eyebrow">KYZER_HADOC APP</p>
-      <h1>HADOC LocalDrop</h1>
-      <p class="subtitle">The Windows release page for HADOC LocalDrop. Open the official GitHub Releases page to download the published setup.</p>
-      <div class="tags"><span class="tag">Windows</span><span class="tag">Setup installer</span><span class="tag">v1.0.3</span></div>
+  <div class="topbar">
+    <a class="back" href="index.html"><span aria-hidden="true">←</span> Back to Apps</a>
+    <div class="brand"><span class="brand-mark"></span> KyZer_HADOC · Official App</div>
+  </div>
+  <section class="panel">
+    <div class="hero">
+      <div class="app-logo"><img src="images/app/localdrop.png" alt="HADOC LocalDrop app icon" onerror="this.style.display='none'"></div>
+      <div>
+        <p class="eyebrow">LOCAL NETWORK · PRIVATE SHARING</p>
+        <h1>HADOC LocalDrop</h1>
+        <p class="subtitle">Move files. Share moments. Stay local. Connect your Android phone to your Windows PC with a QR scan and transfer files or chat directly over your local Wi-Fi network — no cloud storage required.</p>
+        <div class="tags"><span class="tag">Android ↔ Windows</span><span class="tag">Wi-Fi only</span><span class="tag">QR pairing</span><span class="tag">No account</span></div>
+      </div>
     </div>
-  </div>
-  <div class="actions">
-    <a class="btn primary" href="https://github.com/KyZer-HADOC/HADOC-LocalDrop/releases" target="_blank" rel="noopener noreferrer"><span>↓</span> Download / View Releases</a>
-    <a class="btn secondary" href="https://github.com/KyZer-HADOC/HADOC-LocalDrop" target="_blank" rel="noopener noreferrer">GitHub Repository ↗</a>
-  </div>
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-label">TOTAL DOWNLOADS</div>
-      <strong class="stat-number" id="download-count" aria-live="polite">Loading...</strong>
-      <div class="stat-caption">Total downloads of published files across this app's GitHub Releases</div>
+
+    <div class="actions">
+      <a class="btn primary" href="#downloads">↓ Get LocalDrop</a>
+      <a class="btn secondary" href="https://github.com/KyZer-HADOC/HADOC-LocalDrop" target="_blank" rel="noopener noreferrer">Windows Source ↗</a>
+      <a class="btn secondary" href="https://github.com/KyZer-HADOC/HADOC-LocalDrop-Android" target="_blank" rel="noopener noreferrer">Android Source ↗</a>
     </div>
-  </div>
-  <p class="status" id="download-status" aria-live="polite">Fetching live download statistics from GitHub...</p>
-</section>
-<p class="footer">© 2026 KyZer_HADOC · Built with care.</p>
+
+    <div class="section-head" id="downloads">
+      <div><h2>Choose your platform</h2><p>Official builds · Separate releases · Direct downloads</p></div>
+    </div>
+    <div class="download-grid">
+      <article class="download-card">
+        <div class="platform"><div class="platform-icon">▣</div><div><h3>Windows PC</h3><small>Windows 10 / 11 · x64 installer</small></div></div>
+        <span class="version">Latest version · v1.0.4</span>
+        <p class="card-desc">Install LocalDrop on your PC, connect it to your router, then pair your Android phone by scanning the QR code.</p>
+        <div class="card-actions">
+          <a class="btn primary" href="https://github.com/KyZer-HADOC/HADOC-LocalDrop/releases/download/v1.0.4/HADOC-LocalDrop-Setup.exe">↓ Download Setup.exe</a>
+          <a class="btn secondary" href="https://github.com/KyZer-HADOC/HADOC-LocalDrop/releases/tag/v1.0.4" target="_blank" rel="noopener noreferrer">Release notes ↗</a>
+        </div>
+        <div class="count"><strong id="pc-count">—</strong><span>PC downloads</span></div>
+      </article>
+      <article class="download-card">
+        <div class="platform"><div class="platform-icon">▯</div><div><h3>Android Phone</h3><small>Android 10+ · APK</small></div></div>
+        <span class="version">Latest version · v1.0.5</span>
+        <p class="card-desc">Scan the PC's pairing QR in the LocalDrop app. Approve Android's temporary Wi-Fi connection request to join your router.</p>
+        <div class="card-actions">
+          <a class="btn primary" href="https://github.com/KyZer-HADOC/HADOC-LocalDrop-Android/releases/download/v1.0.5/HADOC-LocalDrop-Android.apk">↓ Download APK</a>
+          <a class="btn secondary" href="https://github.com/KyZer-HADOC/HADOC-LocalDrop-Android/releases/tag/v1.0.5" target="_blank" rel="noopener noreferrer">Release notes ↗</a>
+        </div>
+        <div class="count"><strong id="android-count">—</strong><span>Android downloads</span></div>
+      </article>
+    </div>
+    <p class="stats-note" id="stats-status" aria-live="polite">Loading official GitHub download statistics…</p>
+
+    <div class="section-head"><div><h2>Made for direct sharing</h2><p>Your devices communicate over your local network.</p></div></div>
+    <div class="features">
+      <div class="feature"><b>↔ Direct transfers</b><p>Send files between your Windows PC and Android phone with live progress and transfer speed.</p></div>
+      <div class="feature"><b>⌁ QR pairing</b><p>Pair quickly with a one-time QR token. Android can request a temporary router Wi-Fi connection.</p></div>
+      <div class="feature"><b>▤ Local chat</b><p>Keep messages and file sharing together in one connected workspace.</p></div>
+    </div>
+
+    <div class="section-head"><div><h2>How to connect</h2><p>Three simple steps to start sharing.</p></div></div>
+    <div class="how">
+      <div class="step"><span class="step-num">01 / SET UP</span><p>Install the Windows app and enter your router's Wi-Fi name and password in its settings.</p></div>
+      <div class="step"><span class="step-num">02 / PAIR</span><p>Start LocalDrop on the PC, then scan its QR code using Connect PC in the Android app.</p></div>
+      <div class="step"><span class="step-num">03 / SHARE</span><p>Approve Android's Wi-Fi prompt and use the chat workspace to send files both ways.</p></div>
+    </div>
+  </section>
+  <p class="footer">© 2026 KyZer_HADOC · HADOC LocalDrop<br>Built for private, local sharing.</p>
 </main>
 <script>
 (function(){
-  var repository="KyZer-HADOC/HADOC-LocalDrop";
-  var countEl=document.getElementById("download-count");
-  var statusEl=document.getElementById("download-status");
-  var cacheKey="kx-app-downloads:"+repository;
-  var cacheMs=10*60*1000;
-
-  async function fetchTotal(){
-    try{
-      var cached=JSON.parse(localStorage.getItem(cacheKey)||"null");
-      if(cached&&Number.isFinite(cached.total)&&Date.now()-cached.savedAt<cacheMs){
-        return {total:cached.total,cached:true};
-      }
-    }catch(e){}
-
-    var total=0,page=1;
-    while(page<=20){
-      var url="https://api.github.com/repos/"+repository+"/releases?per_page=100&page="+page;
-      var response=await fetch(url,{headers:{
-        "Accept":"application/vnd.github+json",
-        "X-GitHub-Api-Version":"2022-11-28"
-      }});
-      if(!response.ok) throw new Error("GitHub API returned "+response.status);
-      var releases=await response.json();
-      if(!Array.isArray(releases)) throw new Error("Unexpected GitHub response");
-      releases.forEach(function(release){
-        (release.assets||[]).forEach(function(asset){
-          total+=Number(asset.download_count)||0;
-        });
+  const repos={
+    pc:{name:"KyZer-HADOC/HADOC-LocalDrop",element:"pc-count"},
+    android:{name:"KyZer-HADOC/HADOC-LocalDrop-Android",element:"android-count"}
+  };
+  const status=document.getElementById("stats-status");
+  async function countDownloads(repo){
+    let total=0,page=1;
+    while(page<=10){
+      const response=await fetch("https://api.github.com/repos/"+repo+"/releases?per_page=100&page="+page,{
+        headers:{"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"}
       });
+      if(!response.ok) throw new Error("GitHub API "+response.status);
+      const releases=await response.json();
+      if(!Array.isArray(releases)) throw new Error("Unexpected GitHub response");
+      releases.forEach(release=>(release.assets||[]).forEach(asset=>{total+=Number(asset.download_count)||0;}));
       if(releases.length<100) break;
       page++;
     }
-    try{localStorage.setItem(cacheKey,JSON.stringify({total:total,savedAt:Date.now()}));}catch(e){}
-    return {total:total,cached:false};
+    return total;
   }
-
-  fetchTotal().then(function(result){
-    countEl.textContent=result.total.toLocaleString();
-    if(result.total===0){
-      statusEl.textContent="No GitHub release downloads have been recorded yet. This number updates when release assets are published and downloaded.";
-    }else{
-      statusEl.textContent="Live GitHub Releases total · "+(result.cached?"Recently cached":"Just updated")+" · Refreshes automatically every 10 minutes.";
+  Promise.all(Object.values(repos).map(async item=>{
+    const el=document.getElementById(item.element);
+    try{
+      const total=await countDownloads(item.name);
+      el.textContent=total.toLocaleString();
+      return true;
+    }catch(error){
+      el.textContent="—";
+      console.error("Download count error:",item.name,error);
+      return false;
     }
-  }).catch(function(error){
-    countEl.textContent="Unavailable";
-    statusEl.textContent="Could not load the live count right now. Please refresh later.";
-    console.error("Download statistics error:",error);
+  })).then(results=>{
+    status.textContent=results.every(Boolean)
+      ?"Live GitHub Release asset counts · PC and Android are counted separately · Updated on page load."
+      :"Some download statistics are temporarily unavailable. Please refresh later.";
   });
 })();
 </script>
